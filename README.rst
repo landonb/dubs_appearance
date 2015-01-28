@@ -18,7 +18,29 @@ some menu item shortcuts.
 
 Please see the source for all the settings and more comments.
 
-Project page: https://github.com/landonb/dubs_appearance
+Installation
+------------
+
+Standard Pathogen installation:
+
+.. code-block:: bash
+
+   cd ~/.vim/bundle/
+   git clone https://github.com/landonb/dubs_appearance.git
+
+Or, Standard submodule installation:
+
+.. code-block:: bash
+
+   cd ~/.vim/bundle/
+   git submodule add https://github.com/landonb/dubs_appearance.git
+
+Online help:
+
+.. code-block:: vim
+
+   :Helptags
+   :help dubs-appearance
 
 Appearance Commands
 ---------------------
