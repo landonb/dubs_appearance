@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2015.01.27
+" Last Modified: 2015.03.18
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -766,13 +766,13 @@ if has("menu") && has("gui_running")
   "      deleted. Then, when you re-run Vim, none 
   "      of those closed buffers are re-opened.
   nmenu 10.331 &File.Clos&e\ All 
-   \ :only<CR>:enew<CR>:BufOnly<CR>
+    \ :only<CR>:enew<CR>:BufOnly<CR>
   imenu 10.331 &File.Clos&e\ All  
-   \ <C-O>:only<CR><C-O>:enew<CR><C-O>:BufOnly<CR>
+    \ <C-O>:only<CR><C-O>:enew<CR><C-O>:BufOnly<CR>
   cmenu 10.331 &File.Clos&e\ All 
-   \ <C-O>:only<CR><C-O>:enew<CR><C-O>:BufOnly<CR>
+    \ <C-O>:only<CR><C-O>:enew<CR><C-O>:BufOnly<CR>
   omenu 10.331 &File.Clos&e\ All 
-   \ <C-O>:only<CR><C-O>:enew<CR><C-O>:BufOnly<CR>
+    \ <C-O>:only<CR><C-O>:enew<CR><C-O>:BufOnly<CR>
   " Thanks for :BufOnly, CJR!
   "   http://www.vim.org/scripts/script.php?script_id=1071
 
@@ -813,13 +813,13 @@ if has("menu") && has("gui_running")
   " to the right of the current window.
   "an 70.300 &Window.&New<Tab>^Wn			<C-W>n
   nmenu 70.301 &Window.New\ V-&Split<Tab>^Ws 
- \ <C-w>v<C-w>p:enew<CR><C-w>p
+    \ <C-w>v<C-w>p:enew<CR><C-w>p
   imenu 70.301 &Window.New\ V-&Split<Tab>^Ws 
- \ <C-O><C-w>v<C-O><C-w>p<C-O>:enew<CR><C-O><C-w>p
+    \ <C-O><C-w>v<C-O><C-w>p<C-O>:enew<CR><C-O><C-w>p
   cmenu 70.301 &Window.New\ V-&Split<Tab>^Ws 
- \ <C-O><C-w>v<C-O><C-w>p<C-O>:enew<CR><C-O><C-w>p
+    \ <C-O><C-w>v<C-O><C-w>p<C-O>:enew<CR><C-O><C-w>p
   omenu 70.301 &Window.New\ V-&Split<Tab>^Ws 
- \ <C-O><C-w>v<C-O><C-w>p<C-O>:enew<CR><C-O><C-w>p
+    \ <C-O><C-w>v<C-O><C-w>p<C-O>:enew<CR><C-O><C-w>p
 
 endif " has("menu") && has("gui_running")
 
