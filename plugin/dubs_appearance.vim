@@ -1,11 +1,11 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2015.03.18
+" Last Modified: 2016.03.24
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
 " ----------------------------------------------------------------------------
-" Copyright © 2009, 2015 Landon Bouma.
+" Copyright © 2009, 2015-2016 Landon Bouma.
 " 
 " This file is part of Dubsacks.
 " 
@@ -313,7 +313,11 @@ if has("gui_running")
     "      doesn't happen in Fedora. Anyway, comment
     "      this out or unset guifont to fix font issues.
     "      ... or don't run Debian!
-    set guifont=Bitstream\ Vera\ Sans\ Mono\ 9
+    if filereadable($HOME . "/.fonts/Hack-v2_010-ttf/Hack-Regular.ttf")
+      set guifont=Hack\ Regular\ 9
+    else
+      set guifont=Bitstream\ Vera\ Sans\ Mono\ 9
+    endif
   endif
   " Get rid of silly, space-wasting toolbar
   " Default is 'egmrLtT'
