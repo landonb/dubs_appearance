@@ -1,11 +1,11 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2016.03.24
+" Last Modified: 2017.03.28
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
 " ----------------------------------------------------------------------------
-" Copyright © 2009, 2015-2016 Landon Bouma.
+" Copyright © 2009, 2015-2017 Landon Bouma.
 " 
 " This file is part of Dubsacks.
 " 
@@ -396,7 +396,7 @@ set incsearch " search dynamically as keyword is typed
 " indenting?
 " No, wait!: Elastic tabs! Hahaha.
 "
-" 2014.01.07: See DG_CycleThruStyleGuides. Let the smart
+" 2014.01.07: See CycleThruStyleGuides. Let the smart
 "             fcn. do the work, lest we screw up, e.g.,
 "             filetype=help formatting.
 "set expandtab
