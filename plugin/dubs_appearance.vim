@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.03.28
+" Last Modified: 2017.04.03
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -274,6 +274,11 @@ syntax enable
 " - CTRL-F4 is Close window.
 if !s:running_windows
   source $VIMRUNTIME/mswin.vim
+  " 2017-04-03: In Insert mode, Ctrl-X is inserting "+x -- what the hell.
+  "  See dubs_appearance/after/plugin/dubs_appearance.vim
+  "  - Something must be getting sourced after this that screws it up...
+  " :echom "XXXXXXXXXXXXXXXXXXXXXXXXXXX SOURCED ". $VIMRUNTIME . "/mswin.vim"
+  "  /usr/share/vim/vim74/mswin.vim
   behave mswin
 endif
 
