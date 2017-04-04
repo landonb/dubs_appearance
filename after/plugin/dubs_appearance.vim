@@ -38,10 +38,25 @@ let s:running_windows = has("win16") || has("win32") || has("win64")
 " ------------------------------------------------------
 " 2017-04-03: In Insert mode, at work, Ctrl-X is now inserting "+x -- what the hell.
 "  I didn't change anything, I swear!
-if !s:running_windows
-  " :echom "XXXXXXXXXXXXXXXXXXXXXXXXXXX SOURCED ". $VIMRUNTIME . "/mswin.vim"
-  "  /usr/share/vim/vim74/mswin.vim
-  source $VIMRUNTIME/mswin.vim
-  behave mswin
+" 2017-04-03: Argh, I did compile Vim 8.0, but only at home!
+"  Speaking with a co-worker last week about Vim, I remember seeing 7.x running at work.
+"  Oops! I forgot to update also at work... (I added a custom build to
+"    github.com/landonb/home-fries/blob/master/.fries/once/custom_setup.extras.sh
+"  at 2017-02-27 10:17:12). Anyway, now I'm have a counter-problem at home!
+"  The new mvwin.vim,
+"    /srv/opt/bin/share/vim/vim80/mswin.vim
+"  sets <c-f> and <c-h> (to find, and find-replace, respectively)
+"  which overrides dubsacks' <c-h> (clear highlight!).
+" So disabling this now that I'm back home...
+" MONITOR/WATCH/2017-04-03: mswin.vim needs to load before
+"   dubs_edit_juice/plugin/dubs_edit_juice.vim (which set <c-h>)
+"   Dubs does not set <c-f>, so the mswin 'VIM - Search...' dialog pops up.
+if 0
+    if !s:running_windows
+      " :echom "XXXXXXXXXXXXXXXXXXXXXXXXXXX SOURCED ". $VIMRUNTIME . "/mswin.vim"
+      "  /usr/share/vim/vim74/mswin.vim
+      source $VIMRUNTIME/mswin.vim
+      behave mswin
+    endif
 endif
 
