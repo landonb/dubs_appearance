@@ -51,6 +51,8 @@ let s:running_windows = has("win16") || has("win32") || has("win64")
 " MONITOR/WATCH/2017-04-03: mswin.vim needs to load before
 "   dubs_edit_juice/plugin/dubs_edit_juice.vim (which set <c-h>)
 "   Dubs does not set <c-f>, so the mswin 'VIM - Search...' dialog pops up.
+" 2017-04-03 20:25: Crap. Still happening. Need to enable.
+"   I can move <C-h> to an after file...
 if 0
     if !s:running_windows
       " :echom "XXXXXXXXXXXXXXXXXXXXXXXXXXX SOURCED ". $VIMRUNTIME . "/mswin.vim"
