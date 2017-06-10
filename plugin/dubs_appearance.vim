@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.04.03
+" Last Modified: 2017.06.10
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -249,38 +249,6 @@ set nobackup
 " This is enabled by default in Windows
 " but not in Linux.
 syntax enable
-
-" So-called MS Windows mode
-" ------------------------------------------------------
-" The default Vim keyboard mappings were created well
-" before modern GUIs, so certain key combinations that
-" now seem ubiquitous are mapped to different commands.
-" Enable mswin mode to remap some of these commands.
-" Notes:
-" - Visual mode is CTRL-Q in mswin; in basic mode it's CTRL-V.
-"   (You can also quadruple-click to select by row,column!)
-" - Backspace and cursor keys wrap to previous/next line,
-"   rather than sounding the system bell (an-noy'ing!).
-" - CTRL-X and SHIFT-Del are Cut.
-" - CTRL-C and CTRL-Insert are Copy.
-" - CTRL-V and SHIFT-Insert are Paste.
-" - Use CTRL-Q to do what CTRL-V used to do.
-" - Use CTRL-S for saving, also in Insert mode.
-" - CTRL-Z is Undo; not in cmdline though.
-" - CTRL-Y is Redo (although not repeat); not in cmdline though.
-" - Alt-Space is System menu.
-" - CTRL-A is Select all.
-" - CTRL-Tab is Next window.
-" - CTRL-F4 is Close window.
-if !s:running_windows
-  source $VIMRUNTIME/mswin.vim
-  " 2017-04-03: In Insert mode, Ctrl-X is inserting "+x -- what the hell.
-  "  See dubs_appearance/after/plugin/dubs_appearance.vim
-  "  - Something must be getting sourced after this that screws it up...
-  " :echom "XXXXXXXXXXXXXXXXXXXXXXXXXXX SOURCED ". $VIMRUNTIME . "/mswin.vim"
-  "  /usr/share/vim/vim74/mswin.vim
-  behave mswin
-endif
 
 " Command-line Copy
 " --------------------------------
