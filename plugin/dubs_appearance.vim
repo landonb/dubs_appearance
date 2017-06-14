@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.06.10
+" Last Modified: 2017.06.13
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -425,6 +425,14 @@ set vb t_vb=
 if has("gui_win32")
   silent !set nodosfilewarning=1
 endif
+
+" 2017-06-13: I could swear this... wait, da what?
+"   Now the ruler is working again!
+"   Nonetheless, I don't remember having needed to
+"   enabled this, but just in case this happens again,
+"   it's da `ruler` you want:
+"
+"set ruler
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Color Scheme
