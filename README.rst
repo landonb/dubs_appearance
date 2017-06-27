@@ -4,19 +4,76 @@ Dubsacks Vim — Appearance Plugin
 About This Plugin
 -----------------
 
-This plugin configures some basic Vim settings and mappings to
-the liking of the Dubsacks developer. There are no functions
-or features defined in this plugin, rather, it just configures
-a number of basic appearance- and mapping-related Vim features.
+This plugin configures the appearance of Vim:
 
-For instance, I like a white background; Courier New 9 font;
-Ctrl-C to work in Command mode; using a green color to highlight
-search matches; always showing the status line; etc.
+- White background with black text, and non-distracting grey line numbers.
 
-This plugin also enables so-called MS-DOS mode and configures
-some menu item shortcuts.
+- `Hack
+  <https://github.com/chrissimpkins/Hack>`__
+  Regular 9 font, falling back to Courier New 9.
 
-Please see the source for all the settings and more comments.
+- A 3-Column wide grey vertical long-line indicator over columns 78-80.
+
+  - See dubs_edit_juice's ``<F2>`` mappings for paragraph formatting.
+
+- ``<Ctrl-c>`` to exit Insert mode, and to enter Command mode, same as ``<ESC>``.
+
+- Slash ``/`` and Star ``*`` Searches are highlighted with a green background.
+
+- Always show the status line (line number, column number, etc.).
+
+- Always show the status line, and column and line numbers.
+
+- Enable so-called MS-DOS mode and configures menu item shortcuts.
+
+  - In addition to ``<Ctrl-c>`` working in Normal and Insert modes,
+    also make ``<Ctrl-c>`` work in the command-line window.
+
+- Save the current Session on exit; restore it on open.
+
+  To clear the session -- e.g., after editing any Vim file -- type
+  ``<Alt-f>`` ``<e>``, and then ``<Alt-f>`` ``<x>``. The first command
+  closes all files, deletes all your buffers, and removes the Session
+  file. The second command quits Vim. When you restart Vim, it'll start
+  with a fresh Session file and load any Vim edits you made.
+
+- Set the ``*.swp`` file ``:directory`` to ``$HOME/.vim_backups/``
+
+- Set the ``:backupdir`` to ``$HOME/.vim_backups/``
+  but set ``:nobackup`` also! Because you should
+  ``<Ctrl-s>`` save or ``<Alt-f>`` ``<Alt-l>`` save all
+  frequently.
+
+- Enable syntax highlighting.
+
+- Change line numbers color from deep red (default) to dark grey.
+
+- Show new buffers with all folds open. No folding! Unless you
+  ``<zM>`` or ``<zA>``.
+
+- Case-insensitive, ``:smartcase`` searching and matching,
+  enable search term highlighting (``:hlsearch``),
+  highlight search results as the keyword is typed (``:incsearch``).
+
+- Enable modeline. Vim will read modelines at the head or tail,
+  like ``vim:tw=78:ts=8:ft=help:norl:``, and set itself accordingly.
+
+- Enable ``:autoindent`` and ``:smartindent``.
+
+- Disable the frakking bell.
+
+- Don't show a vertical column of ~ tildes ~ for lines after EOF.
+
+- Remove distracting visualization when splitting windows.
+
+- Enable auto-indent of selected code.
+
+- Make close a close. Default Gvim ``<Alt-f>`` ``<c>`` behaviour
+  just hides the buffer. Actually close the file instead.
+
+- Try ``<Ctrl-w>`` ``<p>`` to split the current buffer in a window above.
+
+See the source for a few other settings and more comments.
 
 Installation
 ------------

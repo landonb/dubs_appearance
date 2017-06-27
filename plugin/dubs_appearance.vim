@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.06.13
+" Last Modified: 2017.06.27
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -273,8 +273,9 @@ endif
 " NOTE To start maximized:
 "      au GUIEnter * simalt ~x
 
-" It's Courier New 9, Folks!
-" ------------------------------------------------------
+" XXX It's Courier New 9, Folks! XXX
+" 2017-06-27: It's Hack Regular 9, Folks, since Aug 17, 2015, Go Dubsacks!
+" ------------------------------------------------------------------------
 if has("gui_running")
   " How come Courier New isn't the default?
   if s:running_windows
@@ -573,26 +574,8 @@ highlight VertSplit term=reverse gui=NONE
 " Auto-indent selected code
 " ------------------------------------------------------
 
-" Switch on cindent automatically for all files
-" See comments in filetype.vim; this helps somewhat for Python, but not for
-" ActionScript (*.mxml and *.as) files. It also doesn't indent per the
-" Cyclopath style guide for function parameters that span multiple lines.
-" That is, in python, the auto-indenter produces:
-"   def my_func(param_1,
-"         param_2):
-"      pass
-" Whereas the original Cyclopath style guide would rather you do this:
-"   def my_func(param_1,
-"               param_2):
-"      pass
-" Personally, I'm a fan of the first style, since it's predictable: the
-" second and subsequent parameters lines are indented with two tab stops
-" from the first line; then, when you start your function code, you're back to
-" one tab stop. This is easy to read, and it's easy to type, since you don't
-" have to waste time spacing your lines (or removing spaces, if you've changed
-" the function header or other parameters).
-" 2012.05.17: The comment above about indent not helping mxml/as files is
-" wrong, since I like how they format xml data.
+" Switch on cindent automatically for all files.
+" 2017-06-27: See possibly comments in filetype.vim.
 filetype indent on
 
 " ------------------------------------------------------
@@ -625,13 +608,14 @@ filetype indent on
 " Fiddle with smart indent settings
 " ------------------------------------------------------
 
-" FIXME: Applies just to Python, maybe others
-" EXPLAIN: You removed colons: because...?
-" because in Python it causes an auto-indent?
-" But I still have problems when I type : in python:
-"   it still reformats my line. So I assume these sets
-"   are in vain.
-" :set cinkeys=0{,0},0),:,!^F,o,O,e
+" FIXME/2017-06-27: This is a very moldy comment. Meh:
+"   FIXME: Applies just to Python, maybe others
+"   EXPLAIN: You removed colons: because...?
+"   because in Python it causes an auto-indent?
+"   But I still have problems when I type : in python:
+"     it still reformats my line. So I assume these sets
+"     are in vain.
+"   :set cinkeys=0{,0},0),:,!^F,o,O,e
 :set cinkeys=0{,0},0),!^F,o,O,e
 " :set indentkeys=0{,0},:,!^F,o,O,e,<:>,=elif,=except
 :set indentkeys=0{,0},!^F,o,O,e,<:>,=elif,=except
@@ -713,8 +697,7 @@ if has("menu") && has("gui_running")
   "     \ endif<CR>
   " 'Un'-menu the existing menu item
   aunmenu File.Close
-  " Use :an rather than :menu to apply to all
-  " modes
+  " Use :an rather than :menu to apply to all modes.
   an 10.330 &File.&Close<Tab>:Bclose :Bclose<CR>
   " Thanks for :Bclose, Joe! (See: newbufdel.vim)
   "   http://vim.wikia.com/wiki/VimTip165
