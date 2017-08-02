@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.06.27
+" Last Modified: 2017.08.01
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -408,7 +408,7 @@ set smartindent
 " Hit <Tab> (!)
 set wildmenu
 
-" Always show a status line
+" Always show a status line (show line and column numbers; see also: ruler)
 " ------------------------------------------------------
 au VimEnter * set laststatus=2
 
@@ -432,8 +432,12 @@ endif
 "   Nonetheless, I don't remember having needed to
 "   enabled this, but just in case this happens again,
 "   it's da `ruler` you want:
-"
-"set ruler
+" 2017-08-01: It happened again. Or it's been happening
+"   but I didn't notice, because I haven't needed/looked
+"   for the ruler (row numbers, specifically) in a while.
+"   So now it's reenabled. I'm wondering if this just pissed
+"   me off somehow and I disabled it... to the git log!
+set ruler
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Color Scheme
