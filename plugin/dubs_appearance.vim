@@ -4,6 +4,7 @@
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
+" vim:tw=0:ts=2:sw=2:et:norl:ft=vim
 " ----------------------------------------------------------------------------
 " Copyright © 2009, 2015-2017 Landon Bouma.
 "
@@ -309,29 +310,8 @@ endif
 " ------------------------------------------------------
 set nu!
 
-" Pretty Print
+" Do not replace final whitespace character of tab with \
 " ------------------------------------------------------
-" Change the color of the line numbers
-" from deep red (default) to dark grey
-" (it's less abusive to the eye this way).
-:highlight LineNr term=NONE cterm=NONE
-  \ ctermfg=DarkGrey ctermbg=NONE gui=NONE
-  \ guifg=DarkGrey guibg=NONE
-" 2012.09.21: Add colors for :list. See :h listchars. You can show whitespace.
-" Hmmm, the trail:~ puts tildes after the last line number... kinda weird lookn
-" set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
-:highlight SpecialKey term=NONE cterm=NONE
-  \ ctermfg=DarkGrey ctermbg=NONE gui=NONE
-  \ guifg=DarkGrey guibg=NONE
-" FIXME: 2012.09.21: This isn't working from here: you can manually
-" :set list and then :highlight... and the whitespace chars are shown
-" in the same gray as the line numbers, but if you just :set list, the
-" whitespace chars don't appear, even with the same highlight here....
-:highlight NonText term=NONE cterm=NONE
-  \ ctermfg=DarkGrey ctermbg=NONE gui=NONE
-  \ guifg=DarkGrey guibg=NONE
-":highlight NonText term=NONE cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
-" Default to not showing whatspace.
 set nolist
 
 " What Are You Hiding From Me?
@@ -366,23 +346,23 @@ set incsearch " search dynamically as keyword is typed
 
 " Drop a Deuce on that Tab
 " ------------------------------------------------------
-" Anyone out there still tabbing?
-" How 'bout you spacers using 4?
-" Seems the Rubyists have got me
-" down to 2... what's next, reverse
-" indenting?
-" No, wait!: Elastic tabs! Hahaha.
-"
-" 2014.01.07: See CycleThruStyleGuides. Let the smart
-"             fcn. do the work, lest we screw up, e.g.,
-"             filetype=help formatting.
+" See CycleThruStyleGuides for intelligent tab settings,
+" or use a modeline. Or let Vim figure it out, i.e., do
+" not mess up style for :help docs. And no to elastic tabs.
 "set expandtab
 "set tabstop=2
 "set shiftwidth=2
-" Honor in-file modelines, at least for *.txt ft=help files.
-set modeline
 "
+" Honor file header and footer modelines, e.g.,
+"   vim:tw=78:ts=8:ft=help:norl:
+"   vim:tw=0:ts=2:sw=2:et:norl:ft=vim
+"   etc.
+" MAYBE/2017-11-04: Can this be disabled because CycleThruStyleGuides_FixMatch?
+"   Things work well as is, so no point to answer.
+set modeline
+
 set autoindent
+
 " smartindent is too smart and doesn't
 " indent lines that look like C macros,
 " i.e., those that start with an octothorpe;
@@ -395,6 +375,7 @@ set autoindent
 "       so setting smartindent instead
 "set nosmartindent
 set smartindent
+
 "set smarttab
 
 " Something Something Something
@@ -450,117 +431,255 @@ set ruler
 " color scheme uses, but the color scheme still
 " needs a little tweaking.
 
-" Tone down the tildes
-" ------------------------------------------------------
-" Vim displays tildes (~) to represent lines that
-" appear in a window but are not actually part of
-" the buffer (i.e., for visual lines that follow
-" the last line of a buffer). This isn't too
-" distracting unless you verially split a window,
-" then the empty buffer on the right is full of
-" colorful blue tildes. You could tone this done
-" by, say, changing the tildes to pink, i.e.,
-"
-"   highlight NonText guifg=Pink2
-"
-" but, really, since Vim is displaying line
-" numbers -- and since line numbers are only
-" displayed for actual lines in the document --
-" we don't even need the tildes! You can simply
-" infur the end of the document by where the line
-" numbers are no longer displayed. (Note that
-" guifg=NONE seems like the proper way to do
-" this, but it makes the tildes black, not
-" transparent (or maybe I missed something when I
-" tried it).)
-highlight NonText guifg=White
+function s:SetColorSchemeLight()
+  " NOTE: You can use common color names; see
+  "   :h cterm-colors
+  " or you can use #rrggbb colors for guifg and guibg
+  " (but not ctermfg or ctermbg).
 
-" Mock zellner
-" ------------------------------------------------------
-" The zellner color scheme changes the status
-" line for the active window. The default is that
-" each status line (i.e., the line beneath each
-" window) is white text on a black background,
-" save for the active window (the window where
-" the cursor is), which is yellow text on a dark
-" gray background. (For the default color scheme,
-" the active window's status line is bold white
-" on black, and inactive windows' status lines
-" are normal white on black.)
-"
-" This is what's set in zellner.vim:
-"
-"    highlight StatusLine
-"    \ term=bold,reverse cterm=NONE |
-"    \ ctermfg=Yellow ctermbg=DarkGray |
-"    \ gui=NONE guifg=Yellow guibg=DarkGray
-"
-" Note that zellner does not specify StatusLineNC
-" (for inactive windows), so it remains the
-" default -- white foreground and black
-" background. This is annoying; I don't like some
-" status lines being black and one being dark
-" gray, so let's make them all dark gray. This
-" means using the same settings zellner uses for
-" StatusLine, but also adding StatusLineNC,
-" specifying that inactive windows' status lines
-" use the same background as the active window
-" status line but instead use a white foreground
-" (font) color.
-highlight StatusLineNC term=reverse gui=NONE
-  \ guifg=White guibg=DarkGray
-  \ ctermfg=White ctermbg=DarkGray
-highlight StatusLine term=bold,reverse gui=NONE
-  \ guifg=Yellow guibg=DarkGray
-  \ cterm=NONE ctermfg=Yellow ctermbg=DarkGray
+  " Vim's default.
+  highlight Normal gui=NONE
+    \ guifg=Black guibg=White
+    \ ctermfg=0 ctermbg=7
+
+  " Pretty Print
+  " ------------------------------------------------------
+  " Change the color of the line numbers
+  " from deep red (default) to dark grey
+  " (it's less abusive to the eye this way).
+  highlight LineNr term=NONE cterm=NONE
+    \ ctermfg=DarkGrey ctermbg=NONE gui=NONE
+    \ guifg=DarkGrey guibg=NONE
+
+  " 2012.09.21: Add colors for :list. See :h listchars. You can show whitespace.
+  " Hmmm, the trail:~ puts tildes after the last line number... kinda weird lookn
+  " set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+  highlight SpecialKey term=NONE cterm=NONE
+    \ ctermfg=DarkGrey ctermbg=NONE gui=NONE
+    \ guifg=DarkGrey guibg=NONE
+
+  " Tone down the tildes
+  " ------------------------------------------------------
+  " Vim displays tildes (~) to represent lines that
+  " appear in a window but are not actually part of
+  " the buffer (i.e., for visual lines that follow
+  " the last line of a buffer). This isn't too
+  " distracting unless you verially split a window,
+  " then the empty buffer on the right is full of
+  " colorful blue tildes. You could tone this done
+  " by, say, changing the tildes to pink, i.e.,
+  "
+  "   highlight NonText guifg=Pink2
+  "
+  " but, really, since Vim is displaying line
+  " numbers -- and since line numbers are only
+  " displayed for actual lines in the document --
+  " we don't even need the tildes! You can simply
+  " infur the end of the document by where the line
+  " numbers are no longer displayed. (Note that
+  " guifg=NONE seems like the proper way to do
+  " this, but it makes the tildes black, not
+  " transparent (or maybe I missed something when I
+  " tried it).)
+  " FIXME: 2012.09.21: This isn't working from here: you can manually
+  " :set list and then :highlight... and the whitespace chars are shown
+  " in the same gray as the line numbers, but if you just :set list, the
+  " whitespace chars don't appear, even with the same highlight here....
+  highlight NonText term=NONE cterm=NONE
+    \ ctermfg=DarkGrey ctermbg=NONE gui=NONE
+    \ guifg=DarkGrey guibg=NONE
+  ":highlight NonText term=NONE cterm=NONE
+  "  \ ctermfg=DarkGrey ctermbg=NONE
+  "  \ gui=NONE guifg=DarkGrey guibg=NONE
+  "highlight NonText guifg=White
+
+  " Mock zellner
+  " ------------------------------------------------------
+  " The zellner color scheme changes the status
+  " line for the active window. The default is that
+  " each status line (i.e., the line beneath each
+  " window) is white text on a black background,
+  " save for the active window (the window where
+  " the cursor is), which is yellow text on a dark
+  " gray background. (For the default color scheme,
+  " the active window's status line is bold white
+  " on black, and inactive windows' status lines
+  " are normal white on black.)
+  "
+  " This is what's set in zellner.vim:
+  "
+  "    highlight StatusLine
+  "    \ term=bold,reverse cterm=NONE |
+  "    \ ctermfg=Yellow ctermbg=DarkGray |
+  "    \ gui=NONE guifg=Yellow guibg=DarkGray
+  "
+  " Note that zellner does not specify StatusLineNC
+  " (for inactive windows), so it remains the
+  " default -- white foreground and black
+  " background. This is annoying; I don't like some
+  " status lines being black and one being dark
+  " gray, so let's make them all dark gray. This
+  " means using the same settings zellner uses for
+  " StatusLine, but also adding StatusLineNC,
+  " specifying that inactive windows' status lines
+  " use the same background as the active window
+  " status line but instead use a white foreground
+  " (font) color.
+
+  highlight StatusLine term=bold,reverse gui=NONE
+    \ guifg=Yellow guibg=DarkGray
+    \ cterm=NONE ctermfg=Yellow ctermbg=DarkGray
+
+  highlight StatusLineNC term=reverse gui=NONE
+    \ guifg=White guibg=DarkGray
+    \ ctermfg=White ctermbg=DarkGray
+
+  " Between two windows that are vertically split, there are
+  " black rectangles with white bars inside. Make the vertical
+  " tab characters to be white on white, hiding them.
+  highlight VertSplit term=reverse gui=NONE
+    \ guifg=White guibg=White
+    \ ctermfg=White ctermbg=White
+
+  " Change Search highlight
+  " Vim's default.
+  highlight Search term=reverse
+    \ guibg=LightGreen
+    \ ctermfg=0 ctermbg=3
+  "highlight Search guibg=Green
+  "highlight Search guibg=LightGreen
+
+  " Highlight columns color.
+  " I use this to help me manually wrap long lines (when not using parT).
+  " 2014.11.18: [lb] happened to load the "Highlight long lines" page
+  "   on Wikia <http://vim.wikia.com/wiki/Highlight_long_lines> and
+  "   thankfully I found out Vim 7.3 includes a newer, better way to
+  "   highlight line length!
+  " See also in the syle plugin
+  "   https://github.com/landonb/dubs_style_guard
+  " e.g., `set colorcolumn=77,78,79`.
+  " The default color is a lightish pink, which is kinda atrocious.
+  highlight ColorColumn guibg=lightgrey ctermbg=lightgrey
+
+  " ErrorMsg defaults to
+  "  xxx term=standout ctermfg=15 ctermbg=4 guifg=White guibg=Red
+  " For color reference see :h cterm-colors
+  " Here's the list of light colors:
+  "  LightRed LightGreen LightCyan LightMagenta LightYellow LightGray
+  " [lb] tried Red and LightRed but red is too loud and obnoxious.
+  " So then I just tried LightBlue and it seems to fit in nicely.
+  highlight MyErrorMsg term=standout ctermfg=15 ctermbg=4 guibg=LightBlue
+endfunction
+
+function s:SetColorSchemeNight()
+  highlight Normal gui=NONE
+    \ guifg=White guibg=#060606
+    \ ctermfg=White ctermbg=Black
+
+  " Same color of line numbers as in lighttime mode.
+  highlight LineNr term=NONE cterm=NONE
+    \ ctermfg=DarkGrey ctermbg=NONE gui=NONE
+    \ guifg=DarkGrey guibg=NONE
+
+  " Color of Meta and special keys, i.e., unprintable characters. See :map.
+  highlight SpecialKey term=NONE cterm=NONE
+    \ ctermfg=DarkGrey ctermbg=NONE gui=NONE
+    \ guifg=DarkGrey guibg=NONE
+
+  " Make the tildes of blank lines visible.
+  highlight NonText guifg=#7f7f7f
+
+  highlight StatusLine term=bold,reverse gui=NONE
+    \ guifg=Yellow guibg=DarkGreen
+    \ cterm=NONE ctermfg=DarkYellow ctermbg=DarkGray
+
+  "highlight StatusLineNC term=reverse gui=NONE
+  "  \ guifg=Black guibg=DarkGray
+  "  \ ctermfg=Black ctermbg=DarkGray
+  highlight StatusLineNC term=reverse gui=NONE
+    \ guifg=LightGray guibg=DarkBlue
+    \ ctermfg=LightGray ctermbg=DarkBlue
+
+
+  " Hide the vertical split window border. (See notes elsewhere.)
+  highlight VertSplit term=reverse gui=NONE
+    \ guifg=#060606 guibg=#060606
+    \ ctermfg=Black ctermbg=Black
+
+  "highlight Search guibg=DarkYellow
+  "highlight Search guibg=DarkRed
+  "highlight Search guibg=DarkMagenta
+  "highlight Search guibg=DarkGreen
+  "highlight Search guibg=LightGray
+  highlight Search guibg=#777777
+
+  " colorcolumn color.
+  "highlight ColorColumn guibg=lightmagenta ctermbg=lightmagenta
+  "highlight ColorColumn guibg=darkgreen ctermbg=darkgreen
+  highlight ColorColumn guibg=darkcyan ctermbg=darkcyan
+
+  " MAYBE/2017-11-04: CHange this? Same as lighttime.
+  highlight MyErrorMsg term=standout ctermfg=15 ctermbg=4 guibg=LightBlue
+endfunction
+
+" Default to Dark text on Light background.
+call <SID>SetColorSchemeLight()
+
+if !hasmapto('<Plug>DubsAppearance_CycleThruHighlights')
+  map <silent> <unique> <Leader>h
+    \ <Plug>DubsAppearance_CycleThruHighlights
+endif
+" Map <Plug> to an <SID> function
+noremap <silent> <unique> <script>
+  \ <Plug>DubsAppearance_CycleThruHighlights
+  \ :call <SID>CycleThruHighlights()<CR>
+
+let s:dubs_highlight_lighttime = 0
+let s:dubs_highlight_nighttime = 1
+let s:dubs_highlight_count = s:dubs_highlight_nighttime + 1
+
+function s:CycleThruHighlights()
+  if !exists('b:dubs_highlight_index')
+    let b:dubs_highlight_index = s:dubs_highlight_lighttime
+    "let b:dubs_highlight_index = s:dubs_highlight_nighttime
+  endif
+
+  let b:dubs_highlight_index = b:dubs_highlight_index + 1
+  if (b:dubs_highlight_index >= s:dubs_highlight_count)
+    let b:dubs_highlight_index = 0
+  endif
+
+  let l:mesg = 'Off by one, lawyer dog!'
+  if (b:dubs_highlight_index == s:dubs_highlight_lighttime)
+    call <SID>SetColorSchemeLight()
+    let l:mesg = 'Lighttime is the right time!'
+  elseif (b:dubs_highlight_index == s:dubs_highlight_nighttime)
+    call <SID>SetColorSchemeNight()
+    let l:mesg = 'Nighttime is the night time!'
+  endif
+  " Force redraw, lest echo is hidden from status line.
+  redraw
+  echo l:mesg
+endfunction
 
 " Visually Appealing Vertical Split
 " ------------------------------------------------------
-" When you split a window vertically, there's a
-" column of black rectangles that runs between
-" the two windows, and each black rectangle has
-" a vertical bar in it. This, to me, is very
-" distracting!
+" When two windows are split vertically, there's a
+" column of black rectangles running between them,
+" and each black rectangle has a vertical bar in it.
+" This, to me, is very distracting!
 "
 " And you really don't need these rectangles- the
 " line numbers in each window provide adequate
 " visual separation.
 "
-" So I like to hide the rectangles.
-"
-" This is also helpful if you like working with
-" narrow text columns but enjoy having whitespace
-" on the right side of the editor.
-"
-" Bare with me while I describe this: I like
-" working with two vertical windows, each 50
-" characters wide, with my working buffer in the
-" left window and an empty buffer in the right.
-" Since the buffer in the right window is empty,
-" only line number 1 is displayed, and so you end
-" up with an awesome chunk of whitespace. Why not
-" just work in one window that's 50 characters
-" wide? Well, 'cause then your buffer is squished
-" in a narrow gVim window and your desktop picture
-" is distractingly close to what you're working on.
-" Weird, right? Something about how my brain is
-" wired...
-"
-" So here's what we'll do: we'll set linebreak,
-" which complements wrap by wrapping lines only
-" where visually pleasing, i.e., at the nearest
+" Set linebreak, which complements wrap by wrapping lines
+" only where visually pleasing, i.e., at the nearest
 " whitespace character or punctuation.
 " Specifically, :set breakat? returns
 "
 "    breakat= ^I!@*-+;:,./?
-"
-" We'll also modify the black rectangles with the
-" white vertical tab characters to be white on
-" white, which effectively hides them.
 set linebreak
-highlight VertSplit term=reverse gui=NONE
-  \ guifg=White guibg=White
-  \ ctermfg=White ctermbg=White
 
 " NOTE When working with two vertically split
 "      windows, the left one container your
@@ -602,14 +721,6 @@ filetype indent on
 " Lastly, I'm not sure what this command does, though I think
 " I was using it to test. It might split longs lines, I dunno...
 "   :g/\%>79v/norm 77|gElC...
-
-" ------------------------------------------------------
-" Change Search highlight
-" ------------------------------------------------------
-
-" Seriously, do I just want to be different?
-":hi Search guibg=Green
-:hi Search guibg=LightGreen
 
 " ------------------------------------------------------
 " Fiddle with smart indent settings
