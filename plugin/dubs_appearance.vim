@@ -615,8 +615,8 @@ function s:SetColorSchemeNight()
 
   " colorcolumn color.
   "highlight ColorColumn guibg=lightmagenta ctermbg=lightmagenta
-  "highlight ColorColumn guibg=darkgreen ctermbg=darkgreen
-  highlight ColorColumn guibg=darkcyan ctermbg=darkcyan
+  highlight ColorColumn guibg=darkgreen ctermbg=darkgreen
+  "highlight ColorColumn guibg=darkcyan ctermbg=darkcyan
 
   " MAYBE/2017-11-04: CHange this? Same as lighttime.
   highlight MyErrorMsg term=standout ctermfg=15 ctermbg=4 guibg=LightBlue
