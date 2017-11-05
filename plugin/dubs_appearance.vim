@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.08.01
+" Last Modified: 2017.11.04
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -287,7 +287,10 @@ if has("gui_running")
     "      doesn't happen in Fedora. Anyway, comment
     "      this out or unset guifont to fix font issues.
     "      ... or don't run Debian!
-    if filereadable($HOME . "/.fonts/Hack-v2_010-ttf/Hack-Regular.ttf")
+    " FIXME/2017-11-04: Make this dynamic, hardcoder!
+    if filereadable($HOME . "/.fonts/Hack-v3.000-ttf/ttf/Hack-Regular.ttf")
+      set guifont=Hack\ Regular\ 9
+    elseif filereadable($HOME . "/.fonts/Hack-v2_010-ttf/Hack-Regular.ttf")
       set guifont=Hack\ Regular\ 9
     else
       set guifont=Bitstream\ Vera\ Sans\ Mono\ 9
