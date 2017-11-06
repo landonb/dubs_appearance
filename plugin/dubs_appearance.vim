@@ -432,6 +432,8 @@ set ruler
 " needs a little tweaking.
 
 function s:SetColorSchemeLight()
+  let s:dubs_highlight_index = s:dubs_highlight_lighttime
+
   " NOTE: You can use common color names; see
   "   :h cterm-colors
   " or you can use #rrggbb colors for guifg and guibg
@@ -572,6 +574,8 @@ function s:SetColorSchemeLight()
 endfunction
 
 function s:SetColorSchemeNight()
+  let s:dubs_highlight_index = s:dubs_highlight_nighttime
+
   highlight Normal gui=NONE
     \ guifg=White guibg=#060606
     \ ctermfg=White ctermbg=Black
@@ -600,7 +604,6 @@ function s:SetColorSchemeNight()
     \ guifg=LightGray guibg=DarkBlue
     \ ctermfg=LightGray ctermbg=DarkBlue
 
-
   " Hide the vertical split window border. (See notes elsewhere.)
   highlight VertSplit term=reverse gui=NONE
     \ guifg=#060606 guibg=#060606
@@ -622,15 +625,6 @@ function s:SetColorSchemeNight()
   highlight MyErrorMsg term=standout ctermfg=15 ctermbg=4 guibg=LightBlue
 endfunction
 
-" Default to Dark text on Light background.
-" FIXME/2017-11-06: Make this settable via global.
-if !exists("g:dubs_appearance_color_scheme")
-   \ || (g:dubs_appearance_color_scheme == 'night')
-  call <SID>SetColorSchemeNight()
-else
-  call <SID>SetColorSchemeLight()
-endif
-
 if !hasmapto('<Plug>DubsAppearance_CycleThruHighlights')
   map <silent> <unique> <Leader>h
     \ <Plug>DubsAppearance_CycleThruHighlights
@@ -645,21 +639,21 @@ let s:dubs_highlight_nighttime = 1
 let s:dubs_highlight_count = s:dubs_highlight_nighttime + 1
 
 function s:CycleThruHighlights()
-  if !exists('b:dubs_highlight_index')
-    let b:dubs_highlight_index = s:dubs_highlight_lighttime
-    "let b:dubs_highlight_index = s:dubs_highlight_nighttime
+  if !exists('s:dubs_highlight_index')
+    let s:dubs_highlight_index = s:dubs_highlight_lighttime
+    "let s:dubs_highlight_index = s:dubs_highlight_nighttime
   endif
 
-  let b:dubs_highlight_index = b:dubs_highlight_index + 1
-  if (b:dubs_highlight_index >= s:dubs_highlight_count)
-    let b:dubs_highlight_index = 0
+  let s:dubs_highlight_index = s:dubs_highlight_index + 1
+  if (s:dubs_highlight_index >= s:dubs_highlight_count)
+    let s:dubs_highlight_index = 0
   endif
 
   let l:mesg = 'Off by one, lawyer dog!'
-  if (b:dubs_highlight_index == s:dubs_highlight_lighttime)
+  if (s:dubs_highlight_index == s:dubs_highlight_lighttime)
     call <SID>SetColorSchemeLight()
     let l:mesg = 'Lighttime is the right time!'
-  elseif (b:dubs_highlight_index == s:dubs_highlight_nighttime)
+  elseif (s:dubs_highlight_index == s:dubs_highlight_nighttime)
     call <SID>SetColorSchemeNight()
     let l:mesg = 'Nighttime is the night time!'
   endif
@@ -667,6 +661,27 @@ function s:CycleThruHighlights()
   redraw
   echo l:mesg
 endfunction
+
+" WHATEVER/2017-11-06: I tried to make it so you could default to night,
+"   but then the light color scheme gets borked (some colors are off).
+"   I think Vim is doing additional configuration after this plugin
+"   loads. I even tried calling SetColorSchemeNight from an after/
+"   script, and still it didn't work.
+"
+"  function s:SetDefaultColorScheme()
+"    if !exists("g:dubs_appearance_color_scheme")
+"       \ || (g:dubs_appearance_color_scheme == 'night')
+"      call <SID>SetColorSchemeNight()
+"    else
+"      call <SID>SetColorSchemeLight()
+"    endif
+"  endfunction
+"  call <SID>SetDefaultColorScheme()
+"
+" So, whatever, we'll just default to lighttime and let user change.
+
+" Default to Dark text on Light background.
+call <SID>SetColorSchemeLight()
 
 " Visually Appealing Vertical Split
 " ------------------------------------------------------
