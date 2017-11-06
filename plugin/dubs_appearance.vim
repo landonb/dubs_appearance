@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.11.04
+" Last Modified: 2017.11.06
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -623,7 +623,13 @@ function s:SetColorSchemeNight()
 endfunction
 
 " Default to Dark text on Light background.
-call <SID>SetColorSchemeLight()
+" FIXME/2017-11-06: Make this settable via global.
+if !exists("g:dubs_appearance_color_scheme")
+   \ || (g:dubs_appearance_color_scheme == 'night')
+  call <SID>SetColorSchemeNight()
+else
+  call <SID>SetColorSchemeLight()
+endif
 
 if !hasmapto('<Plug>DubsAppearance_CycleThruHighlights')
   map <silent> <unique> <Leader>h
