@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.11.06
+" Last Modified: 2017.11.08
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -614,7 +614,8 @@ function s:SetColorSchemeNight()
   "highlight Search guibg=DarkMagenta
   "highlight Search guibg=DarkGreen
   "highlight Search guibg=LightGray
-  highlight Search guibg=#777777
+  "highlight Search guibg=#777777
+  highlight Search guibg=White guifg=Black
 
   " colorcolumn color.
   "highlight ColorColumn guibg=lightmagenta ctermbg=lightmagenta
