@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.11.08
+" Last Modified: 2017.11.12
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -440,9 +440,16 @@ function s:SetColorSchemeLight()
   " (but not ctermfg or ctermbg).
 
   " Vim's default.
+  " 2017-11-12: WTF: White isn't really white, it's same as LightGray.
+  " This could be because Vim isn't really tapped into the terminal
+  " colors (they're an approximation) or because Vim is saving us from
+  " having trouble seeing white text (should a syntax highlighter use
+  " white).
+  " Or maybe we need to set t_Co?
+  set t_Co=256
   highlight Normal gui=NONE
     \ guifg=Black guibg=White
-    \ ctermfg=0 ctermbg=7
+    \ ctermfg=Black ctermbg=White
 
   " Pretty Print
   " ------------------------------------------------------
@@ -576,9 +583,15 @@ endfunction
 function s:SetColorSchemeNight()
   let s:dubs_highlight_index = s:dubs_highlight_nighttime
 
+  "highlight Normal gui=NONE
+  "  \ guifg=White guibg=#060606
+  "  \ ctermfg=White ctermbg=Black
+  " 2017-11-12: Weird. In the terminal ctermbg=Black or =0 is same as =DarkGray/DarkGrey.
+  "   But using 8 gets us black... or any number not negative or 0-7....
+  "   Also, ctermbg=none works.
   highlight Normal gui=NONE
     \ guifg=White guibg=#060606
-    \ ctermfg=White ctermbg=Black
+    \ ctermfg=White ctermbg=none
 
   " Same color of line numbers as in lighttime mode.
   highlight LineNr term=NONE cterm=NONE
@@ -615,12 +628,25 @@ function s:SetColorSchemeNight()
   "highlight Search guibg=DarkGreen
   "highlight Search guibg=LightGray
   "highlight Search guibg=#777777
-  highlight Search guibg=White guifg=Black
+  " Default cursor is inverse of text:
+  "  highlight Cursor guifg=bg guibg=fg
+  " which is same as this Search highlighting:
+  "  highlight Search guibg=White guifg=Black
+  "highlight Search guibg=White guifg=Black
+  " colorscheme nord:
+  " highlight Normal guifg=#D8DEE9 guibg=#2E3440
+  highlight Search term=reverse
+    \ guifg=#3B4252 guibg=#88C0D0
+    \ ctermfg=0 ctermbg=6
 
   " colorcolumn color.
   "highlight ColorColumn guibg=lightmagenta ctermbg=lightmagenta
-  highlight ColorColumn guibg=darkgreen ctermbg=darkgreen
+  "highlight ColorColumn guibg=darkgreen ctermbg=darkgreen
   "highlight ColorColumn guibg=darkcyan ctermbg=darkcyan
+  highlight ColorColumn
+    \ guifg=#D8DEE9 guibg=#2E3440
+    \ ctermbg=darkgreen ctermfg=lightyellow
+  " highlight Normal guifg=#D8DEE9 guibg=#2E3440
 
   " MAYBE/2017-11-04: CHange this? Same as lighttime.
   highlight MyErrorMsg term=standout ctermfg=15 ctermbg=4 guibg=LightBlue
