@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.11.12
+" Last Modified: 2017.11.14
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -445,7 +445,7 @@ function s:SetColorSchemeLight()
   " colors (they're an approximation) or because Vim is saving us from
   " having trouble seeing white text (should a syntax highlighter use
   " white).
-  " Or maybe we need to set t_Co?
+  " Or maybe we need to set t_Co? Under :h terminal-options, "number of colors".
   set t_Co=256
   highlight Normal gui=NONE
     \ guifg=Black guibg=White
