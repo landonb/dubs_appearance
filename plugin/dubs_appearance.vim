@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.11.14
+" Last Modified: 2017.11.17
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -648,8 +648,19 @@ function s:SetColorSchemeNight()
     \ ctermbg=darkgreen ctermfg=lightyellow
   " highlight Normal guifg=#D8DEE9 guibg=#2E3440
 
-  " MAYBE/2017-11-04: CHange this? Same as lighttime.
+  " MAYBE/2017-11-04: Change this? Same as lighttime.
   highlight MyErrorMsg term=standout ctermfg=15 ctermbg=4 guibg=LightBlue
+
+  " 2017-11-17: Nord default:
+  "highlight Comment term=bold ctermfg=8 guifg=#4C566A
+  " Something a little lighter. Used:
+  "   https://www.sessions.edu/color-calculator/
+  "highlight Comment term=bold ctermfg=8 guifg=#7888a6
+  "highlight Comment term=bold ctermfg=8 guifg=#8292b3
+  " Perhaps something more yellow?
+  "highlight Comment term=bold ctermfg=8 guifg=#abb382
+  " Or pinkish reddish?
+  highlight Comment term=bold ctermfg=8 guifg=#b38a82
 endfunction
 
 if !hasmapto('<Plug>DubsAppearance_CycleThruHighlights')
