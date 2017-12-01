@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.11.17
+" Last Modified: 2017.12.01
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -427,10 +427,13 @@ set ruler
 " Color Scheme
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+" MAYBE/2017-12-01: The SetColor* fcns. should be in their own files.
+
 " I like the White background that the default
 " color scheme uses, but the color scheme still
 " needs a little tweaking.
 
+" FIXME/2017-12-01: Source appearances/lighttime.vim and then run the SetColor fcn.
 function s:SetColorSchemeLight()
   let s:dubs_highlight_index = s:dubs_highlight_lighttime
 
@@ -580,6 +583,11 @@ function s:SetColorSchemeLight()
   highlight MyErrorMsg term=standout ctermfg=15 ctermbg=4 guibg=LightBlue
 endfunction
 
+" ##########
+" NIGHT TIME
+" ##########
+
+" FIXME/2017-12-01: Source appearances/nighttime.vim and then run the SetColor fcn.
 function s:SetColorSchemeNight()
   let s:dubs_highlight_index = s:dubs_highlight_nighttime
 
@@ -661,6 +669,13 @@ function s:SetColorSchemeNight()
   "highlight Comment term=bold ctermfg=8 guifg=#abb382
   " Or pinkish reddish?
   highlight Comment term=bold ctermfg=8 guifg=#b38a82
+
+  "highlight Identifier term=underline guifg=#D8DEE9
+  " In lighttime, same color as SpellLocal.
+  "highlight Identifier term=underline ctermfg=6 guifg=#E5E9F0
+  " But that's too bright, almost indistinguisable from white.
+  highlight Identifier term=underline ctermfg=6 guifg=#656970
+  " FIXME: Better Identifier highlight.
 endfunction
 
 if !hasmapto('<Plug>DubsAppearance_CycleThruHighlights')
