@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.12.01
+" Last Modified: 2017.12.02
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -431,7 +431,12 @@ set ruler
 " Color Scheme
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-" MAYBE/2017-12-01: The SetColor* fcns. should be in their own files.
+" FIXME/2017-12-01: Make a color scheme for these.
+"   Maybe nighttime preloads nord and just overrides a few things.
+" See:
+"   :edit $VIMRUNTIME/colors/README.txt
+" You can also use autoload so that every time you run the theme fcn.,
+" it rereads the source file!
 
 " I like the White background that the default
 " color scheme uses, but the color scheme still
@@ -588,15 +593,15 @@ function s:SetColorSchemeLight_Override()
   highlight MyErrorMsg term=standout ctermfg=15 ctermbg=4 guibg=LightBlue
 endfunction
 
-function s:SetColorSchemeLight()
-  call s:SetColorScheme('light')
+function s:SetColorSchemeLight(load_appearances)
+  call s:SetColorScheme('light', a:load_appearances)
 endfunction
 
 " #################
 " THEME: NIGHT TIME
 " #################
 
-" FIXME/2017-12-01: Source appearances/nighttime.vim and then run the SetColor fcn.
+" FIXME/2017-12-01: Move this to a color/ file.
 function s:SetColorSchemeNight_Override()
   let s:dubs_highlight_index = s:dubs_highlight_nighttime
 
@@ -655,6 +660,10 @@ function s:SetColorSchemeNight_Override()
   highlight Search term=reverse
     \ guifg=#3B4252 guibg=#88C0D0
     \ ctermfg=0 ctermbg=6
+  " ...
+  highlight IncSearch term=reverse
+    \ guifg=#000000 guibg=#FFFFFF gui=underline
+    \ ctermfg=0 ctermbg=6 cterm=underline
 
   " colorcolumn color.
   "highlight ColorColumn guibg=lightmagenta ctermbg=lightmagenta
@@ -685,17 +694,35 @@ function s:SetColorSchemeNight_Override()
   " But that's too bright, almost indistinguisable from white.
   highlight Identifier term=underline ctermfg=6 guifg=#656970
   " FIXME: Better Identifier highlight.
+
+  "highlight Todo term=standout ctermfg=3 guifg=#EBCB8B guibg=Yellow
+  "highlight Todo term=standout ctermfg=3 guifg=#000000 guibg=Yellow
+  highlight Todo term=standout ctermfg=3 guifg=#000000 guibg=#C6C6C6
+
+  " 2017-12-01: Configure the cursor.
+  " There's lot more info here:
+  "   http://vim.wikia.com/wiki/Configuring_the_cursor
+  " and under
+  "   :h Cursor\>
+  "highlight Cursor guifg=black guibg=white
+  "highlight Cursor guifg=red guibg=green
+  "highlight iCursor guifg=red guibg=white
+  " nord's: let s:nord4_gui = "#D8DEE9" / s:nord0_gui = "#2E3440"
+  "highlight Cursor guifg=#2E3440 guibg=#D8DEE9
+  highlight Cursor guifg=#2E3440 guibg=#ECEFF4
+  highlight Cursor guifg=#2E3440 guibg=#ECEFF4
+  highlight lCursor guifg=bg guibg=fg
 endfunction
 
-function s:SetColorSchemeNight()
-  call s:SetColorScheme('night')
+function s:SetColorSchemeNight(load_appearances)
+  call s:SetColorScheme('night', a:load_appearances)
 endfunction
 
 " ####################
 " THEME: END OF THEMES
 " ####################
 
-function s:SetColorScheme(scheme_name)
+function s:SetColorScheme(scheme_name, load_appearances)
   if a:scheme_name == 'light'
     let s:dubs_highlight_index = s:dubs_highlight_lighttime
     let l:theme_fcn = 'g:Theme_Highlight_Lighttime'
@@ -709,12 +736,14 @@ function s:SetColorScheme(scheme_name)
     return
   endif
 
-  " MAYBE/2017-12-01: Use autoload to source appearances/lighttime.vim?
-  " NOTE: Use an asterisk to check for fcn. defn. See: :h ftplugin-special
-  if exists('*' . l:theme_fcn)
-    execute 'call ' . l:theme_fcn . '()'
-  else
-    echom 'Missing theme fcn.: ' . l:theme_fcn
+  if a:load_appearances == 1
+    " MAYBE/2017-12-01: Use autoload to source appearances/lighttime.vim?
+    " NOTE: Use an asterisk to check for fcn. defn. See: :h ftplugin-special
+    if exists('*' . l:theme_fcn)
+      execute 'call ' . l:theme_fcn . '()'
+    else
+      echom 'Missing theme fcn.: ' . l:theme_fcn
+    endif
   endif
 
   " Run this file's overrides. Since appearances/lighttime.vim is mostly
@@ -725,20 +754,29 @@ function s:SetColorScheme(scheme_name)
   call s:ThemeResetFont()
 endfunction
 
-if !hasmapto('<Plug>DubsAppearance_CycleThruHighlights')
+if !hasmapto('<Plug>DubsAppearance_CycleThruHighlights_0')
   map <silent> <unique> <Leader>h
-    \ <Plug>DubsAppearance_CycleThruHighlights
+    \ <Plug>DubsAppearance_CycleThruHighlights_0
 endif
 " Map <Plug> to an <SID> function
 noremap <silent> <unique> <script>
-  \ <Plug>DubsAppearance_CycleThruHighlights
-  \ :call <SID>CycleThruHighlights()<CR>
+  \ <Plug>DubsAppearance_CycleThruHighlights_0
+  \ :call <SID>CycleThruHighlights(0)<CR>
+" 2017-12-01: Only load appearances/ file on \H
+if !hasmapto('<Plug>DubsAppearance_CycleThruHighlights_1')
+  map <silent> <unique> <Leader>H
+  \ <Plug>DubsAppearance_CycleThruHighlights_1
+endif
+" Map <Plug> to an <SID> function
+noremap <silent> <unique> <script>
+  \ <Plug>DubsAppearance_CycleThruHighlights_1
+  \ :call <SID>CycleThruHighlights(1)<CR>
 
 let s:dubs_highlight_lighttime = 0
 let s:dubs_highlight_nighttime = 1
 let s:dubs_highlight_count = s:dubs_highlight_nighttime + 1
 
-function s:CycleThruHighlights()
+function s:CycleThruHighlights(load_appearances)
   if !exists('s:dubs_highlight_index')
     let s:dubs_highlight_index = s:dubs_highlight_lighttime
     "let s:dubs_highlight_index = s:dubs_highlight_nighttime
@@ -751,10 +789,10 @@ function s:CycleThruHighlights()
 
   let l:mesg = 'Off by one, lawyer dog!'
   if (s:dubs_highlight_index == s:dubs_highlight_lighttime)
-    call <SID>SetColorSchemeLight()
+    call <SID>SetColorSchemeLight(a:load_appearances)
     let l:mesg = 'Lighttime is the right time!'
   elseif (s:dubs_highlight_index == s:dubs_highlight_nighttime)
-    call <SID>SetColorSchemeNight()
+    call <SID>SetColorSchemeNight(a:load_appearances)
     let l:mesg = 'Nighttime is the night time!'
   endif
   " Force redraw, lest echo is hidden from status line.
@@ -781,7 +819,7 @@ endfunction
 " So, whatever, we'll just default to lighttime and let user change.
 
 " Default to Dark text on Light background.
-call <SID>SetColorSchemeLight()
+call <SID>SetColorSchemeLight(0)
 
 " 2017-12-01: This is awesome! "vim identify highlight of word under cursor"
 " http://vim.wikia.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor
