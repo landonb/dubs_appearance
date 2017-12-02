@@ -1,782 +1,855 @@
+" File: dubs_appearance.vim
+" Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
+" Last Modified: 2017.12.01
+" Project Page: https://github.com/landonb/dubs_appearance
+" Summary: Nighttime! Complete Vim highlight file
+" License: GPLv3
+" vim:tw=0:ts=2:sw=2:et:norl:ft=vim
+" ----------------------------------------------------------------------------
+" Copyright © 2017 Landon Bouma.
+"
+" This file is part of Dubsacks.
+"
+" Dubsacks is free software: you can redistribute it and/or
+" modify it under the terms of the GNU General Public License
+" as published by the Free Software Foundation, either version
+" 3 of the License, or (at your option) any later version.
+"
+" Dubsacks is distributed in the hope that it will be useful,
+" but WITHOUT ANY WARRANTY; without even the implied warranty
+" of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+" the GNU General Public License for more details.
+"
+" You should have received a copy of the GNU General Public License
+" along with Dubsacks. If not, see <http://www.gnu.org/licenses/>
+" or write Free Software Foundation, Inc., 51 Franklin Street,
+"                     Fifth Floor, Boston, MA 02110-1301, USA.
+" ===================================================================
 
+" SYNC_ME: Until the steps below are further automated, this comment
+"   is shared with all other theme files. [2017-12-01: Which is just 2!]
 
-SpecialKey     xxx ctermfg=8 guifg=DarkGrey
-EndOfBuffer    xxx ctermfg=0 guifg=#3B4252
-NonText        xxx term=bold ctermfg=8 gui=bold guifg=#7f7f7f
-Directory      xxx term=bold ctermfg=6 guifg=#88C0D0
-ErrorMsg       xxx term=standout ctermbg=1 guifg=#D8DEE9 guibg=#BF616A
-IncSearch      xxx term=reverse cterm=underline ctermfg=0 ctermbg=6 gui=underline guifg=#3B4252 guibg=#88C0D0
-Search         xxx term=reverse ctermfg=0 ctermbg=6 guifg=#3B4252 guibg=#88C0D0
-MoreMsg        xxx term=bold ctermfg=2 gui=bold guifg=#D8DEE9
-ModeMsg        xxx term=bold cterm=bold gui=bold guifg=#D8DEE9
-LineNr         xxx ctermfg=8 guifg=DarkGrey
-CursorLineNr   xxx term=bold gui=bold guifg=#4C566A guibg=#2E3440
-Question       xxx term=standout gui=bold guifg=#D8DEE9
-StatusLine     xxx term=bold,reverse ctermfg=6 ctermbg=8 guifg=Yellow guibg=DarkGreen
-StatusLineNC   xxx term=reverse ctermfg=7 ctermbg=1 guifg=LightGray guibg=DarkBlue
-VertSplit      xxx term=reverse ctermfg=0 ctermbg=0 guifg=#060606 guibg=#060606
-Title          xxx term=bold guifg=#D8DEE9
-Visual         xxx term=reverse cterm=reverse ctermbg=0 guibg=#434C5E
-VisualNOS      xxx term=bold,underline cterm=bold,underline ctermbg=0 gui=bold,underline guibg=#434C5E
-WarningMsg     xxx term=standout ctermfg=0 ctermbg=3 guifg=#2E3440 guibg=#EBCB8B
-WildMenu       xxx term=standout ctermfg=6 ctermbg=8 guifg=#88C0D0 guibg=#4C566A
-Folded         xxx term=standout cterm=bold ctermfg=8 ctermbg=0 gui=bold guifg=#4C566A guibg=#3B4252
-FoldColumn     xxx term=standout ctermfg=8 guifg=#4C566A guibg=#2E3440
-DiffAdd        xxx term=bold ctermfg=2 ctermbg=9 guifg=#A3BE8C guibg=LightBlue
-DiffChange     xxx term=bold ctermfg=3 ctermbg=13 guifg=#EBCB8B guibg=LightMagenta
-DiffDelete     xxx term=bold ctermfg=1 ctermbg=11 gui=bold guifg=#BF616A guibg=LightCyan
-DiffText       xxx term=reverse cterm=bold ctermbg=12 gui=bold guifg=#D8DEE9 guibg=Red
-SignColumn     xxx term=standout ctermfg=0 guifg=#3B4252 guibg=#2E3440
-Conceal        xxx ctermfg=7 ctermbg=8 guifg=LightGrey guibg=DarkGrey
-SpellBad       xxx term=reverse cterm=undercurl gui=undercurl guibg=#2E3440 guisp=#BF616A
-SpellCap       xxx term=reverse cterm=undercurl gui=undercurl guibg=#2E3440 guisp=#EBCB8B
-SpellRare      xxx term=reverse cterm=undercurl gui=undercurl guibg=#2E3440 guisp=#ECEFF4
-SpellLocal     xxx term=underline cterm=undercurl gui=undercurl guibg=#2E3440 guisp=#E5E9F0
-Pmenu          xxx ctermbg=0 guifg=#D8DEE9 guibg=#434C5E
-PmenuSel       xxx ctermfg=6 ctermbg=8 guifg=#88C0D0 guibg=#4C566A
-PmenuSbar      xxx ctermbg=0 guifg=#D8DEE9 guibg=#434C5E
-PmenuThumb     xxx ctermbg=8 guifg=#88C0D0 guibg=#4C566A
-TabLine        xxx term=underline ctermbg=0 guifg=#D8DEE9 guibg=#3B4252
-TabLineSel     xxx term=bold ctermfg=6 ctermbg=8 guifg=#88C0D0 guibg=#4C566A
-TabLineFill    xxx term=reverse ctermbg=0 guifg=#D8DEE9 guibg=#3B4252
-CursorColumn   xxx term=reverse ctermbg=0 guibg=#3B4252
-CursorLine     xxx term=underline ctermbg=0 guibg=#3B4252
-ColorColumn    xxx term=reverse ctermfg=14 ctermbg=2 guifg=#D8DEE9 guibg=#2E3440
-QuickFixLine   xxx links to Search
-StatusLineTerm xxx term=bold,reverse cterm=bold ctermfg=15 ctermbg=2 gui=bold guifg=bg guibg=DarkGreen
-StatusLineTermNC xxx term=reverse ctermfg=15 ctermbg=2 guifg=bg guibg=DarkGreen
-Cursor         xxx guifg=#2E3440 guibg=#D8DEE9
-lCursor        xxx guifg=bg guibg=fg
-MatchParen     xxx term=reverse ctermfg=0 ctermbg=6 guifg=#2E3440 guibg=#88C0D0
-Normal         xxx ctermfg=15 guifg=White guibg=#060606
-ToolbarLine    xxx term=underline ctermbg=7 guibg=LightGrey
-ToolbarButton  xxx cterm=bold ctermfg=15 ctermbg=8 gui=bold guifg=White guibg=Grey40
-Comment        xxx term=bold ctermfg=8 guifg=#b38a82
-Constant       xxx term=underline guifg=#D8DEE9
-Special        xxx term=bold guifg=#D8DEE9
-Identifier     xxx term=underline guifg=#D8DEE9
-Statement      xxx term=bold ctermfg=4 gui=bold guifg=#81A1C1
-PreProc        xxx term=underline ctermfg=4 guifg=#81A1C1
-Type           xxx term=underline ctermfg=4 guifg=#81A1C1
-Underlined     xxx term=underline cterm=underline ctermfg=5 gui=underline guifg=SlateBlue
-Ignore         xxx ctermfg=15 guifg=bg
-Error          xxx term=reverse ctermfg=15 ctermbg=12 guifg=White guibg=Red
-Todo           xxx term=standout ctermfg=3 guifg=#EBCB8B guibg=Yellow
-String         xxx ctermfg=2 guifg=#A3BE8C
-Character      xxx ctermfg=2 guifg=#A3BE8C
-Number         xxx ctermfg=5 guifg=#B48EAD
-Boolean        xxx ctermfg=4 guifg=#81A1C1
-Float          xxx ctermfg=5 guifg=#B48EAD
-Function       xxx ctermfg=6 guifg=#88C0D0
-Conditional    xxx ctermfg=4 guifg=#81A1C1
-Repeat         xxx ctermfg=4 guifg=#81A1C1
-Label          xxx ctermfg=4 guifg=#81A1C1
-Operator       xxx ctermfg=4 guifg=#81A1C1
-Keyword        xxx ctermfg=4 guifg=#81A1C1
-Exception      xxx ctermfg=4 guifg=#81A1C1
-Include        xxx ctermfg=4 guifg=#81A1C1
-Define         xxx ctermfg=4 guifg=#81A1C1
-Macro          xxx links to Define
-PreCondit      xxx links to PreProc
-StorageClass   xxx ctermfg=4 guifg=#81A1C1
-Structure      xxx ctermfg=4 guifg=#81A1C1
-Typedef        xxx ctermfg=4 guifg=#81A1C1
-Tag            xxx guifg=#D8DEE9
-SpecialChar    xxx ctermfg=3 guifg=#EBCB8B
-Delimiter      xxx ctermfg=15 guifg=#ECEFF4
-SpecialComment xxx ctermfg=6 guifg=#88C0D0
-Debug          xxx links to Special
-MyErrorMsg     xxx term=standout ctermfg=15 ctermbg=4 guibg=LightBlue
-SyntasticError xxx links to SpellBad
-SyntasticWarning xxx links to SpellCap
-SyntasticStyleError xxx links to SyntasticError
-SyntasticStyleWarning xxx links to SyntasticWarning
-GPGWarning     xxx links to WarningMsg
-GPGError       xxx links to ErrorMsg
-GPGHighlightUnknownRecipient xxx links to ErrorMsg
-vimTodo        xxx links to Todo
-vimCommand     xxx links to Statement
-vimStdPlugin   xxx cleared
-vimOption      xxx links to PreProc
-vimErrSetting  xxx links to vimError
-vimAutoEvent   xxx links to Type
-vimGroup       xxx links to Type
-vimHLGroup     xxx links to vimGroup
-vimFuncName    xxx links to Function
-vimGlobal      xxx cleared
-vimSubst       xxx links to vimCommand
-vimNumber      xxx links to Number
-vimAddress     xxx links to vimMark
-vimAutoCmd     xxx links to vimCommand
-vimIsCommand   xxx cleared
-vimExtCmd      xxx cleared
-vimFilter      xxx cleared
-vimLet         xxx links to vimCommand
-vimMap         xxx links to vimCommand
-vimMark        xxx links to Number
-vimSet         xxx cleared
-vimSyntax      xxx links to vimCommand
-vimUserCmd     xxx cleared
-vimCmdSep      xxx cleared
-vimVar         xxx links to Identifier
-vimFBVar       xxx links to vimVar
-vimInsert      xxx links to vimString
-vimBehaveModel xxx links to vimBehave
-vimBehaveError xxx links to vimError
-vimBehave      xxx links to vimCommand
-vimFTCmd       xxx links to vimCommand
-vimFTOption    xxx links to vimSynType
-vimFTError     xxx links to vimError
-vimFiletype    xxx cleared
-vimAugroup     xxx ctermfg=14 guifg=#8FBCBB
-vimExecute     xxx cleared
-vimNotFunc     xxx links to vimCommand
-vimFunction    xxx links to Function
-vimFunctionError xxx links to vimError
-vimLineComment xxx links to vimComment
-vimSpecFile    xxx links to Identifier
-vimOper        xxx links to Operator
-vimOperParen   xxx cleared
-vimComment     xxx links to Comment
-vimString      xxx links to String
-vimRegister    xxx links to SpecialChar
-vimCmplxRepeat xxx links to SpecialChar
-vimRegion      xxx cleared
-vimSynLine     xxx cleared
-vimNotation    xxx ctermfg=14 guifg=#8FBCBB
-vimCtrlChar    xxx links to SpecialChar
-vimFuncVar     xxx links to Identifier
-vimContinue    xxx links to Special
-vimAugroupKey  xxx links to vimCommand
-vimAugroupError xxx links to vimError
-vimEnvvar      xxx links to PreProc
-vimFunc        xxx links to Function
-vimParenSep    xxx links to Delimiter
-vimSep         xxx links to Delimiter
-vimOperError   xxx links to Error
-vimFuncKey     xxx links to vimCommand
-vimFuncSID     xxx links to Special
-vimAbb         xxx links to vimCommand
-vimEcho        xxx cleared
-vimEchoHL      xxx links to vimCommand
-vimIf          xxx cleared
-vimHighlight   xxx links to vimCommand
-vimNorm        xxx links to vimCommand
-vimUnmap       xxx links to vimMap
-vimUserCommand xxx links to vimCommand
-vimFuncBody    xxx cleared
-vimFuncBlank   xxx cleared
-vimPattern     xxx links to Type
-vimSpecFileMod xxx links to vimSpecFile
-vimEscapeBrace xxx cleared
-vimSetEqual    xxx cleared
-vimSetString   xxx links to vimString
-vimSubstRep    xxx cleared
-vimSubstRange  xxx cleared
-vimUserAttrb   xxx links to vimSpecial
-vimUserAttrbError xxx links to Error
-vimUserAttrbKey xxx links to vimOption
-vimUserAttrbCmplt xxx links to vimSpecial
-vimUserCmdError xxx links to Error
-vimUserAttrbCmpltFunc xxx links to Special
-vimCommentString xxx links to vimString
-vimPatSepErr   xxx links to vimPatSep
-vimPatSep      xxx links to SpecialChar
-vimPatSepZ     xxx links to vimPatSep
-vimPatSepZone  xxx links to vimString
-vimPatSepR     xxx links to vimPatSep
-vimPatRegion   xxx cleared
-vimNotPatSep   xxx links to vimString
-vimStringCont  xxx links to vimString
-vimSubstTwoBS  xxx links to vimString
-vimSubstSubstr xxx links to SpecialChar
-vimCollection  xxx cleared
-vimSubstPat    xxx cleared
-vimSubst1      xxx links to vimSubst
-vimSubstDelim  xxx links to Delimiter
-vimSubstRep4   xxx cleared
-vimSubstFlagErr xxx links to vimError
-vimCollClass   xxx cleared
-vimCollClassErr xxx links to vimError
-vimSubstFlags  xxx links to Special
-vimMarkNumber  xxx links to vimNumber
-vimPlainMark   xxx links to vimMark
-vimPlainRegister xxx links to vimRegister
-vimSetMod      xxx links to vimOption
-vimSetSep      xxx links to Statement
-vimMapMod      xxx links to vimBracket
-vimMapLhs      xxx cleared
-vimAutoCmdSpace xxx cleared
-vimAutoEventList xxx cleared
-vimAutoCmdSfxList xxx cleared
-vimEchoHLNone  xxx links to vimGroup
-vimMapBang     xxx links to vimCommand
-vimMapRhs      xxx ctermfg=14 guifg=#8FBCBB
-vimMapModKey   xxx links to vimFuncSID
-vimMapModErr   xxx links to vimError
-vimMapRhsExtend xxx cleared
-vimMenuBang    xxx cleared
-vimMenuPriority xxx cleared
-vimMenuName    xxx links to PreProc
-vimMenuMod     xxx links to vimMapMod
-vimMenuNameMore xxx links to vimMenuName
-vimMenuMap     xxx cleared
-vimMenuRhs     xxx cleared
-vimBracket     xxx links to Delimiter
-vimUserFunc    xxx links to Function
-vimElseIfErr   xxx links to Error
-vimBufnrWarn   xxx links to vimWarn
-vimNormCmds    xxx cleared
-vimGroupSpecial xxx links to Special
-vimGroupList   xxx cleared
-vimSynError    xxx links to Error
-vimSynContains xxx links to vimSynOption
-vimSynKeyContainedin xxx links to vimSynContains
-vimSynNextgroup xxx links to vimSynOption
-vimSynType     xxx links to vimSpecial
-vimAuSyntax    xxx cleared
-vimSynCase     xxx links to Type
-vimSynCaseError xxx links to vimError
-vimClusterName xxx cleared
-vimGroupName   xxx links to vimGroup
-vimGroupAdd    xxx links to vimSynOption
-vimGroupRem    xxx links to vimSynOption
-vimIskList     xxx cleared
-vimIskSep      xxx links to Delimiter
-vimSynKeyOpt   xxx links to vimSynOption
-vimSynKeyRegion xxx cleared
-vimMtchComment xxx links to vimComment
-vimSynMtchOpt  xxx links to vimSynOption
-vimSynRegPat   xxx links to vimString
-vimSynMatchRegion xxx cleared
-vimSynMtchCchar xxx cleared
-vimSynMtchGroup xxx cleared
-vimSynPatRange xxx links to vimString
-vimSynNotPatRange xxx links to vimSynRegPat
-vimSynRegOpt   xxx links to vimSynOption
-vimSynReg      xxx links to Type
-vimSynMtchGrp  xxx links to vimSynOption
-vimSynRegion   xxx cleared
-vimSynPatMod   xxx cleared
-vimSyncC       xxx links to Type
-vimSyncLines   xxx cleared
-vimSyncMatch   xxx cleared
-vimSyncError   xxx links to Error
-vimSyncLinebreak xxx cleared
-vimSyncLinecont xxx cleared
-vimSyncRegion  xxx cleared
-vimSyncGroupName xxx links to vimGroupName
-vimSyncKey     xxx links to Type
-vimSyncGroup   xxx links to vimGroupName
-vimSyncNone    xxx links to Type
-vimHiLink      xxx cleared
-vimHiClear     xxx links to vimHighlight
-vimHiKeyList   xxx cleared
-vimHiCtermError xxx links to vimError
-vimHiBang      xxx cleared
-vimHiGroup     xxx links to vimGroupName
-vimHiAttrib    xxx links to PreProc
-vimFgBgAttrib  xxx links to vimHiAttrib
-vimHiAttribList xxx links to vimError
-vimHiCtermColor xxx cleared
-vimHiFontname  xxx cleared
-vimHiGuiFontname xxx cleared
-vimHiGuiRgb    xxx links to vimNumber
-vimHiTerm      xxx links to Type
-vimHiCTerm     xxx links to vimHiTerm
-vimHiStartStop xxx links to vimHiTerm
-vimHiCtermFgBg xxx links to vimHiTerm
-vimHiGui       xxx links to vimHiTerm
-vimHiGuiFont   xxx links to vimHiTerm
-vimHiGuiFgBg   xxx links to vimHiTerm
-vimHiKeyError  xxx links to vimError
-vimHiTermcap   xxx cleared
-vimHiNmbr      xxx links to Number
-vimCommentTitle xxx links to PreProc
-vimCommentTitleLeader xxx cleared
-vimSearchDelim xxx links to Statement
-vimSearch      xxx links to vimString
-vimEmbedError  xxx links to vimError
-rubyConditional xxx links to Conditional
-rubyExceptional xxx links to rubyConditional
-rubyMethodExceptional xxx links to rubyDefine
-rubyTodo       xxx links to Todo
-rubyStringEscape xxx links to Special
-rubyQuoteEscape xxx links to rubyStringEscape
-rubyInterpolationDelimiter xxx links to Keyword
-rubyInterpolation xxx cleared
-rubyInstanceVariable xxx links to rubyIdentifier
-rubyClassVariable xxx links to rubyIdentifier
-rubyGlobalVariable xxx links to rubyIdentifier
-rubyPredefinedVariable xxx links to rubyPredefinedIdentifier
-rubyInvalidVariable xxx links to Error
-rubyNoInterpolation xxx links to rubyString
-NONE           xxx cleared
-rubyDelimiterEscape xxx cleared
-rubyString     xxx links to String
-rubyNestedParentheses xxx cleared
-rubyNestedCurlyBraces xxx cleared
-rubyNestedAngleBrackets xxx cleared
-rubyNestedSquareBrackets xxx cleared
-rubyRegexpSpecial xxx links to Special
-rubyRegexpComment xxx links to Comment
-rubyRegexpParens xxx cleared
-rubyRegexpCharClass xxx links to rubyRegexpSpecial
-rubyRegexpEscape xxx links to rubyRegexpSpecial
-rubyRegexpBrackets xxx cleared
-rubyRegexpQuantifier xxx links to rubyRegexpSpecial
-rubyRegexpAnchor xxx links to rubyRegexpSpecial
-rubyRegexpDot  xxx links to rubyRegexpCharClass
-rubyASCIICode  xxx links to Character
-rubyInteger    xxx links to Number
-rubyFloat      xxx links to Float
-rubyLocalVariableOrMethod xxx links to Function
-rubyBlockArgument xxx cleared
-rubyConstant   xxx ctermfg=14 guifg=#8FBCBB
-rubySymbol     xxx cterm=bold ctermfg=15 gui=bold guifg=#ECEFF4
-rubyCapitalizedMethod xxx links to rubyLocalVariableOrMethod
-rubyBlockParameter xxx links to rubyIdentifier
-rubyBlockParameterList xxx links to Operator
-rubyPredefinedConstant xxx links to rubyPredefinedIdentifier
-rubyRegexpDelimiter xxx links to rubyStringDelimiter
-rubyRegexp     xxx links to SpecialChar
-rubyStringDelimiter xxx links to Delimiter
-rubySymbolDelimiter xxx links to rubySymbol
-rubyHeredocStart xxx cleared
-rubyHeredoc    xxx links to rubyString
-rubyAliasDeclaration2 xxx cleared
-rubyAliasDeclaration xxx cleared
-rubyBoolean    xxx links to Boolean
-rubyPseudoVariable xxx links to Keyword
-rubyMethodDeclaration xxx cleared
-rubyOperator   xxx links to Operator
-rubyClassDeclaration xxx cleared
-rubyModuleDeclaration xxx cleared
-rubyFunction   xxx links to Function
-rubyControl    xxx links to Statement
-rubyKeyword    xxx links to Keyword
-rubyBeginEnd   xxx links to Statement
-rubyDefine     xxx links to Define
-rubyClass      xxx links to rubyDefine
-rubyModule     xxx links to rubyDefine
-rubyMethodBlock xxx cleared
-rubyBlock      xxx cleared
-rubyConditionalModifier xxx links to rubyConditional
-rubyRepeatModifier xxx links to rubyRepeat
-rubyLineContinuation xxx cleared
-rubyDoBlock    xxx cleared
-rubyCurlyBlockDelimiter xxx cleared
-rubyCurlyBlock xxx cleared
-rubyArrayDelimiter xxx cleared
-rubyArrayLiteral xxx cleared
-rubyBlockExpression xxx cleared
-rubyCaseExpression xxx cleared
-rubyConditionalExpression xxx cleared
-rubyRepeat     xxx links to Repeat
-rubyOptionalDo xxx links to rubyRepeat
-rubyOptionalDoLine xxx cleared
-rubyRepeatExpression xxx cleared
-rubyAccess     xxx links to Statement
-rubyAttribute  xxx links to Identifier
-rubyEval       xxx links to Statement
-rubyException  xxx links to Exception
-rubyInclude    xxx links to Include
-rubySharpBang  xxx links to PreProc
-rubySpaceError xxx links to rubyError
-rubyComment    xxx links to Comment
-rubyMultilineComment xxx cleared
-rubyDocumentation xxx links to Comment
-rubyKeywordAsMethod xxx links to Function
-rubyDataDirective xxx links to Delimiter
-rubyData       xxx links to Comment
-rubyIdentifier xxx links to Identifier
-rubyPredefinedIdentifier xxx links to rubyIdentifier
-rubyError      xxx links to Error
-vimScriptDelim xxx links to Comment
-vimRubyRegion  xxx cleared
-pythonStatement xxx links to Statement
-pythonFunction xxx links to Function
-pythonConditional xxx links to Conditional
-pythonRepeat   xxx links to Repeat
-pythonOperator xxx links to Operator
-pythonException xxx links to Exception
-pythonInclude  xxx links to Include
-pythonAsync    xxx links to Statement
-pythonDecorator xxx links to Define
-pythonDecoratorName xxx links to Function
-pythonDoctestValue xxx links to Define
-pythonMatrixMultiply xxx cleared
-pythonTodo     xxx links to Todo
-pythonComment  xxx links to Comment
-pythonQuotes   xxx links to String
-pythonEscape   xxx links to SpecialChar
-pythonString   xxx links to String
-pythonTripleQuotes xxx links to pythonQuotes
-pythonSpaceError xxx cleared
-pythonDoctest  xxx links to Special
-pythonRawString xxx links to String
-pythonNumber   xxx links to Number
-pythonBuiltin  xxx links to Type
-pythonAttribute xxx cleared
-pythonExceptions xxx links to Structure
-pythonSync     xxx cleared
-vimPythonRegion xxx cleared
-vimAugroupSyncA xxx cleared
-vimError       xxx links to Error
-vimKeyCodeError xxx links to vimError
-vimWarn        xxx links to WarningMsg
-vimAuHighlight xxx links to vimHighlight
-vimAutoCmdOpt  xxx links to vimOption
-vimAutoSet     xxx links to vimCommand
-vimCondHL      xxx links to vimCommand
-vimElseif      xxx links to vimCondHL
-vimFold        xxx links to Folded
-vimSynOption   xxx links to Special
-vimHLMod       xxx links to PreProc
-vimKeyCode     xxx links to vimSpecFile
-vimKeyword     xxx links to Statement
-vimSpecial     xxx links to Type
-vimStatement   xxx links to Statement
-SyntasticErrorSign xxx links to Error
-SyntasticWarningSign xxx links to Todo
-SyntasticStyleErrorSign xxx links to SyntasticErrorSign
-SyntasticStyleWarningSign xxx links to SyntasticWarningSign
-SyntasticStyleErrorLine xxx links to SyntasticErrorLine
-SyntasticErrorLine xxx cleared
-SyntasticStyleWarningLine xxx links to SyntasticWarningLine
-SyntasticWarningLine xxx cleared
-Bold           xxx cterm=bold gui=bold
-Italic         xxx cleared
-Underline      xxx cterm=underline gui=underline
-iCursor        xxx guifg=#2E3440 guibg=#D8DEE9
-healthError    xxx ctermfg=1 ctermbg=0 guifg=#BF616A guibg=#3B4252
-healthSuccess  xxx ctermfg=2 ctermbg=0 guifg=#A3BE8C guibg=#3B4252
-healthWarning  xxx ctermfg=3 ctermbg=0 guifg=#EBCB8B guibg=#3B4252
-awkCharClass   xxx ctermfg=14 guifg=#8FBCBB
-awkPatterns    xxx cterm=bold ctermfg=4 gui=bold guifg=#81A1C1
-awkArrayElement xxx links to Identifier
-awkBoolLogic   xxx links to Keyword
-awkBrktRegExp  xxx links to SpecialChar
-awkComma       xxx links to Delimiter
-awkExpression  xxx links to Keyword
-awkFieldVars   xxx links to Identifier
-awkLineSkip    xxx links to Keyword
-awkOperator    xxx links to Operator
-awkRegExp      xxx links to SpecialChar
-awkSearch      xxx links to Keyword
-awkSemicolon   xxx links to Delimiter
-awkSpecialCharacter xxx links to SpecialChar
-awkSpecialPrintf xxx links to SpecialChar
-awkVariables   xxx links to Identifier
-cIncluded      xxx ctermfg=14 guifg=#8FBCBB
-cOperator      xxx links to Operator
-cPreCondit     xxx links to PreCondit
-csPreCondit    xxx links to PreCondit
-csType         xxx links to Type
-csXmlTag       xxx links to SpecialComment
-cssAttributeSelector xxx ctermfg=14 guifg=#8FBCBB
-cssDefinition  xxx ctermfg=14 guifg=#8FBCBB
-cssIdentifier  xxx cterm=underline ctermfg=14 gui=underline guifg=#8FBCBB
-cssStringQ     xxx ctermfg=14 guifg=#8FBCBB
-cssAttr        xxx links to Keyword
-cssBraces      xxx links to Delimiter
-cssClassName   xxx links to cssDefinition
-cssColor       xxx links to Number
-cssProp        xxx links to cssDefinition
-cssPseudoClass xxx links to cssDefinition
-cssPseudoClassId xxx links to cssPseudoClass
-cssVendor      xxx links to Keyword
-dosiniHeader   xxx ctermfg=6 guifg=#88C0D0
-dosiniLabel    xxx links to Type
-dtBooleanKey   xxx ctermfg=14 guifg=#8FBCBB
-dtExecKey      xxx ctermfg=14 guifg=#8FBCBB
-dtLocaleKey    xxx ctermfg=14 guifg=#8FBCBB
-dtNumericKey   xxx ctermfg=14 guifg=#8FBCBB
-dtTypeKey      xxx ctermfg=14 guifg=#8FBCBB
-dtDelim        xxx links to Delimiter
-dtLocaleValue  xxx links to Keyword
-dtTypeValue    xxx links to Keyword
-diffAdded      xxx ctermfg=2 guifg=#A3BE8C
-diffChanged    xxx ctermfg=3 guifg=#EBCB8B
-diffNewFile    xxx ctermfg=6 guifg=#88C0D0
-diffOldFile    xxx ctermfg=14 guifg=#8FBCBB
-diffRemoved    xxx ctermfg=1 guifg=#BF616A
-gitconfigVariable xxx ctermfg=14 guifg=#8FBCBB
-goBuiltins     xxx ctermfg=14 guifg=#8FBCBB
-goConstants    xxx links to Keyword
-htmlArg        xxx ctermfg=14 guifg=#8FBCBB
-htmlLink       xxx guifg=#D8DEE9
-htmlBold       xxx links to Bold
-htmlEndTag     xxx links to htmlTag
-htmlTag        xxx links to Keyword
-htmlItalic     xxx links to Italic
-htmlSpecialChar xxx links to SpecialChar
-htmlTagN       xxx links to htmlTag
-javaDocTags    xxx ctermfg=14 guifg=#8FBCBB
-javaCommentTitle xxx links to Comment
-javaScriptBraces xxx links to Delimiter
-javaScriptIdentifier xxx links to Keyword
-javaScriptNumber xxx links to Number
-jsonKeyword    xxx ctermfg=14 guifg=#8FBCBB
-lessClass      xxx ctermfg=14 guifg=#8FBCBB
-lessAmpersand  xxx links to Keyword
-lessCssAttribute xxx links to Delimiter
-lessFunction   xxx links to Function
-cssSelectorOp  xxx links to Keyword
-lispAtomBarSymbol xxx links to SpecialChar
-lispAtomList   xxx links to SpecialChar
-lispAtomMark   xxx links to Keyword
-lispBarSymbol  xxx links to SpecialChar
-lispFunc       xxx links to Function
-luaFunc        xxx links to Function
-markdownBlockquote xxx ctermfg=14 guifg=#8FBCBB
-markdownCode   xxx ctermfg=14 guifg=#8FBCBB
-markdownCodeDelimiter xxx ctermfg=14 guifg=#8FBCBB
-markdownFootnote xxx ctermfg=14 guifg=#8FBCBB
-markdownId     xxx ctermfg=14 guifg=#8FBCBB
-markdownIdDeclaration xxx ctermfg=14 guifg=#8FBCBB
-markdownH1     xxx ctermfg=6 guifg=#88C0D0
-markdownLinkText xxx ctermfg=14 guifg=#8FBCBB
-markdownUrl    xxx guifg=#D8DEE9
-markdownFootnoteDefinition xxx links to markdownFootnote
-markdownH2     xxx links to markdownH1
-markdownH3     xxx links to markdownH1
-markdownH4     xxx links to markdownH1
-markdownH5     xxx links to markdownH1
-markdownH6     xxx links to markdownH1
-markdownIdDelimiter xxx links to Keyword
-markdownLinkDelimiter xxx links to Keyword
-markdownLinkTextDelimiter xxx links to Keyword
-markdownListMarker xxx links to Keyword
-markdownRule   xxx links to Keyword
-markdownHeadingDelimiter xxx links to Keyword
-perlPackageDecl xxx ctermfg=14 guifg=#8FBCBB
-phpClasses     xxx ctermfg=14 guifg=#8FBCBB
-phpDocTags     xxx ctermfg=14 guifg=#8FBCBB
-phpDocCustomTags xxx links to phpDocTags
-phpMemberSelector xxx links to Keyword
-podCmdText     xxx ctermfg=14 guifg=#8FBCBB
-podVerbatimLine xxx guifg=#D8DEE9
-podFormat      xxx links to Keyword
-sassClass      xxx ctermfg=14 guifg=#8FBCBB
-sassId         xxx cterm=underline ctermfg=14 gui=underline guifg=#8FBCBB
-sassAmpersand  xxx links to Keyword
-sassClassChar  xxx links to Delimiter
-sassControl    xxx links to Keyword
-sassControlLine xxx links to Keyword
-sassExtend     xxx links to Keyword
-sassFor        xxx links to Keyword
-sassFunctionDecl xxx links to Keyword
-sassFunctionName xxx links to Function
-sassidChar     xxx links to sassId
-sassInclude    xxx links to SpecialChar
-sassMixinName  xxx links to Function
-sassMixing     xxx links to SpecialChar
-sassReturn     xxx links to Keyword
-shCmdParenRegion xxx links to Delimiter
-shCmdSubRegion xxx links to Delimiter
-shDerefSimple  xxx links to Identifier
-shDerefVar     xxx links to Identifier
-sqlKeyword     xxx links to Keyword
-sqlSpecial     xxx links to Keyword
-xmlAttrib      xxx ctermfg=14 guifg=#8FBCBB
-xmlCdataStart  xxx cterm=bold ctermfg=8 gui=bold guifg=#4C566A
-xmlNamespace   xxx ctermfg=14 guifg=#8FBCBB
-xmlAttribPunct xxx links to Delimiter
-xmlCdata       xxx links to Comment
-xmlCdataCdata  xxx links to xmlCdataStart
-xmlCdataEnd    xxx links to xmlCdataStart
-xmlEndTag      xxx links to xmlTagName
-xmlTagName     xxx links to Keyword
-xmlProcessingDelim xxx links to Keyword
-yamlBlockMappingKey xxx ctermfg=14 guifg=#8FBCBB
-yamlBool       xxx links to Keyword
-yamlDocumentStart xxx links to Keyword
-ALEWarningSign xxx ctermfg=3 guifg=#EBCB8B
-ALEErrorSign   xxx ctermfg=1 guifg=#BF616A
-GitGutterAdd   xxx ctermfg=2 guifg=#A3BE8C
-GitGutterChange xxx ctermfg=3 guifg=#EBCB8B
-GitGutterChangeDelete xxx ctermfg=1 guifg=#BF616A
-GitGutterDelete xxx ctermfg=1 guifg=#BF616A
-jediFunction   xxx ctermbg=8 guifg=#D8DEE9 guibg=#4C566A
-jediFat        xxx cterm=bold,underline ctermfg=6 ctermbg=8 gui=bold,underline guifg=#88C0D0 guibg=#4C566A
-NERDTreeExecFile xxx ctermfg=14 guifg=#8FBCBB
-NERDTreeDirSlash xxx links to Keyword
-NERDTreeHelp   xxx links to Comment
-CtrlPMatch     xxx links to Keyword
-CtrlPBufferHid xxx links to Normal
-jsGlobalNodeObjects xxx ctermfg=6 guifg=#88C0D0
-jsBrackets     xxx links to Delimiter
-jsFuncCall     xxx links to Function
-jsFuncParens   xxx links to Delimiter
-jsNoise        xxx links to Delimiter
-jsPrototype    xxx links to Keyword
-jsRegexpString xxx links to SpecialChar
-projectDescription xxx links to Identifier
-projectWhiteError xxx links to Error
-projectDescriptionDir xxx cleared
-projectDirectory xxx links to Constant
-projectScriptinout xxx links to Identifier
-projectComment xxx links to Comment
-projectCD      xxx cleared
-projectFilterError xxx links to Error
-projectFilter  xxx links to Identifier
-projectFilterRegexp xxx links to String
-projectFilterEntry xxx cleared
-projectExcludeError xxx links to Error
-projectExclude xxx links to Identifier
-projectExcludeRegexp xxx links to String
-projectExcludeEntry xxx cleared
-projectFlags   xxx links to Identifier
-projectFlagsEntry xxx cleared
-projectFlagsValues xxx links to String
-projectFlagsError xxx links to Error
-projectFoldText xxx links to Identifier
-shDoError      xxx links to Error
-shIfError      xxx links to Error
-shInError      xxx links to Error
-shCaseError    xxx links to Error
-shEsacError    xxx links to Error
-shCurlyError   xxx links to Error
-shParenError   xxx links to Error
-shTestError    xxx links to Error
-shOK           xxx cleared
-shArithmetic   xxx links to Special
-shCaseEsac     xxx cleared
-shComment      xxx links to Comment
-shDeref        xxx links to shShellVariables
-shDo           xxx cleared
-shEcho         xxx links to shString
-shEscape       xxx links to shCommandSub
-shNumber       xxx links to Number
-shOperator     xxx links to Operator
-shPosnParm     xxx links to shShellVariables
-shExSingleQuote xxx links to shSingleQuote
-shExDoubleQuote xxx links to shDoubleQuote
-shHereString   xxx links to shRedir
-shRedir        xxx links to shOperator
-shSingleQuote  xxx links to shString
-shDoubleQuote  xxx links to shString
-shStatement    xxx links to Statement
-shVariable     xxx links to shSetList
-shAlias        xxx links to Identifier
-shTest         xxx cleared
-shCtrlSeq      xxx links to Special
-shSpecial      xxx links to Special
-shParen        xxx links to shArithmetic
-bashSpecialVariables xxx links to shShellVariables
-bashStatement  xxx links to shStatement
-shIf           xxx cleared
-shFor          xxx cleared
-shCaseStart    xxx links to shConditional
-shCase         xxx cleared
-shCaseBar      xxx links to shConditional
-shCaseIn       xxx links to shConditional
-shCaseCommandSub xxx links to shCommandSub
-shCaseExSingleQuote xxx cleared
-shCaseSingleQuote xxx links to shSingleQuote
-shCaseDoubleQuote xxx links to shDoubleQuote
-shStringSpecial xxx links to shSpecial
-shCaseRange    xxx cleared
-shColon        xxx links to shComment
-shCommandSub   xxx links to Special
-shExpr         xxx cleared
-shHereDoc      xxx links to shString
-shSetList      xxx links to Identifier
-shSource       xxx links to shOperator
-shOption       xxx links to shCommandSub
-shSubSh        xxx cleared
-shComma        xxx cleared
-shDerefSpecial xxx links to shDeref
-shDerefWordError xxx links to Error
-shDerefPSR     xxx links to shDerefOp
-shDerefPPS     xxx links to shDerefOp
-shDerefOff     xxx links to shDerefOp
-shDerefOp      xxx links to shOperator
-shDerefVarArray xxx cleared
-shDerefOpError xxx links to Error
-shEchoQuote    xxx links to shString
-shCharClass    xxx links to shSpecial
-shDblBrace     xxx cleared
-shRepeat       xxx links to Repeat
-shDblParen     xxx cleared
-shBeginHere    xxx links to shRedir
-shHerePayload  xxx links to shHereDoc
-shWrapLineOperator xxx links to shOperator
-shSetOption    xxx links to shOption
-shAtExpr       xxx links to shSetList
-shFunctionKey  xxx links to Function
-shFunctionOne  xxx cleared
-shFunctionTwo  xxx cleared
-shConditional  xxx links to Conditional
-shForPP        xxx links to shLoop
-shSet          xxx links to Statement
-shTestOpr      xxx links to shConditional
-shTouch        xxx cleared
-shSpecialNoZS  xxx links to shSpecial
-shEchoDelim    xxx links to shOperator
-shQuickComment xxx links to shComment
-shSpecialVar   xxx cleared
-shEmbeddedEcho xxx links to shString
-shTouchCmd     xxx links to shStatement
-shPattern      xxx links to shString
-shExprRegion   xxx links to Delimiter
-shSpecialNxt   xxx links to shSpecial
-shSubShRegion  xxx links to shOperator
-shRange        xxx links to shOperator
-shNoQuote      xxx links to shDoubleQuote
-shString       xxx links to String
-shAstQuote     xxx links to shDoubleQuote
-shTestDoubleQuote xxx links to shString
-shTestSingleQuote xxx links to shString
-shTestPattern  xxx links to shString
-shLoop         xxx links to shStatement
-shCurlyIn      xxx cleared
-shSnglCase     xxx links to Statement
-shQuote        xxx links to shOperator
-shArithRegion  xxx links to shShellVariables
-shSkipInitWS   xxx cleared
-bashAdminStatement xxx links to shStatement
-shBkslshSnglQuote xxx cleared
-shBkslshDblQuote xxx cleared
-shTodo         xxx links to Todo
-shHereDoc01    xxx links to shRedir
-shHereDoc02    xxx links to shRedir
-shHereDoc03    xxx links to shRedir
-shHereDoc04    xxx links to shRedir
-shHereDoc05    xxx links to shRedir
-shHereDoc06    xxx links to shRedir
-shHereDoc07    xxx links to shRedir
-shHereDoc08    xxx links to shRedir
-shHereDoc09    xxx links to shRedir
-shHereDoc10    xxx links to shRedir
-shHereDoc11    xxx links to shRedir
-shHereDoc12    xxx links to shRedir
-shHereDoc13    xxx links to shRedir
-shHereDoc14    xxx links to shRedir
-shHereDoc15    xxx links to shRedir
-shVarAssign    xxx cleared
-shSetListDelim xxx links to shOperator
-shFunction     xxx links to Function
-shFunctionStart xxx cleared
-shFunctionThree xxx cleared
-shFunctionFour xxx cleared
-shDerefPattern xxx cleared
-shDerefString  xxx links to shDoubleQuote
-shDerefEscape  xxx cleared
-shDerefDelim   xxx links to shOperator
-shDerefLen     xxx links to shDerefOff
-shDerefPPSleft xxx cleared
-shDerefPPSright xxx cleared
-shDerefPSRleft xxx cleared
-shDerefPSRright xxx cleared
-shCondError    xxx links to Error
-shCaseEsacSync xxx cleared
-shDoSync       xxx cleared
-shForSync      xxx cleared
-shIfSync       xxx cleared
-shUntilSync    xxx cleared
-shWhileSync    xxx cleared
-shShellVariables xxx links to PreProc
-shDerefPOL     xxx links to shDerefOp
-shFunctionName xxx links to Function
+" To generate the contents of the function herein:
+"
+" 1. Run
+"
+"   :TabMessage highlight
+"
+" 2. Copy that output and paste it into the function
+"    block, below, overwriting everything else.
+"
+" 3. Regex it:
+"
+"   :.,$s/^\([^ ]\+\) \+xxx \(.*\)$/:highlight \1 \2/gc
+"
+"   MAYBE/2017-12-01: I couldn't get [^\s] to work: it finds not "s" or "S"!
+"
+" 4. Fix all the "links to" lines:
+"
+"   :.,$s/^\s*:highlight \([a-zA-Z0-9]\+\) links to \([a-zA-Z0-9]\+\)$/:highlight link \1 \2/gc
+"
+" 5. Fix all the "cleared" lines:
+"
+"   :.,$s/^\s*:highlight \([a-zA-Z0-9]\+\) cleared$/:highlight clear \1/gc
+"
+" 6. Remove what's after "font=", because if it contains spaces,
+"    even delimiting them with "\" doesn't fix the line. E.g.,
+"      E416: missing equal sign: Regular 9
+"    and
+"      E416: missing equal sign: Regular\ 9
+"    when font=Hack Regular 9
+"      and
+"    when font=Hack\ Regular\ 9
+"
+"   :.,$s/ font=\([a-zA-Z0-9]\+\(\( \|$\)\)\)\+//gc
+"
+" 7. Tab indent, IYW.
+
+if exists("g:plugin_dubs_appearance__appearances__lighttime") || &cp
+  finish
+endif
+let g:plugin_dubs_appearance__appearances__lighttime = 1
+
+function g:Theme_Highlight_Nighttime()
+  :highlight SpecialKey ctermfg=8 guifg=DarkGrey
+  :highlight EndOfBuffer ctermfg=0 guifg=#3B4252
+  :highlight NonText term=bold ctermfg=8 gui=bold guifg=#7f7f7f
+  :highlight Directory term=bold ctermfg=6 guifg=#88C0D0
+  :highlight ErrorMsg term=standout ctermbg=1 guifg=#D8DEE9 guibg=#BF616A
+  :highlight IncSearch term=reverse cterm=underline ctermfg=0 ctermbg=6 gui=underline guifg=#3B4252 guibg=#88C0D0
+  :highlight Search term=reverse ctermfg=0 ctermbg=6 guifg=#3B4252 guibg=#88C0D0
+  :highlight MoreMsg term=bold ctermfg=2 gui=bold guifg=#D8DEE9
+  :highlight ModeMsg term=bold cterm=bold gui=bold guifg=#D8DEE9
+  :highlight LineNr ctermfg=8 guifg=DarkGrey
+  :highlight CursorLineNr term=bold gui=bold guifg=#4C566A guibg=#2E3440
+  :highlight Question term=standout gui=bold guifg=#D8DEE9
+  :highlight StatusLine term=bold,reverse ctermfg=6 ctermbg=8 guifg=Yellow guibg=DarkGreen
+  :highlight StatusLineNC term=reverse ctermfg=7 ctermbg=1 guifg=LightGray guibg=DarkBlue
+  :highlight VertSplit term=reverse ctermfg=0 ctermbg=0 guifg=#060606 guibg=#060606
+  :highlight Title term=bold guifg=#D8DEE9
+  :highlight Visual term=reverse cterm=reverse ctermbg=0 guibg=#434C5E
+  :highlight VisualNOS term=bold,underline cterm=bold,underline ctermbg=0 gui=bold,underline guibg=#434C5E
+  :highlight WarningMsg term=standout ctermfg=0 ctermbg=3 guifg=#2E3440 guibg=#EBCB8B
+  :highlight WildMenu term=standout ctermfg=6 ctermbg=8 guifg=#88C0D0 guibg=#4C566A
+  :highlight Folded term=standout cterm=bold ctermfg=8 ctermbg=0 gui=bold guifg=#4C566A guibg=#3B4252
+  :highlight FoldColumn term=standout ctermfg=8 guifg=#4C566A guibg=#2E3440
+  :highlight DiffAdd term=bold ctermfg=2 ctermbg=9 guifg=#A3BE8C guibg=LightBlue
+  :highlight DiffChange term=bold ctermfg=3 ctermbg=13 guifg=#EBCB8B guibg=LightMagenta
+  :highlight DiffDelete term=bold ctermfg=1 ctermbg=11 gui=bold guifg=#BF616A guibg=LightCyan
+  :highlight DiffText term=reverse cterm=bold ctermbg=12 gui=bold guifg=#D8DEE9 guibg=Red
+  :highlight SignColumn term=standout ctermfg=0 guifg=#3B4252 guibg=#2E3440
+  :highlight Conceal ctermfg=7 ctermbg=8 guifg=LightGrey guibg=DarkGrey
+  :highlight SpellBad term=reverse cterm=undercurl gui=undercurl guibg=#2E3440 guisp=#BF616A
+  :highlight SpellCap term=reverse cterm=undercurl gui=undercurl guibg=#2E3440 guisp=#EBCB8B
+  :highlight SpellRare term=reverse cterm=undercurl gui=undercurl guibg=#2E3440 guisp=#ECEFF4
+  :highlight SpellLocal term=underline cterm=undercurl gui=undercurl guibg=#2E3440 guisp=#E5E9F0
+  :highlight Pmenu ctermbg=0 guifg=#D8DEE9 guibg=#434C5E
+  :highlight PmenuSel ctermfg=6 ctermbg=8 guifg=#88C0D0 guibg=#4C566A
+  :highlight PmenuSbar ctermbg=0 guifg=#D8DEE9 guibg=#434C5E
+  :highlight PmenuThumb ctermbg=8 guifg=#88C0D0 guibg=#4C566A
+  :highlight TabLine term=underline ctermbg=0 guifg=#D8DEE9 guibg=#3B4252
+  :highlight TabLineSel term=bold ctermfg=6 ctermbg=8 guifg=#88C0D0 guibg=#4C566A
+  :highlight TabLineFill term=reverse ctermbg=0 guifg=#D8DEE9 guibg=#3B4252
+  :highlight CursorColumn term=reverse ctermbg=0 guibg=#3B4252
+  :highlight CursorLine term=underline ctermbg=0 guibg=#3B4252
+  :highlight ColorColumn term=reverse ctermfg=14 ctermbg=2 guifg=#D8DEE9 guibg=#2E3440
+  :highlight link QuickFixLine Search
+  :highlight StatusLineTerm term=bold,reverse cterm=bold ctermfg=15 ctermbg=2 gui=bold guifg=bg guibg=DarkGreen
+  :highlight StatusLineTermNC term=reverse ctermfg=15 ctermbg=2 guifg=bg guibg=DarkGreen
+  :highlight Cursor guifg=#2E3440 guibg=#D8DEE9
+  :highlight lCursor guifg=bg guibg=fg
+  :highlight MatchParen term=reverse ctermfg=0 ctermbg=6 guifg=#2E3440 guibg=#88C0D0
+  :highlight Normal ctermfg=15 guifg=White guibg=#060606
+  :highlight ToolbarLine term=underline ctermbg=7 guibg=LightGrey
+  :highlight ToolbarButton cterm=bold ctermfg=15 ctermbg=8 gui=bold guifg=White guibg=Grey40
+  :highlight Comment term=bold ctermfg=8 guifg=#b38a82
+  :highlight Constant term=underline guifg=#D8DEE9
+  :highlight Special term=bold guifg=#D8DEE9
+  :highlight Identifier term=underline guifg=#D8DEE9
+  :highlight Statement term=bold ctermfg=4 gui=bold guifg=#81A1C1
+  :highlight PreProc term=underline ctermfg=4 guifg=#81A1C1
+  :highlight Type term=underline ctermfg=4 guifg=#81A1C1
+  :highlight Underlined term=underline cterm=underline ctermfg=5 gui=underline guifg=SlateBlue
+  :highlight Ignore ctermfg=15 guifg=bg
+  :highlight Error term=reverse ctermfg=15 ctermbg=12 guifg=White guibg=Red
+  :highlight Todo term=standout ctermfg=3 guifg=#EBCB8B guibg=Yellow
+  :highlight String ctermfg=2 guifg=#A3BE8C
+  :highlight Character ctermfg=2 guifg=#A3BE8C
+  :highlight Number ctermfg=5 guifg=#B48EAD
+  :highlight Boolean ctermfg=4 guifg=#81A1C1
+  :highlight Float ctermfg=5 guifg=#B48EAD
+  :highlight Function ctermfg=6 guifg=#88C0D0
+  :highlight Conditional ctermfg=4 guifg=#81A1C1
+  :highlight Repeat ctermfg=4 guifg=#81A1C1
+  :highlight Label ctermfg=4 guifg=#81A1C1
+  :highlight Operator ctermfg=4 guifg=#81A1C1
+  :highlight Keyword ctermfg=4 guifg=#81A1C1
+  :highlight Exception ctermfg=4 guifg=#81A1C1
+  :highlight Include ctermfg=4 guifg=#81A1C1
+  :highlight Define ctermfg=4 guifg=#81A1C1
+  :highlight link Macro Define
+  :highlight link PreCondit PreProc
+  :highlight StorageClass ctermfg=4 guifg=#81A1C1
+  :highlight Structure ctermfg=4 guifg=#81A1C1
+  :highlight Typedef ctermfg=4 guifg=#81A1C1
+  :highlight Tag guifg=#D8DEE9
+  :highlight SpecialChar ctermfg=3 guifg=#EBCB8B
+  :highlight Delimiter ctermfg=15 guifg=#ECEFF4
+  :highlight SpecialComment ctermfg=6 guifg=#88C0D0
+  :highlight link Debug Special
+  :highlight MyErrorMsg term=standout ctermfg=15 ctermbg=4 guibg=LightBlue
+  :highlight link SyntasticError SpellBad
+  :highlight link SyntasticWarning SpellCap
+  :highlight link SyntasticStyleError SyntasticError
+  :highlight link SyntasticStyleWarning SyntasticWarning
+  :highlight link GPGWarning WarningMsg
+  :highlight link GPGError ErrorMsg
+  :highlight link GPGHighlightUnknownRecipient ErrorMsg
+  :highlight link vimTodo Todo
+  :highlight link vimCommand Statement
+  :highlight clear vimStdPlugin
+  :highlight link vimOption PreProc
+  :highlight link vimErrSetting vimError
+  :highlight link vimAutoEvent Type
+  :highlight link vimGroup Type
+  :highlight link vimHLGroup vimGroup
+  :highlight link vimFuncName Function
+  :highlight clear vimGlobal
+  :highlight link vimSubst vimCommand
+  :highlight link vimNumber Number
+  :highlight link vimAddress vimMark
+  :highlight link vimAutoCmd vimCommand
+  :highlight clear vimIsCommand
+  :highlight clear vimExtCmd
+  :highlight clear vimFilter
+  :highlight link vimLet vimCommand
+  :highlight link vimMap vimCommand
+  :highlight link vimMark Number
+  :highlight clear vimSet
+  :highlight link vimSyntax vimCommand
+  :highlight clear vimUserCmd
+  :highlight clear vimCmdSep
+  :highlight link vimVar Identifier
+  :highlight link vimFBVar vimVar
+  :highlight link vimInsert vimString
+  :highlight link vimBehaveModel vimBehave
+  :highlight link vimBehaveError vimError
+  :highlight link vimBehave vimCommand
+  :highlight link vimFTCmd vimCommand
+  :highlight link vimFTOption vimSynType
+  :highlight link vimFTError vimError
+  :highlight clear vimFiletype
+  :highlight vimAugroup ctermfg=14 guifg=#8FBCBB
+  :highlight clear vimExecute
+  :highlight link vimNotFunc vimCommand
+  :highlight link vimFunction Function
+  :highlight link vimFunctionError vimError
+  :highlight link vimLineComment vimComment
+  :highlight link vimSpecFile Identifier
+  :highlight link vimOper Operator
+  :highlight clear vimOperParen
+  :highlight link vimComment Comment
+  :highlight link vimString String
+  :highlight link vimRegister SpecialChar
+  :highlight link vimCmplxRepeat SpecialChar
+  :highlight clear vimRegion
+  :highlight clear vimSynLine
+  :highlight vimNotation ctermfg=14 guifg=#8FBCBB
+  :highlight link vimCtrlChar SpecialChar
+  :highlight link vimFuncVar Identifier
+  :highlight link vimContinue Special
+  :highlight link vimAugroupKey vimCommand
+  :highlight link vimAugroupError vimError
+  :highlight link vimEnvvar PreProc
+  :highlight link vimFunc Function
+  :highlight link vimParenSep Delimiter
+  :highlight link vimSep Delimiter
+  :highlight link vimOperError Error
+  :highlight link vimFuncKey vimCommand
+  :highlight link vimFuncSID Special
+  :highlight link vimAbb vimCommand
+  :highlight clear vimEcho
+  :highlight link vimEchoHL vimCommand
+  :highlight clear vimIf
+  :highlight link vimHighlight vimCommand
+  :highlight link vimNorm vimCommand
+  :highlight link vimUnmap vimMap
+  :highlight link vimUserCommand vimCommand
+  :highlight clear vimFuncBody
+  :highlight clear vimFuncBlank
+  :highlight link vimPattern Type
+  :highlight link vimSpecFileMod vimSpecFile
+  :highlight clear vimEscapeBrace
+  :highlight clear vimSetEqual
+  :highlight link vimSetString vimString
+  :highlight clear vimSubstRep
+  :highlight clear vimSubstRange
+  :highlight link vimUserAttrb vimSpecial
+  :highlight link vimUserAttrbError Error
+  :highlight link vimUserAttrbKey vimOption
+  :highlight link vimUserAttrbCmplt vimSpecial
+  :highlight link vimUserCmdError Error
+  :highlight link vimUserAttrbCmpltFunc Special
+  :highlight link vimCommentString vimString
+  :highlight link vimPatSepErr vimPatSep
+  :highlight link vimPatSep SpecialChar
+  :highlight link vimPatSepZ vimPatSep
+  :highlight link vimPatSepZone vimString
+  :highlight link vimPatSepR vimPatSep
+  :highlight clear vimPatRegion
+  :highlight link vimNotPatSep vimString
+  :highlight link vimStringCont vimString
+  :highlight link vimSubstTwoBS vimString
+  :highlight link vimSubstSubstr SpecialChar
+  :highlight clear vimCollection
+  :highlight clear vimSubstPat
+  :highlight link vimSubst1 vimSubst
+  :highlight link vimSubstDelim Delimiter
+  :highlight clear vimSubstRep4
+  :highlight link vimSubstFlagErr vimError
+  :highlight clear vimCollClass
+  :highlight link vimCollClassErr vimError
+  :highlight link vimSubstFlags Special
+  :highlight link vimMarkNumber vimNumber
+  :highlight link vimPlainMark vimMark
+  :highlight link vimPlainRegister vimRegister
+  :highlight link vimSetMod vimOption
+  :highlight link vimSetSep Statement
+  :highlight link vimMapMod vimBracket
+  :highlight clear vimMapLhs
+  :highlight clear vimAutoCmdSpace
+  :highlight clear vimAutoEventList
+  :highlight clear vimAutoCmdSfxList
+  :highlight link vimEchoHLNone vimGroup
+  :highlight link vimMapBang vimCommand
+  :highlight vimMapRhs ctermfg=14 guifg=#8FBCBB
+  :highlight link vimMapModKey vimFuncSID
+  :highlight link vimMapModErr vimError
+  :highlight clear vimMapRhsExtend
+  :highlight clear vimMenuBang
+  :highlight clear vimMenuPriority
+  :highlight link vimMenuName PreProc
+  :highlight link vimMenuMod vimMapMod
+  :highlight link vimMenuNameMore vimMenuName
+  :highlight clear vimMenuMap
+  :highlight clear vimMenuRhs
+  :highlight link vimBracket Delimiter
+  :highlight link vimUserFunc Function
+  :highlight link vimElseIfErr Error
+  :highlight link vimBufnrWarn vimWarn
+  :highlight clear vimNormCmds
+  :highlight link vimGroupSpecial Special
+  :highlight clear vimGroupList
+  :highlight link vimSynError Error
+  :highlight link vimSynContains vimSynOption
+  :highlight link vimSynKeyContainedin vimSynContains
+  :highlight link vimSynNextgroup vimSynOption
+  :highlight link vimSynType vimSpecial
+  :highlight clear vimAuSyntax
+  :highlight link vimSynCase Type
+  :highlight link vimSynCaseError vimError
+  :highlight clear vimClusterName
+  :highlight link vimGroupName vimGroup
+  :highlight link vimGroupAdd vimSynOption
+  :highlight link vimGroupRem vimSynOption
+  :highlight clear vimIskList
+  :highlight link vimIskSep Delimiter
+  :highlight link vimSynKeyOpt vimSynOption
+  :highlight clear vimSynKeyRegion
+  :highlight link vimMtchComment vimComment
+  :highlight link vimSynMtchOpt vimSynOption
+  :highlight link vimSynRegPat vimString
+  :highlight clear vimSynMatchRegion
+  :highlight clear vimSynMtchCchar
+  :highlight clear vimSynMtchGroup
+  :highlight link vimSynPatRange vimString
+  :highlight link vimSynNotPatRange vimSynRegPat
+  :highlight link vimSynRegOpt vimSynOption
+  :highlight link vimSynReg Type
+  :highlight link vimSynMtchGrp vimSynOption
+  :highlight clear vimSynRegion
+  :highlight clear vimSynPatMod
+  :highlight link vimSyncC Type
+  :highlight clear vimSyncLines
+  :highlight clear vimSyncMatch
+  :highlight link vimSyncError Error
+  :highlight clear vimSyncLinebreak
+  :highlight clear vimSyncLinecont
+  :highlight clear vimSyncRegion
+  :highlight link vimSyncGroupName vimGroupName
+  :highlight link vimSyncKey Type
+  :highlight link vimSyncGroup vimGroupName
+  :highlight link vimSyncNone Type
+  :highlight clear vimHiLink
+  :highlight link vimHiClear vimHighlight
+  :highlight clear vimHiKeyList
+  :highlight link vimHiCtermError vimError
+  :highlight clear vimHiBang
+  :highlight link vimHiGroup vimGroupName
+  :highlight link vimHiAttrib PreProc
+  :highlight link vimFgBgAttrib vimHiAttrib
+  :highlight link vimHiAttribList vimError
+  :highlight clear vimHiCtermColor
+  :highlight clear vimHiFontname
+  :highlight clear vimHiGuiFontname
+  :highlight link vimHiGuiRgb vimNumber
+  :highlight link vimHiTerm Type
+  :highlight link vimHiCTerm vimHiTerm
+  :highlight link vimHiStartStop vimHiTerm
+  :highlight link vimHiCtermFgBg vimHiTerm
+  :highlight link vimHiGui vimHiTerm
+  :highlight link vimHiGuiFont vimHiTerm
+  :highlight link vimHiGuiFgBg vimHiTerm
+  :highlight link vimHiKeyError vimError
+  :highlight clear vimHiTermcap
+  :highlight link vimHiNmbr Number
+  :highlight link vimCommentTitle PreProc
+  :highlight clear vimCommentTitleLeader
+  :highlight link vimSearchDelim Statement
+  :highlight link vimSearch vimString
+  :highlight link vimEmbedError vimError
+  :highlight link rubyConditional Conditional
+  :highlight link rubyExceptional rubyConditional
+  :highlight link rubyMethodExceptional rubyDefine
+  :highlight link rubyTodo Todo
+  :highlight link rubyStringEscape Special
+  :highlight link rubyQuoteEscape rubyStringEscape
+  :highlight link rubyInterpolationDelimiter Keyword
+  :highlight clear rubyInterpolation
+  :highlight link rubyInstanceVariable rubyIdentifier
+  :highlight link rubyClassVariable rubyIdentifier
+  :highlight link rubyGlobalVariable rubyIdentifier
+  :highlight link rubyPredefinedVariable rubyPredefinedIdentifier
+  :highlight link rubyInvalidVariable Error
+  :highlight link rubyNoInterpolation rubyString
+  :highlight clear NONE
+  :highlight clear rubyDelimiterEscape
+  :highlight link rubyString String
+  :highlight clear rubyNestedParentheses
+  :highlight clear rubyNestedCurlyBraces
+  :highlight clear rubyNestedAngleBrackets
+  :highlight clear rubyNestedSquareBrackets
+  :highlight link rubyRegexpSpecial Special
+  :highlight link rubyRegexpComment Comment
+  :highlight clear rubyRegexpParens
+  :highlight link rubyRegexpCharClass rubyRegexpSpecial
+  :highlight link rubyRegexpEscape rubyRegexpSpecial
+  :highlight clear rubyRegexpBrackets
+  :highlight link rubyRegexpQuantifier rubyRegexpSpecial
+  :highlight link rubyRegexpAnchor rubyRegexpSpecial
+  :highlight link rubyRegexpDot rubyRegexpCharClass
+  :highlight link rubyASCIICode Character
+  :highlight link rubyInteger Number
+  :highlight link rubyFloat Float
+  :highlight link rubyLocalVariableOrMethod Function
+  :highlight clear rubyBlockArgument
+  :highlight rubyConstant ctermfg=14 guifg=#8FBCBB
+  :highlight rubySymbol cterm=bold ctermfg=15 gui=bold guifg=#ECEFF4
+  :highlight link rubyCapitalizedMethod rubyLocalVariableOrMethod
+  :highlight link rubyBlockParameter rubyIdentifier
+  :highlight link rubyBlockParameterList Operator
+  :highlight link rubyPredefinedConstant rubyPredefinedIdentifier
+  :highlight link rubyRegexpDelimiter rubyStringDelimiter
+  :highlight link rubyRegexp SpecialChar
+  :highlight link rubyStringDelimiter Delimiter
+  :highlight link rubySymbolDelimiter rubySymbol
+  :highlight clear rubyHeredocStart
+  :highlight link rubyHeredoc rubyString
+  :highlight clear rubyAliasDeclaration2
+  :highlight clear rubyAliasDeclaration
+  :highlight link rubyBoolean Boolean
+  :highlight link rubyPseudoVariable Keyword
+  :highlight clear rubyMethodDeclaration
+  :highlight link rubyOperator Operator
+  :highlight clear rubyClassDeclaration
+  :highlight clear rubyModuleDeclaration
+  :highlight link rubyFunction Function
+  :highlight link rubyControl Statement
+  :highlight link rubyKeyword Keyword
+  :highlight link rubyBeginEnd Statement
+  :highlight link rubyDefine Define
+  :highlight link rubyClass rubyDefine
+  :highlight link rubyModule rubyDefine
+  :highlight clear rubyMethodBlock
+  :highlight clear rubyBlock
+  :highlight link rubyConditionalModifier rubyConditional
+  :highlight link rubyRepeatModifier rubyRepeat
+  :highlight clear rubyLineContinuation
+  :highlight clear rubyDoBlock
+  :highlight clear rubyCurlyBlockDelimiter
+  :highlight clear rubyCurlyBlock
+  :highlight clear rubyArrayDelimiter
+  :highlight clear rubyArrayLiteral
+  :highlight clear rubyBlockExpression
+  :highlight clear rubyCaseExpression
+  :highlight clear rubyConditionalExpression
+  :highlight link rubyRepeat Repeat
+  :highlight link rubyOptionalDo rubyRepeat
+  :highlight clear rubyOptionalDoLine
+  :highlight clear rubyRepeatExpression
+  :highlight link rubyAccess Statement
+  :highlight link rubyAttribute Identifier
+  :highlight link rubyEval Statement
+  :highlight link rubyException Exception
+  :highlight link rubyInclude Include
+  :highlight link rubySharpBang PreProc
+  :highlight link rubySpaceError rubyError
+  :highlight link rubyComment Comment
+  :highlight clear rubyMultilineComment
+  :highlight link rubyDocumentation Comment
+  :highlight link rubyKeywordAsMethod Function
+  :highlight link rubyDataDirective Delimiter
+  :highlight link rubyData Comment
+  :highlight link rubyIdentifier Identifier
+  :highlight link rubyPredefinedIdentifier rubyIdentifier
+  :highlight link rubyError Error
+  :highlight link vimScriptDelim Comment
+  :highlight clear vimRubyRegion
+  :highlight link pythonStatement Statement
+  :highlight link pythonFunction Function
+  :highlight link pythonConditional Conditional
+  :highlight link pythonRepeat Repeat
+  :highlight link pythonOperator Operator
+  :highlight link pythonException Exception
+  :highlight link pythonInclude Include
+  :highlight link pythonAsync Statement
+  :highlight link pythonDecorator Define
+  :highlight link pythonDecoratorName Function
+  :highlight link pythonDoctestValue Define
+  :highlight clear pythonMatrixMultiply
+  :highlight link pythonTodo Todo
+  :highlight link pythonComment Comment
+  :highlight link pythonQuotes String
+  :highlight link pythonEscape SpecialChar
+  :highlight link pythonString String
+  :highlight link pythonTripleQuotes pythonQuotes
+  :highlight clear pythonSpaceError
+  :highlight link pythonDoctest Special
+  :highlight link pythonRawString String
+  :highlight link pythonNumber Number
+  :highlight link pythonBuiltin Type
+  :highlight clear pythonAttribute
+  :highlight link pythonExceptions Structure
+  :highlight clear pythonSync
+  :highlight clear vimPythonRegion
+  :highlight clear vimAugroupSyncA
+  :highlight link vimError Error
+  :highlight link vimKeyCodeError vimError
+  :highlight link vimWarn WarningMsg
+  :highlight link vimAuHighlight vimHighlight
+  :highlight link vimAutoCmdOpt vimOption
+  :highlight link vimAutoSet vimCommand
+  :highlight link vimCondHL vimCommand
+  :highlight link vimElseif vimCondHL
+  :highlight link vimFold Folded
+  :highlight link vimSynOption Special
+  :highlight link vimHLMod PreProc
+  :highlight link vimKeyCode vimSpecFile
+  :highlight link vimKeyword Statement
+  :highlight link vimSpecial Type
+  :highlight link vimStatement Statement
+  :highlight link SyntasticErrorSign Error
+  :highlight link SyntasticWarningSign Todo
+  :highlight link SyntasticStyleErrorSign SyntasticErrorSign
+  :highlight link SyntasticStyleWarningSign SyntasticWarningSign
+  :highlight link SyntasticStyleErrorLine SyntasticErrorLine
+  :highlight clear SyntasticErrorLine
+  :highlight link SyntasticStyleWarningLine SyntasticWarningLine
+  :highlight clear SyntasticWarningLine
+  :highlight Bold cterm=bold gui=bold
+  :highlight clear Italic
+  :highlight Underline cterm=underline gui=underline
+  :highlight iCursor guifg=#2E3440 guibg=#D8DEE9
+  :highlight healthError ctermfg=1 ctermbg=0 guifg=#BF616A guibg=#3B4252
+  :highlight healthSuccess ctermfg=2 ctermbg=0 guifg=#A3BE8C guibg=#3B4252
+  :highlight healthWarning ctermfg=3 ctermbg=0 guifg=#EBCB8B guibg=#3B4252
+  :highlight awkCharClass ctermfg=14 guifg=#8FBCBB
+  :highlight awkPatterns cterm=bold ctermfg=4 gui=bold guifg=#81A1C1
+  :highlight link awkArrayElement Identifier
+  :highlight link awkBoolLogic Keyword
+  :highlight link awkBrktRegExp SpecialChar
+  :highlight link awkComma Delimiter
+  :highlight link awkExpression Keyword
+  :highlight link awkFieldVars Identifier
+  :highlight link awkLineSkip Keyword
+  :highlight link awkOperator Operator
+  :highlight link awkRegExp SpecialChar
+  :highlight link awkSearch Keyword
+  :highlight link awkSemicolon Delimiter
+  :highlight link awkSpecialCharacter SpecialChar
+  :highlight link awkSpecialPrintf SpecialChar
+  :highlight link awkVariables Identifier
+  :highlight cIncluded ctermfg=14 guifg=#8FBCBB
+  :highlight link cOperator Operator
+  :highlight link cPreCondit PreCondit
+  :highlight link csPreCondit PreCondit
+  :highlight link csType Type
+  :highlight link csXmlTag SpecialComment
+  :highlight cssAttributeSelector ctermfg=14 guifg=#8FBCBB
+  :highlight cssDefinition ctermfg=14 guifg=#8FBCBB
+  :highlight cssIdentifier cterm=underline ctermfg=14 gui=underline guifg=#8FBCBB
+  :highlight cssStringQ ctermfg=14 guifg=#8FBCBB
+  :highlight link cssAttr Keyword
+  :highlight link cssBraces Delimiter
+  :highlight link cssClassName cssDefinition
+  :highlight link cssColor Number
+  :highlight link cssProp cssDefinition
+  :highlight link cssPseudoClass cssDefinition
+  :highlight link cssPseudoClassId cssPseudoClass
+  :highlight link cssVendor Keyword
+  :highlight dosiniHeader ctermfg=6 guifg=#88C0D0
+  :highlight link dosiniLabel Type
+  :highlight dtBooleanKey ctermfg=14 guifg=#8FBCBB
+  :highlight dtExecKey ctermfg=14 guifg=#8FBCBB
+  :highlight dtLocaleKey ctermfg=14 guifg=#8FBCBB
+  :highlight dtNumericKey ctermfg=14 guifg=#8FBCBB
+  :highlight dtTypeKey ctermfg=14 guifg=#8FBCBB
+  :highlight link dtDelim Delimiter
+  :highlight link dtLocaleValue Keyword
+  :highlight link dtTypeValue Keyword
+  :highlight diffAdded ctermfg=2 guifg=#A3BE8C
+  :highlight diffChanged ctermfg=3 guifg=#EBCB8B
+  :highlight diffNewFile ctermfg=6 guifg=#88C0D0
+  :highlight diffOldFile ctermfg=14 guifg=#8FBCBB
+  :highlight diffRemoved ctermfg=1 guifg=#BF616A
+  :highlight gitconfigVariable ctermfg=14 guifg=#8FBCBB
+  :highlight goBuiltins ctermfg=14 guifg=#8FBCBB
+  :highlight link goConstants Keyword
+  :highlight htmlArg ctermfg=14 guifg=#8FBCBB
+  :highlight htmlLink guifg=#D8DEE9
+  :highlight link htmlBold Bold
+  :highlight link htmlEndTag htmlTag
+  :highlight link htmlTag Keyword
+  :highlight link htmlItalic Italic
+  :highlight link htmlSpecialChar SpecialChar
+  :highlight link htmlTagN htmlTag
+  :highlight javaDocTags ctermfg=14 guifg=#8FBCBB
+  :highlight link javaCommentTitle Comment
+  :highlight link javaScriptBraces Delimiter
+  :highlight link javaScriptIdentifier Keyword
+  :highlight link javaScriptNumber Number
+  :highlight jsonKeyword ctermfg=14 guifg=#8FBCBB
+  :highlight lessClass ctermfg=14 guifg=#8FBCBB
+  :highlight link lessAmpersand Keyword
+  :highlight link lessCssAttribute Delimiter
+  :highlight link lessFunction Function
+  :highlight link cssSelectorOp Keyword
+  :highlight link lispAtomBarSymbol SpecialChar
+  :highlight link lispAtomList SpecialChar
+  :highlight link lispAtomMark Keyword
+  :highlight link lispBarSymbol SpecialChar
+  :highlight link lispFunc Function
+  :highlight link luaFunc Function
+  :highlight markdownBlockquote ctermfg=14 guifg=#8FBCBB
+  :highlight markdownCode ctermfg=14 guifg=#8FBCBB
+  :highlight markdownCodeDelimiter ctermfg=14 guifg=#8FBCBB
+  :highlight markdownFootnote ctermfg=14 guifg=#8FBCBB
+  :highlight markdownId ctermfg=14 guifg=#8FBCBB
+  :highlight markdownIdDeclaration ctermfg=14 guifg=#8FBCBB
+  :highlight markdownH1 ctermfg=6 guifg=#88C0D0
+  :highlight markdownLinkText ctermfg=14 guifg=#8FBCBB
+  :highlight markdownUrl guifg=#D8DEE9
+  :highlight link markdownFootnoteDefinition markdownFootnote
+  :highlight link markdownH2 markdownH1
+  :highlight link markdownH3 markdownH1
+  :highlight link markdownH4 markdownH1
+  :highlight link markdownH5 markdownH1
+  :highlight link markdownH6 markdownH1
+  :highlight link markdownIdDelimiter Keyword
+  :highlight link markdownLinkDelimiter Keyword
+  :highlight link markdownLinkTextDelimiter Keyword
+  :highlight link markdownListMarker Keyword
+  :highlight link markdownRule Keyword
+  :highlight link markdownHeadingDelimiter Keyword
+  :highlight perlPackageDecl ctermfg=14 guifg=#8FBCBB
+  :highlight phpClasses ctermfg=14 guifg=#8FBCBB
+  :highlight phpDocTags ctermfg=14 guifg=#8FBCBB
+  :highlight link phpDocCustomTags phpDocTags
+  :highlight link phpMemberSelector Keyword
+  :highlight podCmdText ctermfg=14 guifg=#8FBCBB
+  :highlight podVerbatimLine guifg=#D8DEE9
+  :highlight link podFormat Keyword
+  :highlight sassClass ctermfg=14 guifg=#8FBCBB
+  :highlight sassId cterm=underline ctermfg=14 gui=underline guifg=#8FBCBB
+  :highlight link sassAmpersand Keyword
+  :highlight link sassClassChar Delimiter
+  :highlight link sassControl Keyword
+  :highlight link sassControlLine Keyword
+  :highlight link sassExtend Keyword
+  :highlight link sassFor Keyword
+  :highlight link sassFunctionDecl Keyword
+  :highlight link sassFunctionName Function
+  :highlight link sassidChar sassId
+  :highlight link sassInclude SpecialChar
+  :highlight link sassMixinName Function
+  :highlight link sassMixing SpecialChar
+  :highlight link sassReturn Keyword
+  :highlight link shCmdParenRegion Delimiter
+  :highlight link shCmdSubRegion Delimiter
+  :highlight link shDerefSimple Identifier
+  :highlight link shDerefVar Identifier
+  :highlight link sqlKeyword Keyword
+  :highlight link sqlSpecial Keyword
+  :highlight xmlAttrib ctermfg=14 guifg=#8FBCBB
+  :highlight xmlCdataStart cterm=bold ctermfg=8 gui=bold guifg=#4C566A
+  :highlight xmlNamespace ctermfg=14 guifg=#8FBCBB
+  :highlight link xmlAttribPunct Delimiter
+  :highlight link xmlCdata Comment
+  :highlight link xmlCdataCdata xmlCdataStart
+  :highlight link xmlCdataEnd xmlCdataStart
+  :highlight link xmlEndTag xmlTagName
+  :highlight link xmlTagName Keyword
+  :highlight link xmlProcessingDelim Keyword
+  :highlight yamlBlockMappingKey ctermfg=14 guifg=#8FBCBB
+  :highlight link yamlBool Keyword
+  :highlight link yamlDocumentStart Keyword
+  :highlight ALEWarningSign ctermfg=3 guifg=#EBCB8B
+  :highlight ALEErrorSign ctermfg=1 guifg=#BF616A
+  :highlight GitGutterAdd ctermfg=2 guifg=#A3BE8C
+  :highlight GitGutterChange ctermfg=3 guifg=#EBCB8B
+  :highlight GitGutterChangeDelete ctermfg=1 guifg=#BF616A
+  :highlight GitGutterDelete ctermfg=1 guifg=#BF616A
+  :highlight jediFunction ctermbg=8 guifg=#D8DEE9 guibg=#4C566A
+  :highlight jediFat cterm=bold,underline ctermfg=6 ctermbg=8 gui=bold,underline guifg=#88C0D0 guibg=#4C566A
+  :highlight NERDTreeExecFile ctermfg=14 guifg=#8FBCBB
+  :highlight link NERDTreeDirSlash Keyword
+  :highlight link NERDTreeHelp Comment
+  :highlight link CtrlPMatch Keyword
+  :highlight link CtrlPBufferHid Normal
+  :highlight jsGlobalNodeObjects ctermfg=6 guifg=#88C0D0
+  :highlight link jsBrackets Delimiter
+  :highlight link jsFuncCall Function
+  :highlight link jsFuncParens Delimiter
+  :highlight link jsNoise Delimiter
+  :highlight link jsPrototype Keyword
+  :highlight link jsRegexpString SpecialChar
+  :highlight link projectDescription Identifier
+  :highlight link projectWhiteError Error
+  :highlight clear projectDescriptionDir
+  :highlight link projectDirectory Constant
+  :highlight link projectScriptinout Identifier
+  :highlight link projectComment Comment
+  :highlight clear projectCD
+  :highlight link projectFilterError Error
+  :highlight link projectFilter Identifier
+  :highlight link projectFilterRegexp String
+  :highlight clear projectFilterEntry
+  :highlight link projectExcludeError Error
+  :highlight link projectExclude Identifier
+  :highlight link projectExcludeRegexp String
+  :highlight clear projectExcludeEntry
+  :highlight link projectFlags Identifier
+  :highlight clear projectFlagsEntry
+  :highlight link projectFlagsValues String
+  :highlight link projectFlagsError Error
+  :highlight link projectFoldText Identifier
+  :highlight link shDoError Error
+  :highlight link shIfError Error
+  :highlight link shInError Error
+  :highlight link shCaseError Error
+  :highlight link shEsacError Error
+  :highlight link shCurlyError Error
+  :highlight link shParenError Error
+  :highlight link shTestError Error
+  :highlight clear shOK
+  :highlight link shArithmetic Special
+  :highlight clear shCaseEsac
+  :highlight link shComment Comment
+  :highlight link shDeref shShellVariables
+  :highlight clear shDo
+  :highlight link shEcho shString
+  :highlight link shEscape shCommandSub
+  :highlight link shNumber Number
+  :highlight link shOperator Operator
+  :highlight link shPosnParm shShellVariables
+  :highlight link shExSingleQuote shSingleQuote
+  :highlight link shExDoubleQuote shDoubleQuote
+  :highlight link shHereString shRedir
+  :highlight link shRedir shOperator
+  :highlight link shSingleQuote shString
+  :highlight link shDoubleQuote shString
+  :highlight link shStatement Statement
+  :highlight link shVariable shSetList
+  :highlight link shAlias Identifier
+  :highlight clear shTest
+  :highlight link shCtrlSeq Special
+  :highlight link shSpecial Special
+  :highlight link shParen shArithmetic
+  :highlight link bashSpecialVariables shShellVariables
+  :highlight link bashStatement shStatement
+  :highlight clear shIf
+  :highlight clear shFor
+  :highlight link shCaseStart shConditional
+  :highlight clear shCase
+  :highlight link shCaseBar shConditional
+  :highlight link shCaseIn shConditional
+  :highlight link shCaseCommandSub shCommandSub
+  :highlight clear shCaseExSingleQuote
+  :highlight link shCaseSingleQuote shSingleQuote
+  :highlight link shCaseDoubleQuote shDoubleQuote
+  :highlight link shStringSpecial shSpecial
+  :highlight clear shCaseRange
+  :highlight link shColon shComment
+  :highlight link shCommandSub Special
+  :highlight clear shExpr
+  :highlight link shHereDoc shString
+  :highlight link shSetList Identifier
+  :highlight link shSource shOperator
+  :highlight link shOption shCommandSub
+  :highlight clear shSubSh
+  :highlight clear shComma
+  :highlight link shDerefSpecial shDeref
+  :highlight link shDerefWordError Error
+  :highlight link shDerefPSR shDerefOp
+  :highlight link shDerefPPS shDerefOp
+  :highlight link shDerefOff shDerefOp
+  :highlight link shDerefOp shOperator
+  :highlight clear shDerefVarArray
+  :highlight link shDerefOpError Error
+  :highlight link shEchoQuote shString
+  :highlight link shCharClass shSpecial
+  :highlight clear shDblBrace
+  :highlight link shRepeat Repeat
+  :highlight clear shDblParen
+  :highlight link shBeginHere shRedir
+  :highlight link shHerePayload shHereDoc
+  :highlight link shWrapLineOperator shOperator
+  :highlight link shSetOption shOption
+  :highlight link shAtExpr shSetList
+  :highlight link shFunctionKey Function
+  :highlight clear shFunctionOne
+  :highlight clear shFunctionTwo
+  :highlight link shConditional Conditional
+  :highlight link shForPP shLoop
+  :highlight link shSet Statement
+  :highlight link shTestOpr shConditional
+  :highlight clear shTouch
+  :highlight link shSpecialNoZS shSpecial
+  :highlight link shEchoDelim shOperator
+  :highlight link shQuickComment shComment
+  :highlight clear shSpecialVar
+  :highlight link shEmbeddedEcho shString
+  :highlight link shTouchCmd shStatement
+  :highlight link shPattern shString
+  :highlight link shExprRegion Delimiter
+  :highlight link shSpecialNxt shSpecial
+  :highlight link shSubShRegion shOperator
+  :highlight link shRange shOperator
+  :highlight link shNoQuote shDoubleQuote
+  :highlight link shString String
+  :highlight link shAstQuote shDoubleQuote
+  :highlight link shTestDoubleQuote shString
+  :highlight link shTestSingleQuote shString
+  :highlight link shTestPattern shString
+  :highlight link shLoop shStatement
+  :highlight clear shCurlyIn
+  :highlight link shSnglCase Statement
+  :highlight link shQuote shOperator
+  :highlight link shArithRegion shShellVariables
+  :highlight clear shSkipInitWS
+  :highlight link bashAdminStatement shStatement
+  :highlight clear shBkslshSnglQuote
+  :highlight clear shBkslshDblQuote
+  :highlight link shTodo Todo
+  :highlight link shHereDoc01 shRedir
+  :highlight link shHereDoc02 shRedir
+  :highlight link shHereDoc03 shRedir
+  :highlight link shHereDoc04 shRedir
+  :highlight link shHereDoc05 shRedir
+  :highlight link shHereDoc06 shRedir
+  :highlight link shHereDoc07 shRedir
+  :highlight link shHereDoc08 shRedir
+  :highlight link shHereDoc09 shRedir
+  :highlight link shHereDoc10 shRedir
+  :highlight link shHereDoc11 shRedir
+  :highlight link shHereDoc12 shRedir
+  :highlight link shHereDoc13 shRedir
+  :highlight link shHereDoc14 shRedir
+  :highlight link shHereDoc15 shRedir
+  :highlight clear shVarAssign
+  :highlight link shSetListDelim shOperator
+  :highlight link shFunction Function
+  :highlight clear shFunctionStart
+  :highlight clear shFunctionThree
+  :highlight clear shFunctionFour
+  :highlight clear shDerefPattern
+  :highlight link shDerefString shDoubleQuote
+  :highlight clear shDerefEscape
+  :highlight link shDerefDelim shOperator
+  :highlight link shDerefLen shDerefOff
+  :highlight clear shDerefPPSleft
+  :highlight clear shDerefPPSright
+  :highlight clear shDerefPSRleft
+  :highlight clear shDerefPSRright
+  :highlight link shCondError Error
+  :highlight clear shCaseEsacSync
+  :highlight clear shDoSync
+  :highlight clear shForSync
+  :highlight clear shIfSync
+  :highlight clear shUntilSync
+  :highlight clear shWhileSync
+  :highlight link shShellVariables PreProc
+  :highlight link shDerefPOL shDerefOp
+  :highlight link shFunctionName Function
+endfunction
+

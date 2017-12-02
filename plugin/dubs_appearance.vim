@@ -137,7 +137,7 @@ autocmd VimEnter * nested
 " I guess we're responsible for cleaning up
 " this mess.
 let s:CleansedBufList = 0
-function! s:CleanseBufList(bang)
+function s:CleanseBufList(bang)
   let last_buffer = bufnr('$')
   let delete_count = 0
   let n = 1
@@ -277,34 +277,38 @@ endif
 " XXX It's Courier New 9, Folks! XXX
 " 2017-06-27: It's Hack Regular 9, Folks, since Aug 17, 2015, Go Dubsacks!
 " ------------------------------------------------------------------------
-if has("gui_running")
-  " How come Courier New isn't the default?
-  if s:running_windows
-    set guifont=Courier_New:h9
-  else
-    " set guifont=Courier\ New\ 9
-    " NOTE In Debian, just setting guifont makes
-    "      things look like shit; not sure why this
-    "      doesn't happen in Fedora. Anyway, comment
-    "      this out or unset guifont to fix font issues.
-    "      ... or don't run Debian!
-    " FIXME/2017-11-04: Make this dynamic, hardcoder!
-    if filereadable($HOME . "/.fonts/Hack-v3.000-ttf/ttf/Hack-Regular.ttf")
-      set guifont=Hack\ Regular\ 9
-    elseif filereadable($HOME . "/.fonts/Hack-v2_010-ttf/Hack-Regular.ttf")
-      set guifont=Hack\ Regular\ 9
+function s:ThemeResetFont()
+  " FIXME/2017-12-01: This should be more themeable than being hardcoded.
+  "   That, or you're allowed to be opinionated, dammit.
+  if has("gui_running")
+    " How come Courier New isn't the default?
+    if s:running_windows
+      set guifont=Courier_New:h9
     else
-      set guifont=Bitstream\ Vera\ Sans\ Mono\ 9
+      " set guifont=Courier\ New\ 9
+      " NOTE In Debian, just setting guifont makes
+      "      things look like shit; not sure why this
+      "      doesn't happen in Fedora. Anyway, comment
+      "      this out or unset guifont to fix font issues.
+      "      ... or don't run Debian!
+      " FIXME/2017-11-04: Make this dynamic, hardcoder!
+      if filereadable($HOME . "/.fonts/Hack-v3.000-ttf/ttf/Hack-Regular.ttf")
+        set guifont=Hack\ Regular\ 9
+      elseif filereadable($HOME . "/.fonts/Hack-v2_010-ttf/Hack-Regular.ttf")
+        set guifont=Hack\ Regular\ 9
+      else
+        set guifont=Bitstream\ Vera\ Sans\ Mono\ 9
+      endif
     endif
+    " Get rid of silly, space-wasting toolbar
+    " Default is 'egmrLtT'
+    set guioptions=egmrLt
+    " Hide the mouse pointer while typing
+    " NOTE This does not hide the mouse in
+    "      Windows gVim, so it's off! for now
+    "set mousehide
   endif
-  " Get rid of silly, space-wasting toolbar
-  " Default is 'egmrLtT'
-  set guioptions=egmrLt
-  " Hide the mouse pointer while typing
-  " NOTE This does not hide the mouse in
-  "      Windows gVim, so it's off! for now
-  "set mousehide
-endif
+endfunction
 
 " Show line numbers
 " ------------------------------------------------------
@@ -433,10 +437,11 @@ set ruler
 " color scheme uses, but the color scheme still
 " needs a little tweaking.
 
-" FIXME/2017-12-01: Source appearances/lighttime.vim and then run the SetColor fcn.
-function s:SetColorSchemeLight()
-  let s:dubs_highlight_index = s:dubs_highlight_lighttime
+" #################
+" THEME: LIGHT TIME
+" #################
 
+function s:SetColorSchemeLight_Override()
   " NOTE: You can use common color names; see
   "   :h cterm-colors
   " or you can use #rrggbb colors for guifg and guibg
@@ -583,12 +588,16 @@ function s:SetColorSchemeLight()
   highlight MyErrorMsg term=standout ctermfg=15 ctermbg=4 guibg=LightBlue
 endfunction
 
-" ##########
-" NIGHT TIME
-" ##########
+function s:SetColorSchemeLight()
+  call s:SetColorScheme('light')
+endfunction
+
+" #################
+" THEME: NIGHT TIME
+" #################
 
 " FIXME/2017-12-01: Source appearances/nighttime.vim and then run the SetColor fcn.
-function s:SetColorSchemeNight()
+function s:SetColorSchemeNight_Override()
   let s:dubs_highlight_index = s:dubs_highlight_nighttime
 
   "highlight Normal gui=NONE
@@ -676,6 +685,44 @@ function s:SetColorSchemeNight()
   " But that's too bright, almost indistinguisable from white.
   highlight Identifier term=underline ctermfg=6 guifg=#656970
   " FIXME: Better Identifier highlight.
+endfunction
+
+function s:SetColorSchemeNight()
+  call s:SetColorScheme('night')
+endfunction
+
+" ####################
+" THEME: END OF THEMES
+" ####################
+
+function s:SetColorScheme(scheme_name)
+  if a:scheme_name == 'light'
+    let s:dubs_highlight_index = s:dubs_highlight_lighttime
+    let l:theme_fcn = 'g:Theme_Highlight_Lighttime'
+    let l:addit_fcn = 's:SetColorSchemeLight_Override'
+  elseif a:scheme_name == 'night'
+    let s:dubs_highlight_index = s:dubs_highlight_nighttime
+    let l:theme_fcn = 'g:Theme_Highlight_Nighttime'
+    let l:addit_fcn = 's:SetColorSchemeNight_Override'
+  else
+    echom 'No such theme! ' . a:scheme_name
+    return
+  endif
+
+  " MAYBE/2017-12-01: Use autoload to source appearances/lighttime.vim?
+  " NOTE: Use an asterisk to check for fcn. defn. See: :h ftplugin-special
+  if exists('*' . l:theme_fcn)
+    execute 'call ' . l:theme_fcn . '()'
+  else
+    echom 'Missing theme fcn.: ' . l:theme_fcn
+  endif
+
+  " Run this file's overrides. Since appearances/lighttime.vim is mostly
+  " generated, we use this file for comments about highlights, and for
+  " testing new values.
+  execute 'call ' . l:addit_fcn . '()'
+
+  call s:ThemeResetFont()
 endfunction
 
 if !hasmapto('<Plug>DubsAppearance_CycleThruHighlights')
