@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.12.05
+" Last Modified: 2017.12.06
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -26,56 +26,113 @@
 "                     Fifth Floor, Boston, MA 02110-1301, USA.
 " ===================================================================
 
+" FIXME/2017-12-06: Should this be part of a colorscheme?
+"   At least it shouldn't be part of after/.
+" I wonder if it's its own plugin... dubsacks_after_dark!!!!
+"   no wait that'd be the colors/ name, instead of blacklist...
+" or maybe the 2 get packaged together...
+
 if exists("g:after_plugin_dubs_appearance_neodark") || &cp
   finish
 endif
 let g:after_plugin_dubs_appearance_neodark = 1
 
-" https://github.com/KeitaNakamura/neodark.vim
-function s:SetColorScheme_NeoDark()
+" Default statusline is empty string. Vim shows filepath, then [+] if dirty,
+" followed by row,column and finally % through file.
+"
+" We make it more colorful; add the mode; and show Git branch.
 
-  "let g:neodark#background = '#202020'
-  let g:neodark#background = '#060606'
+" We ignore the build-in statusline highlights so that we can use
+" Powerline glyphs and make a prettier status line. These will do
+" nothing:
+"   highlight StatusLine
+"   highlight StatusLineNC
+"   highlight StatusLineTerm
+"   highlight StatusLineTermNC
 
-  " To use 256-color in both of vim and gvim:
-  "let g:neodark#use_256color = 1 " default: 0
+" Only bother setting highlights if mode changed.
+let g:last_mode = ''
 
-  " To use your default terminal background:
-  "let g:neodark#terminal_transparent = 1 " default: 0
+function SetStatusLineHighlights(mode)
+  hi User1 guifg=#dfff00 guibg=#005f00 gui=BOLD ctermfg=190 ctermbg=22 cterm=BOLD
+  hi User2 guifg=#005f00 guibg=#dfff00 gui=BOLD ctermfg=22 ctermbg=190 cterm=BOLD
+  hi User3 guifg=#005f00 guibg=#00dfff gui=BOLD ctermfg=22 ctermbg=190 cterm=BOLD
 
-  " If you want solid vertical split matching the statusline:
-  let g:neodark#solid_vertsplit = 1 " default: 0
+  hi User4 guifg=#00dfff guibg=#001f00 ctermfg=241 ctermbg=234
+  hi User6 guifg=#001f00 guibg=#005f00 ctermfg=241 ctermbg=234
 
-  " Airline and lightline themes are also included. For lightline,
-  let g:lightline = {}
-  let g:lightline.colorscheme = 'neodark'
-  " For airline, just use!
-  " https://github.com/vim-airline/vim-airline
-  " https://github.com/itchyny/lightline.vim
+  hi User5 guifg=#00dfff guibg=#005f00 ctermfg=239 ctermbg=255
+  hi User7 guifg=#005f00 guibg=#dfff00 ctermfg=239 ctermbg=255
 
-  " Set the colorscheme last, after setting globals.
-  colorscheme neodark
+  " 2017-12-06: The original code that I copied changed the highlight
+  "   of the mode text depending on the mode, but that's really distracting,
+  "   and seeing the mode name is not a big deal, as you can infer the mode
+  "   by looking at the cursor.
+  " I should probably just delete this comment, but I still might change
+  "   my mind, I suppose...
+  "if a:mode ==# 'n'
+  "  hi User1 guifg=#dfff00 ctermfg=190
+  "  hi User2 guifg=#dfff00 ctermfg=190
+  "elseif a:mode ==# "i"
+  "  hi User1 guifg=#005fff guibg=#FFFFFF ctermfg=27 ctermbg=255
+  "  hi User2 guifg=#FFFFFF ctermfg=255
+  "elseif a:mode ==# "R"
+  "  hi User1 guifg=#FFFFFF guibg=#df0000 ctermfg=255 ctermbg=160
+  "  hi User2 guifg=#df0000 ctermfg=160
+  "elseif a:mode ==? "v" || a:mode ==# ""
+  "  hi User1 guifg=#4e4e4e guibg=#ffaf00 ctermfg=239 ctermbg=214
+  "  hi User2 guifg=#ffaf00 ctermfg=214
+  "endif
 endfunction
-"call <SID>SetColorScheme_NeoDark()
 
-function s:SetColorScheme_DeepSpace()
-  set background=dark
-  set termguicolors
-  let g:deepspace_italics=1
-"  let g:airline_theme='deep_space'
-  let g:lightline = {
-    \ 'colorscheme': 'PaperColor light',
-    \ }
-    "\ 'colorscheme': 'deepspace',
-  "colorscheme deep-space
-  "highlight Normal gui=NONE guifg=White guibg=#060606 ctermfg=White ctermbg=none
-  highlight Normal gui=NONE
-    \ guifg=White guibg=#060606
-    \ ctermfg=White ctermbg=none
+" FIXME: Make the g: functions use the plugin#syntax, or make name with project prefix.
+function SetStatusLineMode()
+  let l:mode = mode()
+  if l:mode !=# g:last_mode
+    let g:last_mode = l:mode
+    call SetStatusLineHighlights(l:mode)
+  endif
+
+  let l:cmode = mode()
+  let l:mode0 = s:omode
+  let s:omode = l:cmode
+  " NOTE: ==# forces case sensitive match, in case ignorecase is enabled.
+  if l:mode0 ==# 'i' && l:cmode == 'n'
+    " In Insert mode, if you arrow up or arrow down, the mode toggles
+    " to Normal mode and then back to Insert. (Possible because... I
+    " dunno.)
+    " Set a timer to correct this issue if user really did switch modes.
+    "   https://github.com/vim/vim/blob/master/runtime/doc/version8.txt#L66
+    " 2017-12-05: Whatever: The docs say setting a variable to the return
+    " value should work, but this raises "E121: Undefined variable: call".
+    "   let s:mode_timer = call timer_start(500, 's:TickleStatusLineMode')
+    " I also tried = exe "call ..." but then 'exe' is said undefined.
+    " I also tried using redir:
+    "   redir => s:mode_timer
+    "   ...
+    "   redir END
+    " but the variable remains unset.
+    " So I'm really not sure what's up with that.
+    " Also, without the 'call', timer_start raises:
+    "   E492: Not an editor command: timer_start...
+    " Whatever; we don't need the timer_id, I suppose; if we
+    " don't cancel the timer (stop_timer), it's not a big deal.
+    " Oh, and I could not get <SID> to work: 's:TickleStatusLineMode'
+    " complains of not having script context, and <SID> unrecognized:
+    "   call timer_start(125, 's:TickleStatusLineMode')
+    "   call timer_start(125, <SID>.'TickleStatusLineMode')
+    call timer_start(125, 'TickleStatusLineMode')
+    "echom 'Skipping Statusline to avoid flashing.'
+    return s:ModeFriendlyString(l:mode0)
+  else
+    return s:ModeFriendlyString(l:mode)
+  endif
 endfunction
-call <SID>SetColorScheme_DeepSpace()
 
-
+function TickleStatusLineMode(timer_id)
+  " Set statusline= again, which'll trigger a refresh.
+  call s:SetStatusLineMain(0)
+endfunction
 
 " NOTE: You canNOT use, e.g., "^V" or "\^V", to match control characters.
 let s:vim_mode_lookup = {
@@ -111,134 +168,11 @@ function s:ModeFriendlyString(mode)
   return get(s:vim_mode_lookup, a:mode, "NOTFND")
 endfunction
 
-
-
-" https://www.reddit.com/r/vim/comments/1egwbr/powerline_have_you_made_a_custom_themecolorscheme/
-
-" https://www.reddit.com/r/vim/comments/1dyun6/why_does_powerline_make_vim_significantly_slower/c9w1kn2/
-
-" Powerline requires a C build or Python to run... I looked at installation, but it wasn't obvious, so screw it.
-"   https://github.com/powerline/powerline
-"   https://powerline.readthedocs.io/en/latest/
-" Just too complicated...
-
-" Statusline modifications, added Fugitive Status Line & Syntastic Error Message {{{2
-function! TickleStatusLineMode(timer_id)
-  "echom 'TickleStatusLineMode: timer_id: ' . a:timer_id
-  " NOTE: We don't actually need to call anything. The statusline
-  " updates itself simply because this function ran (or because the
-  " timer fired; not sure which does the trick).
-  " So no need to call:
-  "  call SetStatusLineMode()
-endfunction
-
-let g:last_mode = ''
-function! SetStatusLineMode()
-  let l:mode = mode()
-
-  if l:mode !=# g:last_mode
-    let g:last_mode = l:mode
-
-    hi User2 guifg=#005f00 guibg=#dfff00 gui=BOLD ctermfg=22 ctermbg=190 cterm=BOLD
-    hi User3 guifg=#FFFFFF guibg=#414243 ctermfg=255 ctermbg=241
-    hi User4 guifg=#414234 guibg=#2B2B2B ctermfg=241 ctermbg=234
-    hi User5 guifg=#4e4e4e guibg=#FFFFFF gui=bold ctermfg=239 ctermbg=255 cterm=bold
-    hi User6 guifg=#FFFFFF guibg=#8a8a8a ctermfg=255 ctermbg=245
-    hi User7 guifg=#ffff00 guibg=#8a8a8a gui=bold ctermfg=226 ctermbg=245 cterm=bold
-    hi User8 guifg=#8a8a8a guibg=#414243 ctermfg=245 ctermbg=241
-
-" FIXME/2017-12-05: Better colors...
-    "hi User9 guifg=#0000FF guibg=#FF0000 ctermfg=4 ctermbg=3
-    hi User9 guibg=#005f00 guifg=#dfff00 gui=BOLD ctermbg=22 ctermfg=190 cterm=BOLD
-
-    "echom 'l:mode: ' . l:mode
-    " NOTE: ==# forces case sensitive match, in case ignorecase is enabled.
-    if l:mode ==# 'n'
-      hi User3 guifg=#dfff00 ctermfg=190
-    elseif l:mode ==# "i"
-      hi User2 guifg=#005fff guibg=#FFFFFF ctermfg=27 ctermbg=255
-      hi User3 guifg=#FFFFFF ctermfg=255
-    elseif l:mode ==# "R"
-      hi User2 guifg=#FFFFFF guibg=#df0000 ctermfg=255 ctermbg=160
-      hi User3 guifg=#df0000 ctermfg=160
-    elseif l:mode ==? "v" || l:mode ==# ""
-      hi User2 guifg=#4e4e4e guibg=#ffaf00 ctermfg=239 ctermbg=214
-      hi User3 guifg=#ffaf00 ctermfg=214
-    endif
-  endif 
-
-  let l:cmode = mode()
-  let l:mode0 = s:omode
-  let s:omode = l:cmode
-  "echom 's:omode: ' . s:omode . ' / ' . 'l:cmode: ' . l:cmode
-  if l:mode0 ==# 'i' && l:cmode == 'n'
-    " In Insert mode, if you arrow up or arrow down, the mode toggles
-    " to Normal mode and then back to Insert. (Possible because... I
-    " dunno.)
-    " Set a timer to correct this issue if user really did switch modes.
-    "   https://github.com/vim/vim/blob/master/runtime/doc/version8.txt#L66
-    " 2017-12-05: Whatever: The docs say setting a variable to the return
-    " value should work, but this raises "E121: Undefined variable: call".
-    "   let s:mode_timer = call timer_start(500, 's:TickleStatusLineMode')
-    " I also tried = exe "call ..." but then 'exe' is said undefined.
-    " I also tried using redir:
-    "   redir => s:mode_timer
-    "   ...
-    "   redir END
-    " but the variable remains unset.
-    " So I'm really not sure what's up with that.
-    " Also, without the 'call', timer_start raises:
-    "   E492: Not an editor command: timer_start...
-    " Whatever; we don't need the timer_id, I suppose; if we
-    " don't cancel the timer (stop_timer), it's not a big deal.
-    " Oh, and I could not get <SID> to work: 's:TickleStatusLineMode'
-    " complains of not having script context, and <SID> unrecognized:
-    "   call timer_start(125, 's:TickleStatusLineMode')
-    "   call timer_start(125, <SID>.'TickleStatusLineMode')
-    call timer_start(125, 'TickleStatusLineMode')
-    "echom 'Skipping Statusline to avoid flashing.'
-    return s:ModeFriendlyString(l:mode0)
-  else
-    return s:ModeFriendlyString(l:mode)
-  endif
-endfunction
-
-" https://stackoverflow.com/questions/8383787/change-vims-linestatus-colors
-"
-" You need to define the colours as new highlighting groups User1, User2, etc:
-"
-" hi User1 ctermbg=blue    ctermfg=white   guibg=blue    guifg=white
-" hi User2 ctermbg=black   ctermfg=red     guibg=black   guifg=red
-"
-" Then you can specify them in the statusline string like so:
-"
-" set statusline=
-" set statusline+=%1*   " Switch to colour User1
-" set statusline+=%F
-" set statusline+=%*    " Switch to default colour
-" set statusline+=%P
-" set statusline+=%2*   " Switch to colour User2
-" set statusline+=%c
-
-" https://got-ravings.blogspot.com/2008/08/vim-pr0n-making-statuslines-that-own.html
-"1 set statusline=
-"2 set statusline+=%#todo#  "switch to todo highlight
-"3 set statusline+=%F       "full filename
-"4 set statusline+=%#error# "switch to error highlight
-"5 set statusline+=%y       "filetype
-"6 set statusline+=%*       "switch back to normal statusline highlight
-"7 set statusline+=%l       "line number
-
-function ReallyAnnoying()
-  echom 'fugitive#statusline(): ' . fugitive#statusline()
-  echom 'matchstr: ' . matchstr(fugitive#statusline(),'(\zs.*\ze)')
-  return matchstr(fugitive#statusline(),'(\zs.*\ze)')
-endfunction
-
-function! s:SetStatusLine(nr)
-
-" FIXME: This function called a lot. Cache winnr and skip it set properly.
-
+" MAYBE/2017-12-05: This function is called a lot.
+"   Can we cache lookup of { winnr => active? }
+"   and return immediately if no change needed?
+function s:SetStatusLineMain(nr)
+  " If not the active window, switch to it, so we can call setlocal.
   let l:orig_nr = winnr()
   if a:nr > 0
     try
@@ -251,69 +185,174 @@ function! s:SetStatusLine(nr)
       return
     endtry
   endif
-  "if exists('w:airline_active')
-  "  echom 'w:airline_active: ' . expand('%:t') . ' / ' . w:airline_active
-  "else
-  "  echom 'w:airline_active: ' . expand('%:t') . ' / Not defined'
-  "endif
 
+  " Start with an empty statusline. We build a string, rather than
+  " calling `set statusline+=`, so that we can build the statusline
+  " differently based on the window width.
   let l:statline=''
+
+  " NOTE: There are two ways to set color, e.g.,
+  "   Using User1 .. User9:
+  "     set statusline+=%2*       " Switch to color `User2`.
+  "   Using any named highlight:
+  "     set statusline+=%#todo#   " Switch to `todo` highlight.
+
+  " You can insert a unicode character easily from Insert mode, e.g.,:
+  "   <C-q> u21D2
+  " Note that Hack font includes 7 of 36 Powerline glyphs.
+  "   https://github.com/ryanoasis/powerline-extra-symbols#glyphs
+  " Hack includes this Powerline glyphs:
+  "   e0a0 
+  "   e0a1 
+  "   e0a2 
+  "   e0b0 
+  "   e0b1 
+  "   e0b2 
+  "   e0b3 
+  " Note that there's an aggregate font, Nerd Fonts, which seems awesome
+  " -- it includes all of the Powerline glyphs, for one -- but there's a
+  " 1-pixel space at the edge of each Powerline glyph. Bah.
+  " Note also that the Powerline glyphs are not actual Unicode.
+  "   http://www.fileformat.info/info/unicode/char/e0b0/index.htm
+  " The 'Symbol, Other' category has good unicode.
+  "   http://www.fileformat.info/info/unicode/category/So/list.htm
+
   if a:nr == 0
-    let l:statline .= "%9*"
+    "let l:statline .= "%1*"
+    "let l:statline .= "%1*⛘"
+    "let l:statline .= '%1*\ '
+    let l:statline .= "%2*"
     let l:statline .= "%2*%{SetStatusLineMode()}"
-    " See: powerline/config_files/themes/powerline.json
-    " I'm not sure what unicode that is...
-    " 
-    "let l:statline .= %9*%3*⮀
-    let l:statline .= "%9*"
+    let l:statline .= "%1*"
+  else
+    let l:statline .= "%1*"
   endif
-  " FIXME: Readonly: 
-"					"fresh": "●",
-"					"changed": "○"
-"		"branch": {
-"			"before": " "
-"			"contents": " "
-  let l:statline .= "%1*"
-  let l:statline .= "%#StatusLine#"
+
+  " Add the Git branch.
   let l:statline .= "%{strlen(fugitive#statusline())>0?'\\ \\ ':''}"
-  " WORKS: let l:statline .= "%{fugitive#statusline()}"
-  " WORKS ON OWN: echo matchstr(fugitive#statusline(),'(\zs.*\ze)')
-  "let l:statline .= '%{matchstr(fugitive#statusline(),"(\\zs.*i\\ze)")}'
-  "let l:statline .= "%{matchstr(fugitive#statusline(),'(\\zs.*\\ze)')}"
-  "let l:statline .= "%{matchstr(fugitive#statusline(),'(.*)')}"
-  "let l:statline .= "%.3{matchstr(fugitive#statusline(),'(\\zs.*\\ze)')}"
-"  echom 'fugitive#statusline(): ' . fugitive#statusline()
-"  echom 'matchstr: ' . matchstr(fugitive#statusline(),'(\zs.*\ze)')
-  let l:statline .= '%{ReallyAnnoying()}'
+  " We can get the statusline, but I cannot figure out how to parse it.
+  " E.g., this works:
+  "   let l:statline .= "%{fugitive#statusline()}"
+  " And this works if you run it:
+  "   echo matchstr(fugitive#statusline(),'(\zs.*\ze)')
+  " But adding the matchstr(...) to statusline, even trying different
+  "   escaping for the glob, fails.
+  " Fortunately, we can just make is a callback.
+  let l:statline .= '%{SetStatusLineGitBranch()}'
 
-  let l:statline .= "%{strlen(fugitive#statusline())>0?'\\ \\ ⮁\\ ':'\\ '}"
+  let l:statline .= "\\ %3*\\ "
 
-" FIXME: Use different widths for active window vs. not.
-" FIXME: Consider strlen(fugitive#statusline()), too
-" E.g., [Git(master)] -- so substract 7...
-  let l:avail_width = winwidth(0) - 50
-  "echom 'l:avail_width: ' . l:avail_width
-  if l:avail_width > 0
-    "let l:statline .= "%f\\ %{&ro?'⭤':''}%{&mod?'+':''}%<"
-    let l:statline .= "%." . l:avail_width . "f\\ %{&ro?'⭤':''}%{&mod?'+':''}%<"
+" FIXME/2017-12-06 00:24: Make s:bool's for each option, and
+" then do this automatically based on if bool is enabled
+" (and only add to statusline if bool enabled, 'natch).
+  let l:avail_width = winwidth(0)
+  if a:nr == 0
+    " Remove 8 characters for the mode status.
+    let l:avail_width -= 8
+  endif
+  " If you add %b/%B, below:
+  "let l:avail_width -= 16
+  " Remove ' 61% ☰ 1234/1234 : 123 '
+  let l:avail_width -= 23
+  if strlen(fugitive#statusline()) > 0
+    " tpope's fugitive returns, e.g., [Git(master)]
+    let l:avail_width -= (strlen(fugitive#statusline()) - 7)
+    " For the '>  ... '
+    let l:avail_width -= 5
+  endif
+  " Account for spaces are filename and for transition highlight.
+  if a:nr > 0
+    let l:avail_width -= 3
+  else
+    let l:avail_width -= 4
   endif
 
+  " h F   Help buffer flag, text is "[help]".
+  " H F   Help buffer flag, text is ",HLP".
+  let l:help_status = ''
+  if &ft ==# 'help'
+    let l:help_status = '\ [help]'
+    let l:avail_width -= strlen(l:help_status)
+  endif
 
-  let l:statline .= "%4*⮀"
+  if l:avail_width > 0
+    " f S   Path to the file in the buffer, as typed or relative to current
+    "       directory.
+    " F S   Full path to the file in the buffer.
+    " t S   File name (tail) of file in the buffer.
+    " m F   Modified flag, text is "[+]"; "[-]" if 'modifiable' is off.
+    " M F   Modified flag, text is ",+" or ",-".
+    " r F   Readonly flag, text is "[RO]".
+    " R F   Readonly flag, text is ",RO".
+    "let l:statline .= "%f\\ %{&ro?'⭤':''}%{&mod?'+':''}%<"
+    "let l:statline .= "%." . l:avail_width . "f\\ %{&ro?'⭤':''}%{&mod?'+':''}%<"
+    "let l:statline .= "%." . l:avail_width . "f\\ %{&ro?'':''}%{&mod?'○':'●'}%<"
+    "let l:statline .= "%." . l:avail_width . "f\\ %{&ro?'':''}%{&mod?'+':''}%<"
+    let l:statline .= "%." . l:avail_width . "f%{&ro?'\\ ':''}%{&mod?'\\ 🚩':''}%<"
+  endif
+  " We should not use &ft because it's not set to 'help' when the help is
+  " first opened, so it's not display until user, say, reenters window.
+  "   let l:statline .= l:help_status
+  " We use minwidth of 7 to ensure a leading space.
+  let l:statline .= '%7h' . '\ '
+
+  " MAYBE/2017-12-05: Does this ever return non-empty string?
   let l:statline .= "%#warningmsg#"
   let l:statline .= "%{SyntasticStatuslineFlag()}"
+
   if a:nr > 0
-    let l:statline .= "%9*"
+    let l:statline .= "%4*"
+  else
+    let l:statline .= "%5*"
   endif
-  let l:statline .= "%="                " split left-alighed and right-aligned
-  let l:statline .= "%4*⮂"
-  let l:statline .= "%#StatusLine#"
-  let l:statline .= "\\ %{strlen(&fileformat)>0?&fileformat.'\\ ⮃\\ ':''}"
-  let l:statline .= "%{strlen(&fileencoding)>0?&fileencoding.'\\ ⮃\\ ':''}"
-  let l:statline .= "%{strlen(&filetype)>0?&filetype:''}"
-  let l:statline .= "\\ %8*⮂"
-  let l:statline .= "%7*\\ %p%%\\ "
-  let l:statline .= "%6*⮂%5*⭡\\ \\ %l:%c\\ "
+  let l:statline .= ""
+
+  " Meh. I thought about honoring StatusLine, but since we use the
+  " Powerline glyphs, we need to make sure adjacent highlights match.
+  "if a:nr > 0
+  "  let l:statline .= "%#StatusLineNC#"
+  "else
+  "  let l:statline .= "%#StatusLine#"
+  "endif
+  " %=      split left-alighed and right-aligned
+  let l:statline .= "%="
+
+  if a:nr > 0
+    let l:statline .= "%6*"
+  else
+    let l:statline .= "%7*"
+  endif
+  let l:statline .= ""
+
+  " Skip: fileformat, e.g., 'unix'.
+  "  let l:statline .= "\\ %{strlen(&fileformat)>0?&fileformat.'\\ ⮃\\ ':''}"
+
+  " Skip: fileencoding, e.g., 'utf-8'.
+  "  let l:statline .= "%{strlen(&fileencoding)>0?&fileencoding.'\\ ⮃\\ ':''}"
+
+  " Skip: filetype, e.g., 'vim'. Doesn't seem particularly useful...
+  "  let l:statline .= "%{strlen(&filetype)>0?&filetype:''}"
+
+  " p N   Percentage through file in lines as in |CTRL-G|.
+  let l:statline .= "\\ %p%%"
+
+  " DEV: Uncomment if you want to see the decimal and the
+  "   hexadecimal value of the character under the cursor.
+  " b N   Value of character under cursor.
+  " B N   As above, in hexadecimal.
+  ""let l:statline .= "\\ \\ 🔠\\ %b/u%B"
+  "let l:statline .= "\\ \\ 🔠\\ %5b/u%4B"
+
+  " l N   Line number.
+  " c N   Column number.
+  " L N   Number of lines in buffer.
+  "let l:statline .= "\\ \\ \\ %l:%c"
+  "let l:statline .= "\\ ☰\\ %3l/%3L\\ \\ :%3c"
+  "let l:statline .= "\\ ☰\\ %3l/%3L\\ :%3c"
+  " Maybe if %l is 4 digits, add extra space after ☰?
+  let l:statline .= "\\ ☰\\ %4l/%4L\\ :%3c"
+
+  let l:statline .= "%2*█"
 
   "echom 'l:statline: ' . l:statline
 
@@ -324,75 +363,31 @@ function! s:SetStatusLine(nr)
     exe 'setlocal statusline=' . l:statline
   end
 
-
-  " COPY THIS, sorta:
-  " https://github.com/vim-airline/vim-airline
-  " See also:
-  " https://github.com/powerline/powerline
-
-" 1 set statusline=%t       "tail of the filename
-" 2 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-" 3 set statusline+=%{&ff}] "file format
-" 4 set statusline+=%h      "help file flag
-" 5 set statusline+=%m      "modified flag
-" 6 set statusline+=%r      "read only flag
-" 7 set statusline+=%y      "filetype
-" 8 set statusline+=%=      "left/right separator
-" 9 set statusline+=%c,     "cursor column
-"10 set statusline+=%l/%L   "cursor line/total lines
-"11 set statusline+=\ %P    "percent through file
-
-" 1 set statusline=......%{FileSize()}.....
-" 2 function! FileSize()
-" 3     let bytes = getfsize(expand("%:p"))
-" 4     if bytes <= 0
-" 5         return ""
-" 6     endif
-" 7     if bytes < 1024
-" 8         return bytes
-" 9     else
-"10         return (bytes / 1024) . "K"
-"11     endif
-"12 endfunction
-
-"set statusline=
-"set statusline +=%1*\ %n\ %*            "buffer number
-"set statusline +=%5*%{&ff}%*            "file format
-"set statusline +=%3*%y%*                "file type
-"set statusline +=%4*\ %<%F%*            "full path
-"set statusline +=%2*%m%*                "modified flag
-"set statusline +=%1*%=%5l%*             "current line
-"set statusline +=%2*/%L%*               "total lines
-"set statusline +=%1*%4v\ %*             "virtual column number
-"set statusline +=%2*0x%04B\ %*          "character under cursor
-
   if a:nr > 0
     execute l:orig_nr . "wincmd w"
   endif
 endfunction
 
-"set statusline=%2*%{Mode()}%3*⮀%1*%#StatusLine#%{strlen(fugitive#statusline())>0?'\ ⭠\ ':''}%{matchstr(fugitive#statusline(),'(\\zs.*\\ze)')}%{strlen(fugitive#statusline())>0?'\ \ ⮁\ ':'\ '}%f\ %{&ro?'⭤':''}%{&mod?'+':''}%<%4*⮀%#warningmsg#%{SyntasticStatuslineFlag()}X____%=\ \ \ \ X%4*⮂%#StatusLine#\ %{strlen(&fileformat)>0?&fileformat.'\ ⮃\ ':''}%{strlen(&fileencoding)>0?&fileencoding.'\ ⮃\ ':''}%{strlen(&filetype)>0?&filetype:''}\ %8*⮂%7*\ %p%%\ %6*⮂%5*⭡\ \ %l:%c\ 
-
-function s:StandUpStatusline()
-  autocmd CmdwinEnter *
-    \ | call <sid>on_window_changed()
-  autocmd VimEnter,WinEnter,BufWinEnter,FileType,BufUnload *
-    \ call <sid>on_window_changed()
-  " NOTE: There does not seem to be an event for resizing splits,
-  " just for resizing the entire Vim window. I even wrote to the
-  " log and did not see any activity when dragging a split and
-  " resizing two windows.
-  "   gvim -V9myVim.log ~/.vim/bundle_/dubs_appearance/after/plugin/dubs_appearance.vim
-  autocmd VimResized * :call <sid>on_window_changed()
+function SetStatusLineGitBranch()
+  return matchstr(fugitive#statusline(),'(\zs.*\ze)')
 endfunction
-" Default statusline is empty string. Vim shows filepath, then [+] if dirty,
-" followed by row,column and finally % through file.
-call <SID>StandUpStatusline()
+
+" "set statusline=......%{FileSize()}.....
+" function FileSize()
+"  let bytes = getfsize(expand("%:p"))
+"  if bytes <= 0
+"    return ""
+"  endif
+"  if bytes < 1024
+"    return bytes
+"  else
+"    return (bytes / 1024) . "K"
+"  endif
+"endfunction
 
 let s:oldnr = -1
 let s:omode = ''
-
-function! s:on_window_changed()
+function s:on_window_changed()
   let l:curnr = winnr()
   if l:curnr == s:oldnr
     "echom 'Skipping Statusline for same window again.'
@@ -401,23 +396,30 @@ function! s:on_window_changed()
   let s:oldnr = l:curnr
 
   for nr in filter(range(1, winnr('$')), 'v:val != winnr()')
-    "call setwinvar(nr, 'airline_active', 0)
     "echom 'On inactive window: ' . nr . ' / ' . winbufnr(nr)
-    call s:SetStatusLine(nr)
+    call s:SetStatusLineMain(nr)
   endfor
-  "echom 'getbufvar: ' . getbufvar(bufname("%"), "&buftype")
-  "echom 'getbufvar: ' . &buftype
-  "let w:airline_active = 1
   "echom 'On active window: ' . winnr() . ' / ' . winbufnr(0)
-  call s:SetStatusLine(0)
+  call s:SetStatusLineMain(0)
 endfunction
 
-"call <SID>SetStatusLine()
+function s:StandUpStatusline()
+  autocmd CmdwinEnter *
+    \ | call <sid>on_window_changed()
 
-"highlight StatusLine term=bold,reverse ctermfg=6 ctermbg=8 guifg=Yellow guibg=DarkGreen
-"highlight StatusLineNC term=reverse ctermfg=7 ctermbg=1 guifg=LightGray guibg=DarkBlue
-"highlight StatusLineTerm term=bold,reverse cterm=bold ctermfg=15 ctermbg=2 gui=bold guifg=bg guibg=DarkGreen
-"highlight StatusLineTermNC term=reverse ctermfg=15 ctermbg=2 guifg=bg guibg=DarkGreen
+  autocmd VimEnter,WinEnter,BufWinEnter,FileType,BufUnload *
+    \ call <sid>on_window_changed()
 
+  " NOTE: There does not seem to be an event for resizing splits,
+  " just for resizing the entire Vim window. I even wrote to the
+  " log and did not see any activity when dragging a split and
+  " resizing two windows.
+  "   gvim -V9myVim.log ~/.vim/bundle_/dubs_appearance/after/plugin/dubs_appearance.vim
+  autocmd VimResized * :call <sid>on_window_changed()
 
+  " Reset the highlights after a :colorscheme change.
+  autocmd ColorScheme * :call SetStatusLineHighlights(mode())
+endfunction
+
+call <SID>StandUpStatusline()
 
