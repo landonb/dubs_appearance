@@ -46,11 +46,11 @@
 "
 " 4. Fix all the "links to" lines:
 "
-"   :.,$s/^\s*highlight \([a-zA-Z0-9]\+\) links to \([a-zA-Z0-9]\+\)$/highlight link \1 \2/gc
+"   :.,$s/^\s*highlight \([a-zA-Z0-9]\+\) links to \([a-zA-Z0-9]\+\)$/  highlight link \1 \2/gc
 "
 " 5. Fix all the "cleared" lines:
 "
-"   :.,$s/^\s*highlight \([a-zA-Z0-9]\+\) cleared$/highlight clear \1/gc
+"   :.,$s/^\s*highlight \([a-zA-Z0-9]\+\) cleared$/  highlight clear \1/gc
 "
 " 6. Remove what's after "font=", because if it contains spaces,
 "    even delimiting them with "\" doesn't fix the line. E.g.,
@@ -62,8 +62,6 @@
 "    when font=Hack\ Regular\ 9
 "
 "   :.,$s/ font=\([a-zA-Z0-9]\+\(\( \|$\)\)\)\+//gc
-"
-" 7. Tab indent, IYW.
 
 if exists("g:plugin_dubs_appearance__appearances__lighttime") || &cp
   finish
