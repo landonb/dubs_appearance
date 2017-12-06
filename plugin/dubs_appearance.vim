@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.12.02
+" Last Modified: 2017.12.06
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -292,6 +292,11 @@ function s:ThemeResetFont()
       "      this out or unset guifont to fix font issues.
       "      ... or don't run Debian!
       " FIXME/2017-11-04: Make this dynamic, hardcoder!
+      " 2017-12-05: I tried Knack, which is Hack plus extras,
+      " but the Powerline glyphs have a one-character padding
+      " on the left. Weird. Makes statusline look funky. Oh, well...
+      "    if filereadable($HOME . "/.local/share/fonts/NerdFonts/Knack\ Regular\ Nerd\ Font\ Complete.ttf")
+      "      set guifont=Knack\ Nerd\ Font\ 9
       if filereadable($HOME . "/.fonts/Hack-v3.000-ttf/ttf/Hack-Regular.ttf")
         set guifont=Hack\ Regular\ 9
       elseif filereadable($HOME . "/.fonts/Hack-v2_010-ttf/Hack-Regular.ttf")
@@ -430,6 +435,12 @@ set ruler
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Color Scheme
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+" FIXME/2017-12-06 00:36: Move colorscheme fcns. to real color plugins.
+
+
 
 " FIXME/2017-12-01: Make a color scheme for these.
 "   Maybe nighttime preloads nord and just overrides a few things.
