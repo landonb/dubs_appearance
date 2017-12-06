@@ -53,6 +53,18 @@ let g:after_plugin_dubs_appearance_neodark = 1
 " Only bother setting highlights if mode changed.
 let g:last_mode = ''
 
+
+
+
+" FIXME/2017-12-06: This fcn. need only be called once to set User* highlights.
+"   Then test if you can override them from an after/ script.
+" Besides that, don't really need to give user much control, except toggling
+"   on/off certain parts of the statusline... but order will be dictated, at
+"   least, and the glpyhs used, too, will just be hard coded. Seems reasonable.
+"
+"
+"
+"
 function SetStatusLineHighlights(mode)
   hi User1 guifg=#dfff00 guibg=#005f00 gui=BOLD ctermfg=190 ctermbg=22 cterm=BOLD
   hi User2 guifg=#005f00 guibg=#dfff00 gui=BOLD ctermfg=22 ctermbg=190 cterm=BOLD
