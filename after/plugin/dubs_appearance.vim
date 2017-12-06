@@ -387,7 +387,7 @@ function s:StandUpStatusline()
 endfunction
 " Default statusline is empty string. Vim shows filepath, then [+] if dirty,
 " followed by row,column and finally % through file.
-"call <SID>StandUpStatusline()
+call <SID>StandUpStatusline()
 
 let s:oldnr = -1
 let s:omode = ''
