@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.12.05
+" Last Modified: 2017.12.06
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Nighttime! Complete Vim highlight file
 " License: GPLv3
@@ -73,10 +73,17 @@ function! s:Colortheme_Apply_Blacksacks()
   highlight DiffText term=reverse cterm=bold ctermbg=9 gui=bold guibg=Red
   highlight SignColumn term=standout ctermfg=14 ctermbg=242 guifg=Cyan guibg=Grey
   highlight Conceal ctermfg=7 ctermbg=242 guifg=LightGrey guibg=DarkGrey
-  highlight SpellBad term=reverse ctermbg=9 gui=undercurl guisp=Red
-  highlight SpellCap term=reverse ctermbg=12 gui=undercurl guisp=Blue
-  highlight SpellRare term=reverse ctermbg=13 gui=undercurl guisp=Magenta
-  highlight SpellLocal term=underline ctermbg=14 gui=undercurl guisp=Cyan
+
+  "highlight SpellBad term=reverse ctermbg=9 gui=undercurl guisp=Red
+  "highlight SpellCap term=reverse ctermbg=12 gui=undercurl guisp=Blue
+  "highlight SpellRare term=reverse ctermbg=13 gui=undercurl guisp=Magenta
+  "highlight SpellLocal term=underline ctermbg=14 gui=undercurl guisp=Cyan
+  " 2017-12-06: From nord:
+  highlight SpellBad term=reverse ctermbg=9 cterm=undercurl gui=undercurl guibg=#2E3440 guisp=#CC3333
+  highlight SpellCap term=reverse ctermbg=12 cterm=undercurl gui=undercurl guibg=#2E3440 guisp=#EBCB8B
+  highlight SpellRare term=reverse ctermbg=13 cterm=undercurl gui=undercurl guibg=#2E3440 guisp=#ECEFF4
+  highlight SpellLocal term=underline ctermbg=14 cterm=undercurl gui=undercurl guibg=#2E3440 guisp=#E5E9F0
+
   highlight Pmenu ctermfg=0 ctermbg=13 guibg=Magenta
   highlight PmenuSel ctermfg=242 ctermbg=0 guibg=DarkGrey
   highlight PmenuSbar ctermbg=248 guibg=Grey
