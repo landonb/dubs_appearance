@@ -170,8 +170,7 @@ let s:vim_mode_lookup = {
   \ "rm":     "-MORE-",
   \ "r?":     "CNFIRM",
   \ "!":      "!SHELL",
-  \ "t":      "TRMNAL",
-  \ "":       "UNKNWN"
+  \ "t":      "TRMNAL"
 \ }
 
 function s:ModeFriendlyString(mode)
