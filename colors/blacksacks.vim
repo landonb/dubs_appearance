@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.12.06
+" Last Modified: 2017.12.07
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Nighttime! Complete Vim highlight file
 " License: GPLv3
@@ -510,19 +510,22 @@ function! s:Colortheme_Apply_Main()
   "  syntax reset
   "endif
 
-  if has("gui_running") || (has('termguicolors') && &termguicolors)
-    let s:true_color = 1
-  else
-    let s:true_color = 0
+  if has('termguicolors')
+    set termguicolors
   endif
+
+  " PROBABLY/2017-12-07: May need to tweak GUI vs non-GUI colors.
+  "  if has("gui_running") || (has('termguicolors') && &termguicolors)
+  "    let s:true_color = 1
+  "  else
+  "    let s:true_color = 0
+  "  endif
 
   " This should both have the same outcome:
   highlight clear
   "colorscheme default
 
   set background=dark
-
-  set termguicolors
   
   "highlight Normal gui=NONE guifg=White guibg=#060606 ctermfg=White ctermbg=none
   exe 'highlight Normal gui=NONE '
