@@ -403,9 +403,13 @@ function s:on_window_changed()
 
   " Determine previous window, so we can restore same gesture
   " for other plugins.
-  silent! wincmd p
-  let l:mrunr = winnr()
-  silent! wincmd p
+  try
+    silent! wincmd p
+    let l:mrunr = winnr()
+    silent! wincmd p
+  catch
+    return
+  endtry
 
   if l:curnr == s:oldnr
     "echom 'Skipping Statusline for same window again.'
