@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.12.06
+" Last Modified: 2017.12.07
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -400,6 +400,13 @@ let s:oldnr = -1
 let s:omode = ''
 function s:on_window_changed()
   let l:curnr = winnr()
+
+  " Determine previous window, so we can restore same gesture
+  " for other plugins.
+  silent! wincmd p
+  let l:mrunr = winnr()
+  silent! wincmd p
+
   if l:curnr == s:oldnr
     "echom 'Skipping Statusline for same window again.'
     return
@@ -410,8 +417,12 @@ function s:on_window_changed()
     "echom 'On inactive window: ' . nr . ' / ' . winbufnr(nr)
     call s:SetStatusLineMain(nr)
   endfor
+
   "echom 'On active window: ' . winnr() . ' / ' . winbufnr(0)
   call s:SetStatusLineMain(0)
+
+  execute l:mrunr . 'wincmd w'
+  execute l:curnr . 'wincmd w'
 endfunction
 
 function s:StandUpStatusline()
