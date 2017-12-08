@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.12.07
+" Last Modified: 2017.12.08
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -284,6 +284,16 @@ function s:SetStatusLineMain(nr)
   if &ft ==# 'help'
     let l:help_status = '\ [help]'
     let l:avail_width -= strlen(l:help_status)
+  endif
+
+  if &ro == 1
+    " Trim ' '
+    let l:avail_width -= 2
+  endif
+
+  if &mod == 1
+    " Trim ' 🚩'
+    let l:avail_width -= 2
   endif
 
   if l:avail_width > 0
