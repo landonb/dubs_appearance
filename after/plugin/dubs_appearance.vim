@@ -415,21 +415,24 @@ function s:on_window_changed()
 endfunction
 
 function s:StandUpStatusline()
-  autocmd CmdwinEnter *
-    \ | call <sid>on_window_changed()
+  augroup <SID>DubsMescaLine
+    autocmd!
 
-  autocmd VimEnter,WinEnter,BufWinEnter,FileType,BufUnload *
-    \ call <sid>on_window_changed()
+    autocmd CmdwinEnter * call <sid>on_window_changed()
 
-  " NOTE: There does not seem to be an event for resizing splits,
-  " just for resizing the entire Vim window. I even wrote to the
-  " log and did not see any activity when dragging a split and
-  " resizing two windows.
-  "   gvim -V9myVim.log ~/.vim/bundle_/dubs_appearance/after/plugin/dubs_appearance.vim
-  autocmd VimResized * :call <sid>on_window_changed()
+    autocmd VimEnter,WinEnter,BufWinEnter,FileType,BufUnload *
+      \ call <sid>on_window_changed()
 
-  " Reset the highlights after a :colorscheme change.
-  autocmd ColorScheme * :call SetStatusLineHighlights(mode())
+    " NOTE: There does not seem to be an event for resizing splits,
+    " just for resizing the entire Vim window. I even wrote to the
+    " log and did not see any activity when dragging a split and
+    " resizing two windows.
+    "   gvim -V9myVim.log ~/.vim/bundle_/dubs_appearance/after/plugin/dubs_appearance.vim
+    autocmd VimResized * call <sid>on_window_changed()
+
+    " Reset the highlights after a :colorscheme change.
+    autocmd ColorScheme * call SetStatusLineHighlights(mode())
+  augroup END
 endfunction
 
 call <SID>StandUpStatusline()
