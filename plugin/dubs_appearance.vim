@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.12.06
+" Last Modified: 2017.12.09
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -112,14 +112,14 @@ autocmd VimLeave * nested
 "      com link may lead you to believe);
 "      rather,
 autocmd VimEnter * nested
-    \ let greatest_buf_no = bufnr('$') |
-    \ if (greatest_buf_no == 1)
-    \     && (bufname(1) == "")
-    \     && filereadable(
-    \       s:user_vim_dir . "/Session.vim") |
-    \   execute "source " .
-    \     s:user_vim_dir . "/Session.vim" |
-    \ endif
+  \ let greatest_buf_no = bufnr('$') |
+  \ if (greatest_buf_no == 1)
+  \     && (bufname(1) == "")
+  \     && filereadable(
+  \       s:user_vim_dir . "/Session.vim") |
+  \   execute "source " .
+  \     s:user_vim_dir . "/Session.vim" |
+  \ endif
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Opening and Backing up Files
@@ -137,7 +137,7 @@ autocmd VimEnter * nested
 " I guess we're responsible for cleaning up
 " this mess.
 let s:CleansedBufList = 0
-function s:CleanseBufList(bang)
+function! s:CleanseBufList(bang)
   let last_buffer = bufnr('$')
   let delete_count = 0
   let n = 1
@@ -274,38 +274,61 @@ endif
 " NOTE To start maximized:
 "      au GUIEnter * simalt ~x
 
-" XXX It's Courier New 9, Folks! XXX
-" 2017-06-27: It's Hack Regular 9, Folks, since Aug 17, 2015, Go Dubsacks!
+" Hack Regular 9. Proudly using since Aug 17, 2015.
 " ------------------------------------------------------------------------
-function s:ThemeResetFont()
+function! s:GTKSetFontHack()
+  " How come Courier New isn't the default?
+  if s:running_windows
+    set guifont=Courier_New:h9
+  else
+    " set guifont=Courier\ New\ 9
+    " NOTE In Debian, just setting guifont makes
+    "      things look like shit; not sure why this
+    "      doesn't happen in Fedora. Anyway, comment
+    "      this out or unset guifont to fix font issues.
+    "      ... or don't run Debian!
+    " FIXME/2017-11-04: Make this dynamic, hardcoder!
+    " 2017-12-05: I tried Knack, which is Hack plus extras,
+    " but the Powerline glyphs have a one-character padding
+    " on the left. Weird. Makes statusline look funky. Oh, well...
+    "    if filereadable($HOME . "/.local/share/fonts/NerdFonts/Knack\ Regular\ Nerd\ Font\ Complete.ttf")
+    "      set guifont=Knack\ Nerd\ Font\ 9
+    if filereadable($HOME . "/.fonts/Hack-v3.000-ttf/ttf/Hack-Regular.ttf")
+      set guifont=Hack\ Regular\ 9
+    elseif filereadable($HOME . "/.fonts/Hack-v2_010-ttf/Hack-Regular.ttf")
+      set guifont=Hack\ Regular\ 9
+    else
+      "set guifont=Bitstream\ Vera\ Sans\ Mono\ 9
+      " 2017-12-09: Courier is probably a more reliable default.
+      set guifont=Courier\ New\ 9
+    endif
+  endif
+endfunction
+
+function! s:ThemeResetFont()
   " FIXME/2017-12-01: This should be more themeable than being hardcoded.
   "   That, or you're allowed to be opinionated, dammit.
   if has("gui_running")
-    " How come Courier New isn't the default?
-    if s:running_windows
-      set guifont=Courier_New:h9
+
+    " From http://vim.wikia.com/wiki/VimTip632
+    if has("gui_gtk2") || has("gui_gtk3")
+      call s:GTKSetFontHack()
+    elseif has("gui_photon")
+      set guifont=Courier\ New:s9
+    elseif has("gui_kde")
+      set guifont=Courier\ New/9/-1/5/50/0/0/0/1/0
+    elseif has("x11")
+      set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
     else
-      " set guifont=Courier\ New\ 9
-      " NOTE In Debian, just setting guifont makes
-      "      things look like shit; not sure why this
-      "      doesn't happen in Fedora. Anyway, comment
-      "      this out or unset guifont to fix font issues.
-      "      ... or don't run Debian!
-      " FIXME/2017-11-04: Make this dynamic, hardcoder!
-      " 2017-12-05: I tried Knack, which is Hack plus extras,
-      " but the Powerline glyphs have a one-character padding
-      " on the left. Weird. Makes statusline look funky. Oh, well...
-      "    if filereadable($HOME . "/.local/share/fonts/NerdFonts/Knack\ Regular\ Nerd\ Font\ Complete.ttf")
-      "      set guifont=Knack\ Nerd\ Font\ 9
-      if filereadable($HOME . "/.fonts/Hack-v3.000-ttf/ttf/Hack-Regular.ttf")
-        set guifont=Hack\ Regular\ 9
-      elseif filereadable($HOME . "/.fonts/Hack-v2_010-ttf/Hack-Regular.ttf")
-        set guifont=Hack\ Regular\ 9
-      else
-        set guifont=Bitstream\ Vera\ Sans\ Mono\ 9
-      endif
+      set guifont=Courier_New:h9:cDEFAULT
     endif
-    " Get rid of silly, space-wasting toolbar
+
+    " Get rid of (hide) the silly, space-wasting Vim toolbar (but not menu bar).
+    " You can test some looks n feels:
+    "   :set guioptions-=m  " remove menu bar (except then <alt-f> mappings break)
+    "   :set guioptions-=T  " remove toolbar
+    "   :set guioptions-=r  " remove right-hand scroll bar
+    "   :set guioptions-=L  " remove left-hand scroll bar
     " Default is 'egmrLtT'
     set guioptions=egmrLt
     " Hide the mouse pointer while typing
@@ -315,12 +338,15 @@ function s:ThemeResetFont()
   endif
 endfunction
 
+call s:ThemeResetFont()
+
 " Show line numbers
 " ------------------------------------------------------
 set nu!
 
 " Do not replace final whitespace character of tab with \
 " ------------------------------------------------------
+" 2017-12-09: Defaults to off, anyway; not sure why this is explicit.
 set nolist
 
 " What Are You Hiding From Me?
@@ -403,6 +429,8 @@ set wildmenu
 
 " Always show a status line (show line and column numbers; see also: ruler)
 " ------------------------------------------------------
+" 2017-12-09: See also dubs_mescaline
+"   github.com/landonb/dubs_mescaline
 au VimEnter * set laststatus=2
 
 " All Quiet on the Vimmer Front
@@ -432,424 +460,8 @@ endif
 "   me off somehow and I disabled it... to the git log!
 set ruler
 
-" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-" Color Scheme
-" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-" FIXME/2017-12-06 00:36: Move colorscheme fcns. to real color plugins.
-
-
-
-" FIXME/2017-12-01: Make a color scheme for these.
-"   Maybe nighttime preloads nord and just overrides a few things.
-" See:
-"   :edit $VIMRUNTIME/colors/README.txt
-" You can also use autoload so that every time you run the theme fcn.,
-" it rereads the source file!
-
-" I like the White background that the default
-" color scheme uses, but the color scheme still
-" needs a little tweaking.
-
-" #################
-" THEME: LIGHT TIME
-" #################
-
-function s:SetColorSchemeLight_Override()
-  " NOTE: You can use common color names; see
-  "   :h cterm-colors
-  " or you can use #rrggbb colors for guifg and guibg
-  " (but not ctermfg or ctermbg).
-
-  " Vim's default.
-  " 2017-11-12: WTF: White isn't really white, it's same as LightGray.
-  " This could be because Vim isn't really tapped into the terminal
-  " colors (they're an approximation) or because Vim is saving us from
-  " having trouble seeing white text (should a syntax highlighter use
-  " white).
-  " Or maybe we need to set t_Co? Under :h terminal-options, "number of colors".
-  set t_Co=256
-  highlight Normal gui=NONE
-    \ guifg=Black guibg=White
-    \ ctermfg=Black ctermbg=White
-
-  " Pretty Print
-  " ------------------------------------------------------
-  " Change the color of the line numbers
-  " from deep red (default) to dark grey
-  " (it's less abusive to the eye this way).
-  highlight LineNr term=NONE cterm=NONE
-    \ ctermfg=DarkGrey ctermbg=NONE gui=NONE
-    \ guifg=DarkGrey guibg=NONE
-
-  " 2012.09.21: Add colors for :list. See :h listchars. You can show whitespace.
-  " Hmmm, the trail:~ puts tildes after the last line number... kinda weird lookn
-  " set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
-  highlight SpecialKey term=NONE cterm=NONE
-    \ ctermfg=DarkGrey ctermbg=NONE gui=NONE
-    \ guifg=DarkGrey guibg=NONE
-
-  " Tone down the tildes
-  " ------------------------------------------------------
-  " Vim displays tildes (~) to represent lines that
-  " appear in a window but are not actually part of
-  " the buffer (i.e., for visual lines that follow
-  " the last line of a buffer). This isn't too
-  " distracting unless you verially split a window,
-  " then the empty buffer on the right is full of
-  " colorful blue tildes. You could tone this done
-  " by, say, changing the tildes to pink, i.e.,
-  "
-  "   highlight NonText guifg=Pink2
-  "
-  " but, really, since Vim is displaying line
-  " numbers -- and since line numbers are only
-  " displayed for actual lines in the document --
-  " we don't even need the tildes! You can simply
-  " infur the end of the document by where the line
-  " numbers are no longer displayed. (Note that
-  " guifg=NONE seems like the proper way to do
-  " this, but it makes the tildes black, not
-  " transparent (or maybe I missed something when I
-  " tried it).)
-  " FIXME: 2012.09.21: This isn't working from here: you can manually
-  " :set list and then :highlight... and the whitespace chars are shown
-  " in the same gray as the line numbers, but if you just :set list, the
-  " whitespace chars don't appear, even with the same highlight here....
-  highlight NonText term=NONE cterm=NONE
-    \ ctermfg=DarkGrey ctermbg=NONE gui=NONE
-    \ guifg=DarkGrey guibg=NONE
-  ":highlight NonText term=NONE cterm=NONE
-  "  \ ctermfg=DarkGrey ctermbg=NONE
-  "  \ gui=NONE guifg=DarkGrey guibg=NONE
-  "highlight NonText guifg=White
-
-  " Mock zellner
-  " ------------------------------------------------------
-  " The zellner color scheme changes the status
-  " line for the active window. The default is that
-  " each status line (i.e., the line beneath each
-  " window) is white text on a black background,
-  " save for the active window (the window where
-  " the cursor is), which is yellow text on a dark
-  " gray background. (For the default color scheme,
-  " the active window's status line is bold white
-  " on black, and inactive windows' status lines
-  " are normal white on black.)
-  "
-  " This is what's set in zellner.vim:
-  "
-  "    highlight StatusLine
-  "    \ term=bold,reverse cterm=NONE |
-  "    \ ctermfg=Yellow ctermbg=DarkGray |
-  "    \ gui=NONE guifg=Yellow guibg=DarkGray
-  "
-  " Note that zellner does not specify StatusLineNC
-  " (for inactive windows), so it remains the
-  " default -- white foreground and black
-  " background. This is annoying; I don't like some
-  " status lines being black and one being dark
-  " gray, so let's make them all dark gray. This
-  " means using the same settings zellner uses for
-  " StatusLine, but also adding StatusLineNC,
-  " specifying that inactive windows' status lines
-  " use the same background as the active window
-  " status line but instead use a white foreground
-  " (font) color.
-
-  highlight StatusLine term=bold,reverse gui=NONE
-    \ guifg=Yellow guibg=DarkGray
-    \ cterm=NONE ctermfg=Yellow ctermbg=DarkGray
-
-  highlight StatusLineNC term=reverse gui=NONE
-    \ guifg=White guibg=DarkGray
-    \ ctermfg=White ctermbg=DarkGray
-
-  " Between two windows that are vertically split, there are
-  " black rectangles with white bars inside. Make the vertical
-  " tab characters to be white on white, hiding them.
-  highlight VertSplit term=reverse gui=NONE
-    \ guifg=White guibg=White
-    \ ctermfg=White ctermbg=White
-
-  " Change Search highlight
-  " Vim's default.
-  highlight Search term=reverse
-    \ guibg=LightGreen
-    \ ctermfg=0 ctermbg=3
-  "highlight Search guibg=Green
-  "highlight Search guibg=LightGreen
-
-  " Highlight columns color.
-  " I use this to help me manually wrap long lines (when not using parT).
-  " 2014.11.18: [lb] happened to load the "Highlight long lines" page
-  "   on Wikia <http://vim.wikia.com/wiki/Highlight_long_lines> and
-  "   thankfully I found out Vim 7.3 includes a newer, better way to
-  "   highlight line length!
-  " See also in the syle plugin
-  "   https://github.com/landonb/dubs_style_guard
-  " e.g., `set colorcolumn=77,78,79`.
-  " The default color is a lightish pink, which is kinda atrocious.
-  highlight ColorColumn guibg=lightgrey ctermbg=lightgrey
-
-  " ErrorMsg defaults to
-  "  xxx term=standout ctermfg=15 ctermbg=4 guifg=White guibg=Red
-  " For color reference see :h cterm-colors
-  " Here's the list of light colors:
-  "  LightRed LightGreen LightCyan LightMagenta LightYellow LightGray
-  " [lb] tried Red and LightRed but red is too loud and obnoxious.
-  " So then I just tried LightBlue and it seems to fit in nicely.
-  highlight MyErrorMsg term=standout ctermfg=15 ctermbg=4 guibg=LightBlue
-endfunction
-
-function s:SetColorSchemeLight(load_appearances)
-  call s:SetColorScheme('light', a:load_appearances)
-endfunction
-
-" #################
-" THEME: NIGHT TIME
-" #################
-
-" FIXME/2017-12-01: Move this to a color/ file.
-function s:SetColorSchemeNight_Override()
-  let s:dubs_highlight_index = s:dubs_highlight_nighttime
-
-  "highlight Normal gui=NONE
-  "  \ guifg=White guibg=#060606
-  "  \ ctermfg=White ctermbg=Black
-  " 2017-11-12: Weird. In the terminal ctermbg=Black or =0 is same as =DarkGray/DarkGrey.
-  "   But using 8 gets us black... or any number not negative or 0-7....
-  "   Also, ctermbg=none works.
-  highlight Normal gui=NONE
-    \ guifg=White guibg=#060606
-    \ ctermfg=White ctermbg=none
-
-  " Same color of line numbers as in lighttime mode.
-  highlight LineNr term=NONE cterm=NONE
-    \ ctermfg=DarkGrey ctermbg=NONE gui=NONE
-    \ guifg=DarkGrey guibg=NONE
-
-  " Color of Meta and special keys, i.e., unprintable characters. See :map.
-  highlight SpecialKey term=NONE cterm=NONE
-    \ ctermfg=DarkGrey ctermbg=NONE gui=NONE
-    \ guifg=DarkGrey guibg=NONE
-
-  " Make the tildes of blank lines visible.
-  highlight NonText guifg=#7f7f7f
-
-  highlight StatusLine term=bold,reverse gui=NONE
-    \ guifg=Yellow guibg=DarkGreen
-    \ cterm=NONE ctermfg=DarkYellow ctermbg=DarkGray
-
-  "highlight StatusLineNC term=reverse gui=NONE
-  "  \ guifg=Black guibg=DarkGray
-  "  \ ctermfg=Black ctermbg=DarkGray
-  highlight StatusLineNC term=reverse gui=NONE
-    \ guifg=LightGray guibg=DarkBlue
-    \ ctermfg=LightGray ctermbg=DarkBlue
-
-  " Hide the vertical split window border. (See notes elsewhere.)
-  highlight VertSplit term=reverse gui=NONE
-    \ guifg=#060606 guibg=#060606
-    \ ctermfg=Black ctermbg=Black
-
-  "highlight Search guibg=DarkYellow
-  "highlight Search guibg=DarkRed
-  "highlight Search guibg=DarkMagenta
-  "highlight Search guibg=DarkGreen
-  "highlight Search guibg=LightGray
-  "highlight Search guibg=#777777
-  " Default cursor is inverse of text:
-  "  highlight Cursor guifg=bg guibg=fg
-  " which is same as this Search highlighting:
-  "  highlight Search guibg=White guifg=Black
-  "highlight Search guibg=White guifg=Black
-  " colorscheme nord:
-  " highlight Normal guifg=#D8DEE9 guibg=#2E3440
-  highlight Search term=reverse
-    \ guifg=#3B4252 guibg=#88C0D0
-    \ ctermfg=0 ctermbg=6
-  " ...
-  highlight IncSearch term=reverse
-    \ guifg=#000000 guibg=#FFFFFF gui=underline
-    \ ctermfg=0 ctermbg=6 cterm=underline
-
-  " colorcolumn color.
-  "highlight ColorColumn guibg=lightmagenta ctermbg=lightmagenta
-  "highlight ColorColumn guibg=darkgreen ctermbg=darkgreen
-  "highlight ColorColumn guibg=darkcyan ctermbg=darkcyan
-  highlight ColorColumn
-    \ guifg=#D8DEE9 guibg=#2E3440
-    \ ctermbg=darkgreen ctermfg=lightyellow
-  " highlight Normal guifg=#D8DEE9 guibg=#2E3440
-
-  " MAYBE/2017-11-04: Change this? Same as lighttime.
-  highlight MyErrorMsg term=standout ctermfg=15 ctermbg=4 guibg=LightBlue
-
-  " 2017-11-17: Nord default:
-  "highlight Comment term=bold ctermfg=8 guifg=#4C566A
-  " Something a little lighter. Used:
-  "   https://www.sessions.edu/color-calculator/
-  "highlight Comment term=bold ctermfg=8 guifg=#7888a6
-  "highlight Comment term=bold ctermfg=8 guifg=#8292b3
-  " Perhaps something more yellow?
-  "highlight Comment term=bold ctermfg=8 guifg=#abb382
-  " Or pinkish reddish?
-  highlight Comment term=bold ctermfg=8 guifg=#b38a82
-
-  "highlight Identifier term=underline guifg=#D8DEE9
-  " In lighttime, same color as SpellLocal.
-  "highlight Identifier term=underline ctermfg=6 guifg=#E5E9F0
-  " But that's too bright, almost indistinguisable from white.
-  highlight Identifier term=underline ctermfg=6 guifg=#656970
-  " FIXME: Better Identifier highlight.
-
-  "highlight Todo term=standout ctermfg=3 guifg=#EBCB8B guibg=Yellow
-  "highlight Todo term=standout ctermfg=3 guifg=#000000 guibg=Yellow
-  highlight Todo term=standout ctermfg=3 guifg=#000000 guibg=#C6C6C6
-
-  " 2017-12-01: Configure the cursor.
-  " There's lot more info here:
-  "   http://vim.wikia.com/wiki/Configuring_the_cursor
-  " and under
-  "   :h Cursor\>
-  "highlight Cursor guifg=black guibg=white
-  "highlight Cursor guifg=red guibg=green
-  "highlight iCursor guifg=red guibg=white
-  " nord's: let s:nord4_gui = "#D8DEE9" / s:nord0_gui = "#2E3440"
-  "highlight Cursor guifg=#2E3440 guibg=#D8DEE9
-  highlight Cursor guifg=#2E3440 guibg=#ECEFF4
-  highlight Cursor guifg=#2E3440 guibg=#ECEFF4
-  highlight lCursor guifg=bg guibg=fg
-endfunction
-
-function s:SetColorSchemeNight(load_appearances)
-  call s:SetColorScheme('night', a:load_appearances)
-endfunction
-
-" ####################
-" THEME: END OF THEMES
-" ####################
-
-function s:SetColorScheme(scheme_name, load_appearances)
-  if a:scheme_name == 'light'
-    let s:dubs_highlight_index = s:dubs_highlight_lighttime
-    let l:theme_fcn = 'g:Theme_Highlight_Lighttime'
-    let l:addit_fcn = 's:SetColorSchemeLight_Override'
-  elseif a:scheme_name == 'night'
-    let s:dubs_highlight_index = s:dubs_highlight_nighttime
-    let l:theme_fcn = 'g:Theme_Highlight_Nighttime'
-    let l:addit_fcn = 's:SetColorSchemeNight_Override'
-  else
-    echom 'No such theme! ' . a:scheme_name
-    return
-  endif
-
-  if a:load_appearances == 1
-    " MAYBE/2017-12-01: Use autoload to source appearances/lighttime.vim?
-    " NOTE: Use an asterisk to check for fcn. defn. See: :h ftplugin-special
-    if exists('*' . l:theme_fcn)
-      execute 'call ' . l:theme_fcn . '()'
-    else
-      echom 'Missing theme fcn.: ' . l:theme_fcn
-    endif
-  endif
-
-  " Run this file's overrides. Since appearances/lighttime.vim is mostly
-  " generated, we use this file for comments about highlights, and for
-  " testing new values.
-  execute 'call ' . l:addit_fcn . '()'
-
-  call s:ThemeResetFont()
-endfunction
-
-if !hasmapto('<Plug>DubsAppearance_CycleThruHighlights_0')
-  map <silent> <unique> <Leader>h
-    \ <Plug>DubsAppearance_CycleThruHighlights_0
-endif
-" Map <Plug> to an <SID> function
-noremap <silent> <unique> <script>
-  \ <Plug>DubsAppearance_CycleThruHighlights_0
-  \ :call <SID>CycleThruHighlights(0)<CR>
-" 2017-12-01: Only load appearances/ file on \H
-if !hasmapto('<Plug>DubsAppearance_CycleThruHighlights_1')
-  map <silent> <unique> <Leader>H
-  \ <Plug>DubsAppearance_CycleThruHighlights_1
-endif
-" Map <Plug> to an <SID> function
-noremap <silent> <unique> <script>
-  \ <Plug>DubsAppearance_CycleThruHighlights_1
-  \ :call <SID>CycleThruHighlights(1)<CR>
-
-let s:dubs_highlight_lighttime = 0
-let s:dubs_highlight_nighttime = 1
-let s:dubs_highlight_count = s:dubs_highlight_nighttime + 1
-
-function s:CycleThruHighlights(load_appearances)
-  if !exists('s:dubs_highlight_index')
-    let s:dubs_highlight_index = s:dubs_highlight_lighttime
-    "let s:dubs_highlight_index = s:dubs_highlight_nighttime
-  endif
-
-  let s:dubs_highlight_index = s:dubs_highlight_index + 1
-  if (s:dubs_highlight_index >= s:dubs_highlight_count)
-    let s:dubs_highlight_index = 0
-  endif
-
-  let l:mesg = 'Off by one, lawyer dog!'
-  if (s:dubs_highlight_index == s:dubs_highlight_lighttime)
-    call <SID>SetColorSchemeLight(a:load_appearances)
-    let l:mesg = 'Lighttime is the right time!'
-  elseif (s:dubs_highlight_index == s:dubs_highlight_nighttime)
-    call <SID>SetColorSchemeNight(a:load_appearances)
-    let l:mesg = 'Nighttime is the night time!'
-  endif
-  " Force redraw, lest echo is hidden from status line.
-  redraw
-  echo l:mesg
-endfunction
-
-" WHATEVER/2017-11-06: I tried to make it so you could default to night,
-"   but then the light color scheme gets borked (some colors are off).
-"   I think Vim is doing additional configuration after this plugin
-"   loads. I even tried calling SetColorSchemeNight from an after/
-"   script, and still it didn't work.
-"
-"  function s:SetDefaultColorScheme()
-"    if !exists("g:dubs_appearance_color_scheme")
-"       \ || (g:dubs_appearance_color_scheme == 'night')
-"      call <SID>SetColorSchemeNight()
-"    else
-"      call <SID>SetColorSchemeLight()
-"    endif
-"  endfunction
-"  call <SID>SetDefaultColorScheme()
-"
-" So, whatever, we'll just default to lighttime and let user change.
-
-" Default to Dark text on Light background.
-call <SID>SetColorSchemeLight(0)
-
-" 2017-12-01: This is awesome! "vim identify highlight of word under cursor"
-" http://vim.wikia.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor
-" See also :help synstack()
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-  \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-" Visually Appealing Vertical Split
+" Break lines on word boundaries
 " ------------------------------------------------------
-" When two windows are split vertically, there's a
-" column of black rectangles running between them,
-" and each black rectangle has a vertical bar in it.
-" This, to me, is very distracting!
-"
-" And you really don't need these rectangles- the
-" line numbers in each window provide adequate
-" visual separation.
-"
 " Set linebreak, which complements wrap by wrapping lines
 " only where visually pleasing, i.e., at the nearest
 " whitespace character or punctuation.
@@ -857,14 +469,6 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 "
 "    breakat= ^I!@*-+;:,./?
 set linebreak
-
-" NOTE When working with two vertically split
-"      windows, the left one container your
-"      document and the right one containing an
-"      empty buffer, the scroll bar for your
-"      document is on the left side of the gVim
-"      window, rather than on the right. You'll
-"      probably eventually get used to this....
 
 " ------------------------------------------------------
 " Auto-indent selected code
@@ -911,9 +515,9 @@ filetype indent on
 "     it still reformats my line. So I assume these sets
 "     are in vain.
 "   :set cinkeys=0{,0},0),:,!^F,o,O,e
-:set cinkeys=0{,0},0),!^F,o,O,e
+set cinkeys=0{,0},0),!^F,o,O,e
 " :set indentkeys=0{,0},:,!^F,o,O,e,<:>,=elif,=except
-:set indentkeys=0{,0},!^F,o,O,e,<:>,=elif,=except
+set indentkeys=0{,0},!^F,o,O,e,<:>,=elif,=except
 
 " Read about "Contextual Indent", i.e., why to do write code like,
 "
