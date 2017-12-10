@@ -1,6 +1,6 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.12.09
+" Last Modified: 2017.12.10
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
@@ -483,6 +483,9 @@ set linebreak
 
 " Switch on cindent automatically for all files.
 " 2017-06-27: See possibly comments in filetype.vim.
+" - :help filetype-indent-on
+"   "Enable loading the indent file for specific file types."
+" FIXME/2017-12-10: Do you actually use any indent files?
 filetype indent on
 
 " ------------------------------------------------------
@@ -507,6 +510,7 @@ filetype indent on
 " Fiddle with smart indent settings
 " ------------------------------------------------------
 
+" FIXME/2017-12-10: This belongs in a filetype-specific indent/ file.
 " FIXME/2017-06-27: This is a very moldy comment. Meh:
 "   FIXME: Applies just to Python, maybe others
 "   EXPLAIN: You removed colons: because...?
@@ -563,7 +567,6 @@ set indentkeys=0{,0},!^F,o,O,e,<:>,=elif,=except
 " The menu is created and populated
 "   $VIMRUNTIME/menu.vim
 if has("menu") && has("gui_running")
-
   " --------------------------------
   " A Close is a close is a close
   " --------------------------------
