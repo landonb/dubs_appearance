@@ -20,7 +20,7 @@ This plugin configures the appearance of Vim.
 - Use ``<Ctrl-c>`` to copy text in the command-line window.
 
 - Enable syntax highlighting.
-  
+
 - Show line numbers.
 
 - Show new buffers with all folds open.
