@@ -47,6 +47,7 @@ endif
 
 " Save current session on exit
 " ------------------------------------------------------
+"
 " NOTE Vim's default is to set
 "        sessionoptions=blank,buffers,curdir,
 "          \ folds,help,options,tabpages,winsize
@@ -62,64 +63,105 @@ endif
 "      haven't tested this, so for now: delete
 "      Session.vim if you m*ck w//touch this
 "      fi#e.
+"
 " NOTE I still haven't figured out unloaded/
 "      hidden buffers, such that :Bclose all and
 "      restarting Vim starts with the buffers
 "      you just closed -- as a kludge, we'll
 "      just not re-write the session file if
 "      <Alt-f>e was just called.
-autocmd VimLeave * nested
-  \ let last_buffer = bufnr('$') |
-  \ let num_buffers = 0 |
-  \ let empty_buffers = 0 |
-  \ let n = 1 |
-  \ while n <= last_buffer |
-  \   if (buflisted(n)) |
-  \     let num_buffers = num_buffers + 1 |
-  \     if (bufname(n)== "") |
-  \       let empty_buffers = empty_buffers + 1 |
-  \     endif |
-  \   endif |
-  \   let n = n + 1 |
-  \ endwhile |
-  \ if (num_buffers == 1)
-  \     && (empty_buffers == 1) |
-  \   call delete(
-  \     s:user_vim_dir . "/Session.vim") |
-  \ else |
-  \   if (!isdirectory(s:user_vim_dir)) |
-  \     call mkdir(s:user_vim_dir) |
-  \   endif |
-  \   execute "mksession! " .
-  \     s:user_vim_dir . "/Session.vim" |
-  \ endif
+"
+" NOTE/2018-06-11: Only save session file (a/k/a
+"      Session.vim) if --servername was used, so
+"      that we don't start sessioning one-off
+"      uses, e.g., via `git commit`; and so that
+"      having more than one instance of vim open
+"      doesn't cause session file confusion.
+"
+" MAYBE/2018-06-11: (lb): Not sure we needed 'nested',
+"      but it's always forever been here, so leaving.
 
-" Restore previous session on open
-" ------------------------------------------------------
-" Inspired by
-"   http://vim.wikia.com/wiki/Open_the_last_edited_file
+autocmd VimLeave * nested call <SID>ManageSessionFile()
+
+function! s:ManageSessionFile()
+  if (v:servername == '')
+    return
+  endif
+
+  let last_buffer = bufnr('$')
+  let num_buffers = 0
+  let empty_buffers = 0
+  let n = 1
+  while n <= last_buffer
+    if (buflisted(n))
+      let num_buffers = num_buffers + 1
+      if (bufname(n) == "")
+        let empty_buffers = empty_buffers + 1
+      endif
+    endif
+    let n = n + 1
+  endwhile
+
+  let l:sessions_dir = s:user_vim_dir . "/sessions"
+  let l:session_file = l:sessions_dir . "/" . v:servername . ".vim"
+
+  if (num_buffers == 1)
+      && (empty_buffers == 1)
+    call delete(l:session_file)
+  else
+    if (!isdirectory(s:user_vim_dir))
+      call mkdir(s:user_vim_dir)
+    endif
+    if (!isdirectory(l:sessions_dir))
+      call mkdir(l:sessions_dir)
+    endif
+    execute "mksession! " l:session_file
+  endif
+endfunction
 
 " Restore previous session on startup
 " ------------------------------------------------------
-" ... but not if specifically opening a file; in
-" other words, just restore the previous session
-" if user clicked gVim.exe, but not some dumb
-" text file.
-" NOTE (argc() == 0) is true even when double-
-"      clicking from Explorer, so it's not a
-"      reliable indicator of whether a file is
-"      being opened (as the aforementioned wikia.
-"      com link may lead you to believe);
-"      rather,
-autocmd VimEnter * nested
-  \ let greatest_buf_no = bufnr('$') |
-  \ if (greatest_buf_no == 1)
-  \     && (bufname(1) == "")
-  \     && filereadable(
-  \       s:user_vim_dir . "/Session.vim") |
-  \   execute "source " .
-  \     s:user_vim_dir . "/Session.vim" |
-  \ endif
+" ... but not if opening a file on invocation.
+"
+" Inspired by
+"   http://vim.wikia.com/wiki/Open_the_last_edited_file
+"
+" NOTE: Windows: (argc() == 0) is true even when double-
+"       clicking from Explorer, so it's not a reliable
+"       indicator of whether a file is being opened (as
+"       the aforementioned wikia.com link may lead you
+"       to believe); rather,
+"
+" NOTE/2018-06-11: When run for git-commit, (e.g., because
+"       core.editor), the buffer name is COMMIT_EDITMSG
+"       Which is not a file (or maybe it's a temp file?).
+"       In any case, don't do Sessioning for git. To detect,
+"       we'll use the --servername, which won't be set for
+"       git. (This is also a more robust solution in general,
+"       and will work for other apps that work similarly.)
+"
+" MAYBE/2018-06-11: (lb): Not sure we needed 'nested',
+"      but it's always forever been here, so leaving.
+
+autocmd VimEnter * nested call <SID>LoadSessionFile()
+
+function! s:LoadSessionFile()
+  if (v:servername == '') || (bufname(1) != "")
+    return
+  endif
+
+  let greatest_buf_no = bufnr('$')
+  if (greatest_buf_no > 1)
+    return
+  endif
+
+  let l:sessions_dir = s:user_vim_dir . "/sessions"
+  let l:session_file = l:sessions_dir . "/" . v:servername . ".vim"
+
+  if filereadable(l:session_file)
+    execute "source " . l:session_file
+  endif
+endfunction
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Opening and Backing up Files
