@@ -735,3 +735,12 @@ if has("menu") && has("gui_running")
 
 endif " has("menu") && has("gui_running")
 
+" gVim Right-Click Menu
+" ---------------------
+
+" 2018-12-09: Learn something new everyday:
+" Dubs Vim will (should) by default give a right-click popup context menu,
+" via `set mousemodel=popup`. However, if you start without plugins, e.g.,
+" `gvim --noplugin`, right-clicking extends a selection (=extend) instead.
+" For more, :help popup-menu.
+
