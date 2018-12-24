@@ -348,10 +348,10 @@ function! s:GTKSetFontHack()
 endfunction
 
 function! s:ThemeResetFont()
-  " FIXME/2017-12-01: This should be more themeable than being hardcoded.
-  "   That, or you're allowed to be opinionated, dammit.
+  " MAYBE/2018-12-24: Make the font more easily themeable.
+  "   For now, being opinionated: You should install Hack!
+  "   Otherwise, I'll settle for Courier New 9, 'snot bad.
   if has("gui_running")
-
     " From http://vim.wikia.com/wiki/VimTip632
     if has("gui_gtk2") || has("gui_gtk3")
       call s:GTKSetFontHack()
