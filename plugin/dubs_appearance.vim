@@ -335,9 +335,7 @@ function! s:GTKSetFontHack()
     " on the left. Weird. Makes statusline look funky. Oh, well...
     "    if filereadable($HOME . "/.local/share/fonts/NerdFonts/Knack\ Regular\ Nerd\ Font\ Complete.ttf")
     "      set guifont=Knack\ Nerd\ Font\ 9
-    if filereadable($HOME . "/.fonts/Hack-v3.000-ttf/ttf/Hack-Regular.ttf")
-      set guifont=Hack\ Regular\ 9
-    elseif filereadable($HOME . "/.fonts/Hack-v2_010-ttf/Hack-Regular.ttf")
+    if len(glob($HOME . "/.fonts/Hack-v*-ttf/ttf/Hack-Regular.ttf")) > 0
       set guifont=Hack\ Regular\ 9
     else
       "set guifont=Bitstream\ Vera\ Sans\ Mono\ 9
