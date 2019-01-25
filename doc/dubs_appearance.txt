@@ -1,6 +1,6 @@
 *dubs_appearance.txt*	For Vim version 7.4.	Last change: 2015 Jan 23
 
-Dubsacks Vim -- Appearance Plugin~
+Dubs Vim -- Appearance Plugin~
 
 MERELY APPEARANCES			*dubs-appearance*
 

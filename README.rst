@@ -1,5 +1,5 @@
-Dubsacks Vim — Appearance Plugin
-================================
+Dubs Vim — Appearance Plugin
+============================
 
 About This Plugin
 -----------------
