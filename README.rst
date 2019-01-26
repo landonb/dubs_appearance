@@ -1,8 +1,11 @@
-Dubs Vim — Appearance Plugin
-============================
+####################################
+Dubs Vim |em_dash| Appearance Plugin
+####################################
+
+.. |em_dash| unicode:: 0x2014 .. em dash
 
 About This Plugin
------------------
+=================
 
 This plugin configures the appearance of Vim.
 
@@ -116,7 +119,7 @@ The plugin also improves upon the default color scheme.
 See the source for a few other settings and more comments.
 
 Installation
-------------
+============
 
 Standard Pathogen installation:
 
@@ -140,7 +143,7 @@ Online help:
    :help dubs-appearance
 
 Appearance Commands
----------------------
+===================
 
 This script does not define any commands.
 
