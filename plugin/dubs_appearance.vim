@@ -265,21 +265,6 @@ endfunction
 " but not in Linux.
 syntax enable
 
-" Start Big
-" ------------------------------------------------------
-" Start with a reasonably sized window for GUIs
-" (ignore for CLI so we don't change terminal size)
-if has("gui_running")
-  " winpos 100 100
-  " set columns=111 lines=44
-  " 2010.06.24 Work config:
-  " FIXME Home config; if 'fa', winpos 0 0 ?
-  winpos 718 0
-  set columns=121 lines=68
-endif
-" NOTE To start maximized:
-"      au GUIEnter * simalt ~x
-
 " ------------------------------------------------------
 
 function! s:ThemeResetMouse()
