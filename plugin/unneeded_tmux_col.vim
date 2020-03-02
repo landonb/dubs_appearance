@@ -40,5 +40,5 @@ function! s:DubsAppearance_Main()
   "  call <SID>DubsAppear_TrueColors()
 endfunction
 
-call <SID>DubsAppearance_Main()
+" call <SID>DubsAppearance_Main()
 
