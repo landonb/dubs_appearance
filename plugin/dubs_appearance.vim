@@ -255,34 +255,6 @@ endfunction
 " (seriously, I'm probably just missing a
 "  setting somewhere...)
 
-" Common Backup file and Swap Directory
-" ------------------------------------------------------
-" Use a common directory for backups and
-" swp files; creates the backup dir if new
-let s:backupDir = '"' . $HOME . '/.vim_backups' . '"'
-silent execute "let s:backupFtype = getftype(" . s:backupDir . ")"
-if "" == s:backupFtype
-  silent execute '!mkdir ' . s:backupDir
-elseif "dir" != s:backupFtype
-  call confirm('Backup directory exists but is not a directory! '
-    \ . 'Dir: ' . s:backupDir . ' / Type: ' . s:backupFtype)
-endif
-set backupdir=$HOME/.vim_backups/
-set directory=$HOME/.vim_backups/
-
-" Skip Backups
-" ------------------------------------------------------
-" Backups are only written when you save a
-" file, anyway, so I don't see the point
-" (I save all the time: I'm from the old-school
-"  '80s and '90s camp, sans journaling file systems,
-"  where if ya crashed, ya crashed, and all yer data
-"  went away!).
-" Additionally, Vim maintains ~/.vim_backups, so
-" if Vim crashes, you're fine.
-" Basically: use revision control for "backups".
-set nobackup
-
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Miscellany
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
