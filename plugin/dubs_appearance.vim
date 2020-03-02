@@ -265,18 +265,6 @@ endfunction
 " but not in Linux.
 syntax enable
 
-" ------------------------------------------------------
-
-function! s:ThemeResetMouse()
-  if !has("gui_running") | return | endif
-  " Hide the mouse pointer while typing
-  " NOTE This does not hide the mouse in
-  "      Windows gVim, so it's off! for now
-  "set mousehide
-endfunction
-
-" call s:ThemeResetMouse()
-
 " Show line numbers
 " ------------------------------------------------------
 set nu!
