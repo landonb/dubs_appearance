@@ -41,9 +41,11 @@ let g:loaded_modify_menu_items = 1
 " So instead, get used to Alt-F commands, i.e.,
 " the File menu.
 
-" The menu is created and populated
-"   $VIMRUNTIME/menu.vim
-if has("menu") && has("gui_running")
+function! s:GuiReconfigureMenu()
+  " The menu is created and populated
+  "   $VIMRUNTIME/menu.vim
+  if !has("menu") || !has("gui_running") | return | endif
+
   " --------------------------------
   " A Close is a close is a close
   " --------------------------------
@@ -167,6 +169,7 @@ if has("menu") && has("gui_running")
     \ <C-O><C-w>v<C-O><C-w>p<C-O>:enew<CR><C-O><C-w>p
   omenu 70.301 &Window.New\ V-&Split<Tab>^Ws
     \ <C-O><C-w>v<C-O><C-w>p<C-O>:enew<CR><C-O><C-w>p
+endfunction
 
-endif " has("menu") && has("gui_running")
+call s:GuiReconfigureMenu()
 
