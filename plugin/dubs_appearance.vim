@@ -1,12 +1,12 @@
 " File: dubs_appearance.vim
 " Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Last Modified: 2017.12.10
+" Last Modified: 2020.03.01
 " Project Page: https://github.com/landonb/dubs_appearance
 " Summary: Basic Vim configuration (no functions; just settings and mappings)
 " License: GPLv3
 " vim:tw=0:ts=2:sw=2:et:norl:ft=vim
 " ----------------------------------------------------------------------------
-" Copyright © 2009, 2015-2017 Landon Bouma.
+" Copyright © 2009, 2015-2017, 2020 Landon Bouma.
 "
 " This file is part of Dubs Vim.
 "
