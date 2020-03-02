@@ -35,10 +35,6 @@ let g:plugin_dubs_appearance = 1
 " Miscellany
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-" Show line numbers
-" ------------------------------------------------------
-set nu!
-
 " Do not replace final whitespace character of tab with \
 " ------------------------------------------------------
 " 2017-12-09: Defaults to off, anyway; not sure why this is explicit.
