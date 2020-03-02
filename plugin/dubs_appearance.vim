@@ -265,14 +265,6 @@ endfunction
 " but not in Linux.
 syntax enable
 
-" Command-line Copy
-" --------------------------------
-" gVim/win maps Ctrl-C to yank, but only
-" in Normal and Insert modes. Here we make
-" it so Ctrl-C also works in the
-" Command-line window.
-cmap <C-C> <C-Y>
-
 " Start Big
 " ------------------------------------------------------
 " Start with a reasonably sized window for GUIs
@@ -562,12 +554,6 @@ set smartindent
 "      whenever you changed buffers, but it
 "      doesn't really seem to do anything...
 "set autowrite
-
-" Enable Vim Command-line Completion
-" ------------------------------------------------------
-" Can't remember a command's proper name?
-" Hit <Tab> (!)
-set wildmenu
 
 " Always show a status line (show line and column numbers; see also: ruler)
 " ------------------------------------------------------
