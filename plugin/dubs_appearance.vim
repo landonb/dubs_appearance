@@ -318,12 +318,6 @@ set incsearch " search dynamically as keyword is typed
 "   github.com/landonb/dubs_mescaline
 au VimEnter * set laststatus=2
 
-" All Quiet on the Vimmer Front
-" ------------------------------------------------------
-" I tried noerrorbells and novisualbell to
-" no avail, but this seems to do the trick.
-set vb t_vb=
-
 " Windows Grep Complaint Silencer
 " ------------------------------------------------------
 " Windows gVim complains when you grep using a path
