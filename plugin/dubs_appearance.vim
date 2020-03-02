@@ -35,12 +35,6 @@ let g:plugin_dubs_appearance = 1
 " Miscellany
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-" Enable syntax highlighting
-" ------------------------------------------------------
-" This is enabled by default in Windows
-" but not in Linux.
-syntax enable
-
 " Show line numbers
 " ------------------------------------------------------
 set nu!
