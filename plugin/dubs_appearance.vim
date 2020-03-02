@@ -44,15 +44,6 @@ set nu!
 " 2017-12-09: Defaults to off, anyway; not sure why this is explicit.
 set nolist
 
-" What Are You Hiding From Me?
-" ------------------------------------------------------
-" Show new buffers w/ all folds open
-" (See http://vim.wikia.com/wiki/Folding)
-" TODO can i use autocmd BufAdd * ?? <C-a><C-o>zO
-"      'cause foldlevelstart=20 isn't bullet-
-"       proof ??
-set foldlevelstart=20
-
 " Something Something Something
 " ------------------------------------------------------
 " NOTE I thought autowrite was suppose to
