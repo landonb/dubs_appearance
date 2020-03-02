@@ -357,16 +357,6 @@ endif
 "   me off somehow and I disabled it... to the git log!
 set ruler
 
-" Break lines on word boundaries
-" ------------------------------------------------------
-" Set linebreak, which complements wrap by wrapping lines
-" only where visually pleasing, i.e., at the nearest
-" whitespace character or punctuation.
-" Specifically, :set breakat? returns
-"
-"    breakat= ^I!@*-+;:,./?
-set linebreak
-
 " ------------------------------------------------------
 " Highlight Characters Past Our Desired Line Width
 " ------------------------------------------------------
