@@ -195,27 +195,6 @@ set nolist
 "       proof ??
 set foldlevelstart=20
 
-" Search Behavior
-" ------------------------------------------------------
-" Case-insensitive searches
-" 2012.07.15: My old comment says,
-"               NOTE /You can override this with/I
-"             But it's really \c or \C that you want,
-"               /\CCase Sensitive Incremental Search
-"             You can put the '\C' wherever you want.
-"             (The \c does lowercase, \CDUH.)
-"             See :h ignorecase
-set ignorecase
-" Better yet, search case sensitive if the
-" search term contains a capital letter
-set smartcase
-" These should be set by default:
-"   set hlsearch  " Highlight search terms
-"   set incsearch " search dynamically as keyword is typed
-" but on my Ubuntu box, unlike Windows, they're not, so
-set hlsearch  " Highlight search terms
-set incsearch " search dynamically as keyword is typed
-
 " Something Something Something
 " ------------------------------------------------------
 " NOTE I thought autowrite was suppose to
