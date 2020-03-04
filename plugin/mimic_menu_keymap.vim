@@ -88,7 +88,7 @@ function! s:RecreateBuiltinMenuMappings_File()
   " &File.Clos&e All
   "
   " &File.&Save → :w
-  " &File.Save &As... → :sav
+  " &File.Save &As... → :sav  [magic missing: the :browser file dialog!]
   " &File.Save A&ll → :wa
   "
   " &File.Split &Diff With...
@@ -104,8 +104,8 @@ function! s:RecreateBuiltinMenuMappings_File()
   inoremap <M-f>n <C-O>:enew<CR>
 
   " Replicate builtin <M-f>a Save <A>s....
-  noremap <M-f>a :sav<CR>
-  inoremap <M-f>a <C-O>:sav<CR>
+  noremap <M-f>a :bro sav<CR>
+  inoremap <M-f>a <C-O>:bro sav<CR>
 
   " Replicate builtin <M-f>x E<x>it.
   noremap <M-f>x :qa<CR>
