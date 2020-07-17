@@ -82,8 +82,7 @@ function! s:ManageSessionFile()
   let l:sessions_dir = s:user_vim_dir . "/sessions"
   let l:session_file = l:sessions_dir . "/" . v:servername . ".vim"
 
-  if (num_buffers == 1)
-      && (empty_buffers == 1)
+  if (num_buffers == 1) && (empty_buffers == 1)
     call delete(l:session_file)
   else
     if (!isdirectory(s:user_vim_dir))
