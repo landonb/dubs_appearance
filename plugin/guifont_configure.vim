@@ -18,7 +18,7 @@ let s:running_windows = has("win16") || has("win32") || has("win64")
 
 " Hack Regular 9. Proudly using since Aug 17, 2015.
 " ------------------------------------------------------------------------
-function! s:GTKSetFontHack()
+function! s:SetFontHack_GTK()
   " How come Courier New isn't the default?
   if s:running_windows
     set guifont=Courier_New:h9
@@ -45,6 +45,19 @@ function! s:GTKSetFontHack()
   endif
 endfunction
 
+function! s:SetFontHack_macOS()
+  " SETUP/2020-08-31 22:46:
+  "   brew cask install homebrew/cask-fonts/font-hack-nerd-font
+  if len(glob($HOME . "/Library/Fonts/Hack Regular Nerd Font Complete.ttf")) > 0
+    set guifont=Hack\ Regular\ Nerd\ Font\ Complete:h12
+    " NOTE: I did not see a difference with the 'Mono' variety, e.g.:
+    "   if len(glob($HOME . "/Library/Fonts/Hack Regular Nerd Font Complete Mono.ttf")) > 0
+    "     set guifont=Hack\ Regular\ Nerd\ Font\ Complete\ Mono:h12
+  else
+    set guifont=Courier_New:h12
+  endif
+endfunction
+
 function! s:GuiSetFont()
   if ! has("gui_running") | return | endif
   " MAYBE/2018-12-24: Make the font more easily themeable.
@@ -53,7 +66,9 @@ function! s:GuiSetFont()
   "   - See also Fira Code, if you like, e.g., "≥" done easy.
   " From http://vim.wikia.com/wiki/VimTip632
   if has("gui_gtk2") || has("gui_gtk3")
-    call s:GTKSetFontHack()
+    call s:SetFontHack_GTK()
+  elseif has("macunix")
+    call s:SetFontHack_macOS()
   elseif has("gui_photon")
     set guifont=Courier\ New:s9
   elseif has("gui_kde")
