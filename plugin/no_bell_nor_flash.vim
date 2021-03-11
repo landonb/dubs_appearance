@@ -10,15 +10,24 @@ let g:loaded_no_beep_nor_flash = 1
 
 " All Quiet on the Vimmer Front
 " ------------------------------------------------------
-" Per :help visual bell, 'When no beep or flash is wanted, use:'
+" Per :help visualbell, 'When no beep or flash is wanted, use: set vb t_vb='
+"
+" Which uses a visual bell instead of beeping, but then disables the visual
+" bell using its terminal option, t_vb.
+"
+" Note that Vim sets t_vb when the GUI starts -- e.g., to ^[|f -- which is
+" after plugins are sourced. So use an event callback to disable it after.
+"
+" Also, errorbells is disabled for completeness, though already disabled.
+"
+" With thanks to:
+"
+"   https://vim.fandom.com/wiki/Disable_beeping
 
-" Where t_vb is the visual bell terminal option,
-" which is set to nothing (disabled).
-
-set vb t_vb=
-
-" Also disable the visualbell, otherwith pressing `ESC` unleashes a visual
-" flash (at least in GVim; I don't see it afflicting Vim in mate-terminal).
-
-set novisualbell
+" Disable errorbells (noeb), enable visualbell (vb), but make it doing nothing (t_vb).
+set noeb vb t_vb=
+augroup no_bell_nor_flash
+  au!
+  autocmd GUIEnter * set vb t_vb=
+augroup END
 
