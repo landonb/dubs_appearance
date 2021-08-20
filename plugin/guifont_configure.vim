@@ -47,7 +47,7 @@ endfunction
 
 function! s:SetFontHack_macOS()
   " SETUP/2020-08-31 22:46:
-  "   brew cask install homebrew/cask-fonts/font-hack-nerd-font
+  "   brew install --cask homebrew/cask-fonts/font-hack-nerd-font
   if len(glob($HOME . "/Library/Fonts/Hack Regular Nerd Font Complete.ttf")) > 0
     set guifont=Hack\ Regular\ Nerd\ Font\ Complete:h12
     " NOTE: I did not see a difference with the 'Mono' variety, e.g.:
