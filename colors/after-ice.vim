@@ -167,7 +167,7 @@ function! s:Color__After_Ice__Set_Highlights()
   "  xxx term=standout ctermfg=15 ctermbg=4 guifg=White guibg=Red
   " For color reference see :h cterm-colors
   " Here's the list of light colors:
-  "  LightRed LightGreen LightCyan LightMagenta LightYellow LightGray
+  "  LightRed LightGreen LightCyan LightMagenta LightYellow LightGray LightBlue
   " [lb] tried Red and LightRed but red is too loud and obnoxious.
   " So then I just tried LightBlue and it seems to fit in nicely.
   highlight MyErrorMsg term=standout ctermfg=15 ctermbg=4 guibg=LightBlue
