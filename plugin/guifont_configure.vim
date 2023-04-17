@@ -14,7 +14,7 @@ let g:loaded_guifont_configure = 1
 "     or Hack Nerd Font archives to ~/.fonts/ and did not otherwise change
 "     path names.
 "     - CXREF: The author uses an Ansible playbook to install said font:
-"       https://github.com/landonb/zoidy_home-fries/blob/release/tasks/font-hack-nerd-font.yml
+"       https://github.com/landonb/zoidy_apps_et_al/blob/release/tasks/font-hack-nerd-font.yml
 " - macOS users:
 "     brew install --cask homebrew/cask-fonts/font-hack-nerd-font
 
