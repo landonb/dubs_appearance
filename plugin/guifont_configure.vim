@@ -46,8 +46,16 @@ function! s:SetFontHack_GTK()
   endif
 endfunction
 
+" SAVVY: Raise a GUI font picker to immediately change font:
+"   :set guifont=*
+" - Set actual name of the picked font:
+"   :set guifont?
 function! s:SetFontHack_macOS()
-  if len(glob($HOME . "/Library/Fonts/Hack Regular Nerd Font Complete.ttf")) > 0
+  if len(glob($HOME . "/Library/Fonts/HackNerdFont-Regular.ttf")) > 0
+    " HSTRY/2024-04-14: ==> font-hack-nerd-font: 3.2.1
+    " - Via: `brew install --cask homebrew/cask-fonts/font-hack-nerd-font`
+    set guifont=HackNF-Regular:h12
+  elseif len(glob($HOME . "/Library/Fonts/Hack Regular Nerd Font Complete.ttf")) > 0
     set guifont=Hack\ Regular\ Nerd\ Font\ Complete:h12
     " NOTE: I did not see a difference with the 'Mono' variety, e.g.:
     "   if len(glob($HOME . "/Library/Fonts/Hack Regular Nerd Font Complete Mono.ttf")) > 0
