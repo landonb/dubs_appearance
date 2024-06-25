@@ -53,7 +53,10 @@ endfunction
 function! s:SetFontHack_macOS()
   if len(glob($HOME . "/Library/Fonts/HackNerdFont-Regular.ttf")) > 0
     " HSTRY/2024-04-14: ==> font-hack-nerd-font: 3.2.1
-    " - Via: `brew install --cask homebrew/cask-fonts/font-hack-nerd-font`
+    " - Via: `brew install --cask font-hack-nerd-font`
+    " REFER: See GVim font menu to see font name:
+    "   Edit > Font > Show Fonts
+    " - Then click different fonts and run `:echo &guifont`
     set guifont=HackNF-Regular:h12
   elseif len(glob($HOME . "/Library/Fonts/Hack Regular Nerd Font Complete.ttf")) > 0
     set guifont=Hack\ Regular\ Nerd\ Font\ Complete:h12
