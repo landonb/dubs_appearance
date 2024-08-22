@@ -12,3 +12,7 @@ let g:loaded_line_numbers_show = 1
 " ------------------------------------------------------
 set nu!
 
+" Show relative line numbers, too.
+" - This hurts my brain:
+"     set nu rnu
+
