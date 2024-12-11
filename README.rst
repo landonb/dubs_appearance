@@ -42,9 +42,7 @@ This plugin configures the appearance of Vim.
 - Enable ``modeline``: Vim will read modelines at the head or tail,
   like ``vim:tw=78:ts=8:ft=help:norl:``, and set itself accordingly.
 
-- Enable ``:autoindent`` and ``:smartindent``.
-
-  - And enable loading ``indent/`` files.
+- Enable ``:autoindent``, and load ``indent/`` files.
 
 - Enable ``:wildmenu``, a/k/a, Vim command line tab completion.
 
