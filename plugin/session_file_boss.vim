@@ -57,6 +57,10 @@ endif
 "
 " MAYBE/2018-06-11: (lb): Not sure we needed 'nested',
 "      but it's always forever been here, so leaving.
+"
+" ALTLY/2024-12-10: Of course there's a Tim Pope plugin for that!
+" - *obsession.vim: continuously updated session files*
+"   https://github.com/tpope/vim-obsession
 
 autocmd VimLeave * nested call <SID>ManageSessionFile()
 
