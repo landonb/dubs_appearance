@@ -35,10 +35,12 @@ set autoindent
 " the line (this might just be with .py files,
 " not sure...)
 " set smartindent
-" FIXME 2011.01.17 I think this problem no longer happens...
-"       so setting smartindent instead
-"set nosmartindent
-set smartindent
+" - SETON/2011-01-17: I think this problem no longer happens; enabling smartindent.
+" - ISOFF/2023-05-07: Now I see comment lines not being continued and indented
+"   properly for certain filetypes, e.g., config files, Toml files, etc.
+"   - If needed, consider using setlocal and setting for specific filetypes.
+"  set smartindent
+set nosmartindent
 
 "set smarttab
 
