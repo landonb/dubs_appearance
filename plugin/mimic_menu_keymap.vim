@@ -15,8 +15,8 @@ let g:loaded_mimic_menu_keymap = 1
 " then to hide again:
 "   :set guioptions-=m  " hide menu bar
 " Or add these two lines to your fork of tpope's vim-unimpaired:
-"   call s:map('n', '[om', ':set guioptions+=m<CR>')
-"   call s:map('n', ']om', ':set guioptions-=m<CR>')
+"   nmap <script> <Plug>(unimpaired-enable)m  :<C-U>set guioptions+=m<CR>
+"   nmap <script> <Plug>(unimpaired-disable)m :<C-U>set guioptions-=m<CR>
 " and then type [om and ]om from normal mode.
 
 " ------------------------------------------------------
