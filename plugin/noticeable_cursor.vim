@@ -22,7 +22,7 @@ let g:loaded_noticeable_cursor = 1
 "
 "   - E.g., see dubs_after_dark colorscheme
 "
-"       https://github.com/landonb/dubs_after_dark
+"       https://github.com/landonb/dubs_after_dark#🌃
 "
 "     Which uses gui=reverse so that the cursors are always
 "     visible, e.g.,
