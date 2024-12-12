@@ -1,6 +1,6 @@
 " Dubs Vim basic setting: disable visual bell.
-" Author: Landon Bouma (landonb &#x40; retrosoft &#x2E; com)
-" Online: https://github.com/landonb/dubs_appearance
+" Author: Landon Bouma <https://tallybark.com/>
+" Project: https://github.com/landonb/dubs_appearance#💅
 " License: https://creativecommons.org/publicdomain/zero/1.0/
 
 if exists("g:loaded_no_beep_nor_flash") || &cp
