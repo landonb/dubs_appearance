@@ -111,9 +111,6 @@ The plugin also improves upon the default color scheme.
 
 - Remove distracting vertical split line between adjacent windows.
 
-- Or, if you have `Dubs After Dark <https://github.com/landonb/dubs_after_dark>`__
-  installed, this plugin will load the ``after-dark`` color scheme.
-
 See the source for a few other settings and more comments.
 
 Installation
