@@ -84,6 +84,9 @@ endfunction
 
 " ------------------------------------------------------
 
+" Map some common, familiar Linux/Windows <Alt-F> menu commands you'd
+" find in most apps:
+" - <Alt-f>n, <Alt-f>a, <Alt-f>x, and <Alt-f>q.
 function! s:RecreateBuiltinMenuMappings_File()
   " Builtin file menu entries:
   "
@@ -124,6 +127,9 @@ function! s:RecreateBuiltinMenuMappings_File()
   inoremap <M-f>q <C-O>:only<CR><C-O>:enew<CR><C-O>:BufOnly<CR><C-O>:qa<CR>
 endfunction
 
+" SAVVY: Mimic some <C-w>{char} commands at <M-w>{char} in normal and insert modes.
+" - Not any more convenient in normal mode, but obviates need to <Esc> or <C-o>
+"   when in insert mode (where <C-w> in insert mode is delete back word).
 function! s:RecreateBuiltinMenuMappings_Window()
   " Builtin window menu entries:
   "
@@ -163,12 +169,14 @@ function! s:RecreateBuiltinMenuMappings_Window()
   inoremap <M-w>p <C-O><C-w>s
 
   " I've never used <M-w>l, don't care.
+  " - DUNNO/2024-12-13: What's this? &Window.Sp&lit To
 
   " Replicate builtin <M-w>v Split <V>ertically.
   noremap <M-w>v <C-w>v
   inoremap <M-w>v <C-O><C-w>v
 
   " I've never used <M-w>x, don't care.
+  " - DUNNO/2024-12-13: What's this? &Window.Split File E&xplorer
 
   " Replicate builtin <M-w>c <C>lose.
   " (Also mapped by mswin.vim to <C-F4>.)
