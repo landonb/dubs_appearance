@@ -175,7 +175,7 @@ function! s:RecreateBuiltinMenuMappings_Window()
   noremap <M-w>c <C-w>c
   inoremap <M-w>c <C-O><C-w>c
 
-  " Replicate builtin <M-w>o Close <O>ther(s) (aka "make <O>nly window")
+  " Replicate builtin <M-w>o Close <O>ther(s) (aka 'make <O>nly window')
   noremap <M-w>o <C-w>o
   inoremap <M-w>o <C-O><C-w>o
 
