@@ -116,12 +116,32 @@ See the source for a few other settings and more comments.
 Dependencies
 ============
 
-A few commands rely on the ``BufOnly`` command, which you'll want to
+This plugin uses commands from a few plugins that you'll want to
 install separately:
 
-https://github.com/vim-scripts/BufOnly.vim
+- ``BufOnly``: *Delete all the buffers except the current/named buffer*:
 
-(Via: https://www.vim.org/scripts/script.php?script_id=1071)
+  https://github.com/vim-scripts/BufOnly.vim
+
+  - Source: https://www.vim.org/scripts/script.php?script_id=1071
+
+- ``Bdelete``: *Delete buffers (close files) without closing your
+  windows or messing up your layout.*:
+
+  https://github.com/vim-scripts/bbye
+
+  - See also similar, previous versions of that concept:
+
+    - ``Kwbd``: *Keep Window on Buffer Delete - Improved*
+      (commonly mapped to ``\bd``):
+
+      https://github.com/vim-scripts/kwbdi.vim
+
+      - Source: https://www.vim.org/scripts/script.php?script_id=2103
+
+  - ``:Bclose`` and original ``Kwbd``: *Deleting a buffer without closing the window*:
+
+    https://vim.fandom.com/wiki/Deleting_a_buffer_without_closing_the_window
 
 Installation
 ============

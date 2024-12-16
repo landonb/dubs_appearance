@@ -79,9 +79,7 @@ function! s:GuiReconfigureMenu()
   " 'Un'-menu the existing menu item
   aunmenu File.Close
   " Use :an rather than :menu to apply to all modes.
-  an 10.330 &File.&Close<Tab>:Bclose :Bclose<CR>
-  " Thanks for :Bclose, Joe! (See: newbufdel.vim)
-  "   http://vim.wikia.com/wiki/VimTip165
+  an 10.330 &File.&Close<Tab>:Bdelete :Bdelete<CR>
 
   " --------------------------------
   " Clear the buffer list

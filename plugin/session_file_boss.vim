@@ -42,7 +42,7 @@ endif
 "      fi#e.
 "
 " NOTE I still haven't figured out unloaded/
-"      hidden buffers, such that :Bclose all and
+"      hidden buffers, such that :Bdelete all and
 "      restarting Vim starts with the buffers
 "      you just closed -- as a kludge, we'll
 "      just not re-write the session file if

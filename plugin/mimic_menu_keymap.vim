@@ -36,16 +36,8 @@ function! s:RecreateDubsVimMappings()
   " --------------------------------
   " Mimics Dubs Vim menu shortcut: &File.&Close.
   "
-  " FIXME/2020-03-02: Uncouple from dubs_buffer_fun plugin
-  " CXREF/2024-12-09: :Bclose is defined in another plugin:
-  "   ~/.vim/pack/landonb/start/dubs_buffer_fun/plugin/buffer-delete-but-keep-window.vim
-  " - SAVVY/2024-12-09: Just move buffer-delete-but-keep-window.vim
-  "   into this plugin, as this is the only plugin that uses those.
-  "   - That, or make the other plugin a formal dependency of this plugin:
-  "     - Add notes to docs.
-  "     - Use exists(":Bclose") checks and complain if missing.
-  nnoremap <M-f>c :Bclose<CR>
-  inoremap <M-f>c <C-o>:Bclose<CR>
+  nnoremap <M-f>c :Bdelete<CR>
+  inoremap <M-f>c <C-o>:Bdelete<CR>
 
   " --------------------------------
   " Clear the buffer list
@@ -93,7 +85,7 @@ function! s:RecreateBuiltinMenuMappings_File()
   " &File.Open Tab... → :tabnew
   " &File.Spli&t-Open... → :sp
   " &File.&New → :enew
-  " &File.&Close → :Bclose
+  " &File.&Close → :Bdelete
   " &File.Clos&e All
   "
   " &File.&Save → :w
