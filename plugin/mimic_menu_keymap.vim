@@ -39,7 +39,7 @@ function! s:RecreateDubsVimMappings()
   " FIXME/2020-03-02: Uncouple from dubs_buffer_fun plugin
   " CXREF/2024-12-09: :Bclose is defined in another plugin:
   "   ~/.vim/pack/landonb/start/dubs_buffer_fun/plugin/buffer-delete-but-keep-window.vim
-  " - SAVVY/2024-12-09: Just move BufOnly.vim  and buffer-delete-but-keep-window.vim
+  " - SAVVY/2024-12-09: Just move buffer-delete-but-keep-window.vim
   "   into this plugin, as this is the only plugin that uses those.
   "   - That, or make the other plugin a formal dependency of this plugin:
   "     - Add notes to docs.
@@ -52,7 +52,6 @@ function! s:RecreateDubsVimMappings()
   " --------------------------------
   " Mimics Dubs Vim menu shortcut: &File.Clos&e\ All.
   "
-  " FIXME/2020-03-02: Uncouple from dubs_buffer_fun plugin — See comment above.
   noremap <M-f>e :only<CR>:enew<CR>:BufOnly<CR>
   inoremap <M-f>e <C-O>:only<CR><C-O>:enew<CR><C-O>:BufOnly<CR>
 
@@ -122,7 +121,6 @@ function! s:RecreateBuiltinMenuMappings_File()
   inoremap <M-f>x <C-O>:qa<CR>
 
   " Make up a combo-close-quite (so Session.vim obliterated).
-  " FIXME/2020-03-02: Uncouple from dubs_buffer_fun plugin — See comment above.
   noremap <M-f>q :only<CR>:enew<CR>:BufOnly<CR>:qa<CR>
   inoremap <M-f>q <C-O>:only<CR><C-O>:enew<CR><C-O>:BufOnly<CR><C-O>:qa<CR>
 endfunction

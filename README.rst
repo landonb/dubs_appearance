@@ -113,6 +113,16 @@ The plugin also improves upon the default color scheme.
 
 See the source for a few other settings and more comments.
 
+Dependencies
+============
+
+A few commands rely on the ``BufOnly`` command, which you'll want to
+install separately:
+
+https://github.com/vim-scripts/BufOnly.vim
+
+(Via: https://www.vim.org/scripts/script.php?script_id=1071)
+
 Installation
 ============
 

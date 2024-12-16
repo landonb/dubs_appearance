@@ -123,7 +123,8 @@ function! s:GuiReconfigureMenu()
   omenu 10.331 &File.Clos&e\ All
     \ <C-O>:only<CR><C-O>:enew<CR><C-O>:BufOnly<CR>
   " Thanks for :BufOnly, CJR!
-  "   http://www.vim.org/scripts/script.php?script_id=1071
+  "   https://www.vim.org/scripts/script.php?script_id=1071
+  "   https://github.com/vim-scripts/BufOnly.vim
 
   " ------------------------------------------
   " Re-map Split Open, Before Mapping Save All
