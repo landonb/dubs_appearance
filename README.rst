@@ -143,6 +143,26 @@ install separately:
 
     https://vim.fandom.com/wiki/Deleting_a_buffer_without_closing_the_window
 
+Window-Related Commands
+=======================
+
+===========================  ============================  ==============================================================================
+ Key Mapping                  Description                   Notes
+===========================  ============================  ==============================================================================
+ ``<Alt-w>c``                 Close Window                  Closes the window that the cursor is in. Calls ``<C-W>c``
+---------------------------  ----------------------------  ------------------------------------------------------------------------------
+ ``<Alt-w>o``                 "Only" Window                 Closes all windows except the one containing the cursor. Calls ``<C-W>o``
+---------------------------  ----------------------------  ------------------------------------------------------------------------------
+ ``<Alt-w>p``                 Horizontal Split              Creates a new window by splitting the current window in half along the horizon.
+                                                            Calls ``<C-W>s``
+---------------------------  ----------------------------  ------------------------------------------------------------------------------
+ ``<Alt-w>s``                 Vertical Split                Creates a new window by splitting the current window in half along the vertical
+                                                            axis. Calls ``<C-W>v<C-W>p:enew<CR><C-W>p``
+                                                            - Hint: If you want to compare two files side-by-side, open one file and
+                                                              then the other file, hit ``<Alt-w>s`` to split the window, and then hit
+                                                              ``<F2>`` to jump to the first buffer; now you're looking at both buffers.
+===========================  ============================  ==============================================================================
+
 Installation
 ============
 
