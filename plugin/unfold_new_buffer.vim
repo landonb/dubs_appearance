@@ -3,10 +3,23 @@
 " Project: https://github.com/landonb/dubs_appearance#💅
 " License: https://creativecommons.org/publicdomain/zero/1.0/
 
-if exists("g:loaded_unfold_new_buffer") || &cp
+" -------------------------------------------------------------------
+
+" GUARD: Press <F9> to reload this plugin (or :source it).
+" - Via: https://github.com/embrace-vim/vim-source-reloader#↩️
+
+if expand('%:p') ==# expand('<sfile>:p')
+  unlet! g:loaded_dubs_appearance_unfold_new_buffer
+endif
+
+if exists('g:loaded_dubs_appearance_unfold_new_buffer') || &cp
+
   finish
 endif
-let g:loaded_unfold_new_buffer = 1
+
+let g:loaded_dubs_appearance_unfold_new_buffer = 1
+
+" -------------------------------------------------------------------
 
 " What Are You Hiding From Me?
 " ------------------------------------------------------

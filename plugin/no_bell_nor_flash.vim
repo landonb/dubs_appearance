@@ -3,10 +3,23 @@
 " Project: https://github.com/landonb/dubs_appearance#💅
 " License: https://creativecommons.org/publicdomain/zero/1.0/
 
-if exists("g:loaded_no_beep_nor_flash") || &cp
+" -------------------------------------------------------------------
+
+" GUARD: Press <F9> to reload this plugin (or :source it).
+" - Via: https://github.com/embrace-vim/vim-source-reloader#↩️
+
+if expand('%:p') ==# expand('<sfile>:p')
+  unlet! g:loaded_dubs_appearance_no_beep_nor_flash
+endif
+
+if exists('g:loaded_dubs_appearance_no_beep_nor_flash') || &cp
+
   finish
 endif
-let g:loaded_no_beep_nor_flash = 1
+
+let g:loaded_dubs_appearance_no_beep_nor_flash = 1
+
+" -------------------------------------------------------------------
 
 " All Quiet on the Vimmer Front
 " ------------------------------------------------------

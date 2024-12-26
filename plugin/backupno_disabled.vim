@@ -3,10 +3,23 @@
 " Project: https://github.com/landonb/dubs_appearance#💅
 " License: https://creativecommons.org/publicdomain/zero/1.0/
 
-if exists("g:loaded_backupno_disabled") || &cp
+" -------------------------------------------------------------------
+
+" GUARD: Press <F9> to reload this plugin (or :source it).
+" - Via: https://github.com/embrace-vim/vim-source-reloader#↩️
+
+if expand('%:p') ==# expand('<sfile>:p')
+  unlet! g:loaded_dubs_appearance_backupno_disabled
+endif
+
+if exists('g:loaded_dubs_appearance_backupno_disabled') || &cp
+
   finish
 endif
-let g:loaded_backupno_disabled = 1
+
+let g:loaded_dubs_appearance_backupno_disabled = 1
+
+" -------------------------------------------------------------------
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Opening and Backing up Files

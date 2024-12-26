@@ -3,10 +3,23 @@
 " Project: https://github.com/landonb/dubs_appearance#💅
 " License: https://creativecommons.org/publicdomain/zero/1.0/
 
-if exists("g:loaded_session_file_boss") || &cp
+" -------------------------------------------------------------------
+
+" GUARD: Press <F9> to reload this plugin (or :source it).
+" - Via: https://github.com/embrace-vim/vim-source-reloader#↩️
+
+if expand('%:p') ==# expand('<sfile>:p')
+  unlet! g:loaded_dubs_appearance_session_file_boss
+endif
+
+if exists('g:loaded_dubs_appearance_session_file_boss') || &cp
+
   finish
 endif
-let g:loaded_session_file_boss = 1
+
+let g:loaded_dubs_appearance_session_file_boss = 1
+
+" -------------------------------------------------------------------
 
 " See what OS we're on
 " ------------------------------------------------------

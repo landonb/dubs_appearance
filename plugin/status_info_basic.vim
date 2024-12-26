@@ -1,12 +1,25 @@
-" Dubs Vim default status info (line number, etc.) when no dubs_mescaline.
 " Author: Landon Bouma <https://tallybark.com/>
 " Project: https://github.com/landonb/dubs_appearance#💅
 " License: https://creativecommons.org/publicdomain/zero/1.0/
+" Summary: Dubs Vim default status info (line number, etc.) when no dubs_mescaline.
 
-if exists("g:loaded_status_info_basic") || &cp
+" -------------------------------------------------------------------
+
+" GUARD: Press <F9> to reload this plugin (or :source it).
+" - Via: https://github.com/embrace-vim/vim-source-reloader#↩️
+
+if expand('%:p') ==# expand('<sfile>:p')
+  unlet! g:loaded_dubs_appearance_status_info_basic
+endif
+
+if exists('g:loaded_dubs_appearance_status_info_basic') || &cp
+
   finish
 endif
-let g:loaded_status_info_basic = 1
+
+let g:loaded_dubs_appearance_status_info_basic = 1
+
+" -------------------------------------------------------------------
 
 " Always show a status line (show line and column numbers; see also: ruler)
 " ------------------------------------------------------

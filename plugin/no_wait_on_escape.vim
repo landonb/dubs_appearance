@@ -3,10 +3,23 @@
 " Project: https://github.com/landonb/dubs_appearance#💅
 " License: https://creativecommons.org/publicdomain/zero/1.0/
 
-if exists("g:loaded_no_wait_on_escape") || &cp
+" -------------------------------------------------------------------
+
+" GUARD: Press <F9> to reload this plugin (or :source it).
+" - Via: https://github.com/embrace-vim/vim-source-reloader#↩️
+
+if expand('%:p') ==# expand('<sfile>:p')
+  unlet! g:loaded_dubs_appearance_no_wait_on_escape
+endif
+
+if exists('g:loaded_dubs_appearance_no_wait_on_escape') || &cp
+
   finish
 endif
-let g:loaded_no_wait_on_escape = 1
+
+let g:loaded_dubs_appearance_no_wait_on_escape = 1
+
+" -------------------------------------------------------------------
 
 " No Wait on Escape (from Insert Mode to Normal Mode)
 " ---------------------------------------------------
