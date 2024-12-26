@@ -1,7 +1,7 @@
-" Vim, Of Course! Look 'n feel: Disable Insert mode Wait-on-Escape.
 " Author: Landon Bouma <https://tallybark.com/>
 " Project: https://github.com/landonb/dubs_appearance#💅
 " License: https://creativecommons.org/publicdomain/zero/1.0/
+" Summary: Vim look 'n feel: Disable Insert mode Wait-on-Escape.
 
 " -------------------------------------------------------------------
 

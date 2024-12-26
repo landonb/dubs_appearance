@@ -1,7 +1,7 @@
-" Dubs Vim search-related settings.
 " Author: Landon Bouma <https://tallybark.com/>
 " Project: https://github.com/landonb/dubs_appearance#💅
 " License: https://creativecommons.org/publicdomain/zero/1.0/
+" Summary: Dubs Vim search-related settings.
 
 " -------------------------------------------------------------------
 
