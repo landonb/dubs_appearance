@@ -180,7 +180,10 @@ function! s:RecreateBuiltinMenuMappings_Window()
   " - DUNNO/2024-12-13: What's this? &Window.Split File E&xplorer
 
   " Replicate builtin <M-w>c <C>lose.
-  " (Also mapped by mswin.vim to <C-F4>.)
+  " - Close window is also mapped by mswin.vim to <C-F4>
+  "   - Except that does nothing when author tries it
+  "     (but the map exists).
+  "   /Applications/MacVim.app/Contents/Resources/vim/runtime/mswin.vim
   nnoremap <M-w>c <C-w>c
   inoremap <M-w>c <C-O><C-w>c
 
