@@ -47,6 +47,11 @@ function! s:RecreateDubsVimMappings()
   " --------------------------------
   " Mimics Dubs Vim menu shortcut: &File.&Close.
   "
+  " - Note that an explict :Bdelete on bufhidden=delete file will
+  "   error, e.g.:
+  "     E516: No buffers were deleted: bdelete 30
+  "   - So best to use bufhidden=wipe instead on
+  "     those types of buffers.
   nnoremap <M-f>c :Bdelete<CR>
   inoremap <M-f>c <C-o>:Bdelete<CR>
 
@@ -80,8 +85,8 @@ function! s:RecreateDubsVimMappings()
   " --------------------------------
   " Mimics Dubs Vim menu shortcut: &Window.New\ V-&Split
   "
-  nnoremap <M-w>s <C-w>v<C-w>p:enew<CR><C-w>p
-  inoremap <M-w>s <C-O><C-w>v<C-O><C-w>p<C-O>:enew<CR><C-O><C-w>p
+  nnoremap <M-w>s <C-w>v<C-w>p:enew<CR>:setlocal bufhidden=wipe<CR><C-w>p
+  inoremap <M-w>s <C-O><C-w>v<C-O><C-w>p<C-O>:enew \| setlocal bufhidden=wipe<CR><C-O><C-w>p
 endfunction
 
 " ------------------------------------------------------
@@ -114,6 +119,19 @@ function! s:RecreateBuiltinMenuMappings_File()
   " Replicate builtin <M-f>n <N>ew File.
   nnoremap <M-f>n :enew<CR>
   inoremap <M-f>n <C-O>:enew<CR>
+  " SAVVY: Author almost never creates a new file that they later save.
+  " - I generally use new files just to empty out the window.
+  "   - So hide new buffers when they're unloaded from a window,
+  "     so you don't end up with a bunch on [No Name] buffers.
+  "   - This also forces you to deal with the buffer if you made
+  "     changes to it (e.g., so you give it a path and save it,
+  "     or do something else with your changes).
+  " - Note that we use :Bdelete to also cleanup buffers.
+  "   - But Bdelete causes an error if bufhidden=delete, e.g.:
+  "       E516: No buffers were deleted: bdelete 30
+  "     Fortunately it works find if we use bufhidde=wipe.
+  nnoremap <silent> <M-f>n :enew<CR>:setlocal bufhidden=wipe<CR>
+  inoremap <silent> <M-f>n <C-O>:enew \| setlocal bufhidden=wipe<CR>
 
   " Replicate builtin <M-f>a Save <A>s....
   nnoremap <M-f>a :bro sav<CR>
