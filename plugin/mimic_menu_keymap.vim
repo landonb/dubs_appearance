@@ -55,7 +55,7 @@ function! s:RecreateDubsVimMappings()
   " --------------------------------
   " Mimics Dubs Vim menu shortcut: &File.Clos&e\ All.
   "
-  noremap <M-f>e :only<CR>:enew<CR>:BufOnly<CR>
+  nnoremap <M-f>e :only<CR>:enew<CR>:BufOnly<CR>
   inoremap <M-f>e <C-O>:only<CR><C-O>:enew<CR><C-O>:BufOnly<CR>
 
   " ------------------------------------------
@@ -72,7 +72,7 @@ function! s:RecreateDubsVimMappings()
   " --------------------------------
   " Mimics Dubs Vim menu shortcut: &File.Save\ A&ll.
   "
-  noremap <M-f>l :wa<CR>
+  nnoremap <M-f>l :wa<CR>
   inoremap <M-f>l <C-o>:wa<CR>
 
   " --------------------------------
@@ -80,7 +80,7 @@ function! s:RecreateDubsVimMappings()
   " --------------------------------
   " Mimics Dubs Vim menu shortcut: &Window.New\ V-&Split
   "
-  noremap <M-w>s <C-w>v<C-w>p:enew<CR><C-w>p
+  nnoremap <M-w>s <C-w>v<C-w>p:enew<CR><C-w>p
   inoremap <M-w>s <C-O><C-w>v<C-O><C-w>p<C-O>:enew<CR><C-O><C-w>p
 endfunction
 
@@ -112,19 +112,19 @@ function! s:RecreateBuiltinMenuMappings_File()
   " &File.E&xit → :qa
 
   " Replicate builtin <M-f>n <N>ew File.
-  noremap <M-f>n :enew<CR>
+  nnoremap <M-f>n :enew<CR>
   inoremap <M-f>n <C-O>:enew<CR>
 
   " Replicate builtin <M-f>a Save <A>s....
-  noremap <M-f>a :bro sav<CR>
+  nnoremap <M-f>a :bro sav<CR>
   inoremap <M-f>a <C-O>:bro sav<CR>
 
   " Replicate builtin <M-f>x E<x>it.
-  noremap <M-f>x :qa<CR>
+  nnoremap <M-f>x :qa<CR>
   inoremap <M-f>x <C-O>:qa<CR>
 
   " Make up a combo-close-quite (so Session.vim obliterated).
-  noremap <M-f>q :only<CR>:enew<CR>:BufOnly<CR>:qa<CR>
+  nnoremap <M-f>q :only<CR>:enew<CR>:BufOnly<CR>:qa<CR>
   inoremap <M-f>q <C-O>:only<CR><C-O>:enew<CR><C-O>:BufOnly<CR><C-O>:qa<CR>
 endfunction
 
@@ -160,20 +160,20 @@ function! s:RecreateBuiltinMenuMappings_Window()
   "   same as split-from window pane; so kinda like
   "   my <M-w>s map that opens a new buffer in a new
   "   window.
-  noremap <M-w>n <C-w>n
+  nnoremap <M-w>n <C-w>n
   inoremap <M-w>n <C-O><C-w>n
 
   " I remapped <M-w>s earlier, to open-new-buffer-in-new-vertical-split.
 
   " Replicate builtin <M-w>p S<p>lit [horizontally].
-  noremap <M-w>p <C-w>s
+  nnoremap <M-w>p <C-w>s
   inoremap <M-w>p <C-O><C-w>s
 
   " I've never used <M-w>l, don't care.
   " - DUNNO/2024-12-13: What's this? &Window.Sp&lit To
 
   " Replicate builtin <M-w>v Split <V>ertically.
-  noremap <M-w>v <C-w>v
+  nnoremap <M-w>v <C-w>v
   inoremap <M-w>v <C-O><C-w>v
 
   " I've never used <M-w>x, don't care.
@@ -181,11 +181,11 @@ function! s:RecreateBuiltinMenuMappings_Window()
 
   " Replicate builtin <M-w>c <C>lose.
   " (Also mapped by mswin.vim to <C-F4>.)
-  noremap <M-w>c <C-w>c
+  nnoremap <M-w>c <C-w>c
   inoremap <M-w>c <C-O><C-w>c
 
   " Replicate builtin <M-w>o Close <O>ther(s) (aka 'make <O>nly window')
-  noremap <M-w>o <C-w>o
+  nnoremap <M-w>o <C-w>o
   inoremap <M-w>o <C-O><C-w>o
 
   " The remaining Window menu commands (see list above) involve moving
