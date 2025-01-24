@@ -59,11 +59,46 @@ function! s:SetFontHack_GTK()
   endif
 endfunction
 
+" -------------------------------------------------------------------
+
+" SAVVY: Author uses Hack 12pt in Vim but Hack 12.75pt in Alacritty.
+" - HSTRY/2025-01-22: I tried 12.75pt here to match Alacritty font size,
+"   but the apps render differently — Alacritty and Vim use same line
+"   height, but Vim's kerning is greater than Alacritty's, and it doesn't
+"   look good (Vim uses too much horizontal distance between chars., IMO).
+" - There'd a similar issue at size 13 (Vim's kerning is larger, and
+"   characters "feel" spaced too far apart).
+" - Oddly, at size 12, Alacritty and MacVim uses same horiz. spacing (and,
+"   e.g., you'll see lines and rows align nicely if you open a file in
+"   `vim` in Alacritty and compare to the same file opened in MacVim).
+"
+" HSTRY: Hack is the last monospace font you'll ever need, but if you're
+" curious, here are some alternative font faces that don't look too bad
+" (though no where near as functional as Hack):
+"
+"   set guifont=Andale\ Mono:h12
+"   set guifont=Courier\ New:h12
+"   set guifont=CourierNewPSMT:h12
+"   " Note that Menlo is very matchy to Hack.
+"   set guifont=Menlo-Regular:h12
+"
+"   " brew install --cask font-daddy-time-mono-nerd-font
+"   set guifont=DaddyTimeMonoNF:h12
+"
+"   " brew install --cask font-intone-mono-nerd-font
+"   set guifont=IntoneMonoNFM:h12
+"
+"   " brew install --cask font-sauce-code-pro-nerd-font
+"   set guifont=SauceCodePro\ Nerd\ Font:h12
+
+" USAGE: Install Hack Nerd Font:
+" - macOS: `brew install --cask font-hack-nerd-font`
+" - Linux: https://github.com/ryanoasis/nerd-fonts/releases
 function! s:SetFontHack_macOS()
   if has('nvim')
-    set guifont=Hack\ Nerd\ Font\ Mono,Monaco,Courier\ New:h12
+    set guifont=Hack\ Nerd\ Font\ Mono,Menlo,Monaco,Courier\ New:h12
   else
-    set guifont=Hack\ Nerd\ Font\ Mono:h12,Monaco:h11,Courier\ New:h12
+    set guifont=Hack\ Nerd\ Font\ Mono:h12,Menlo-Regular:h12,Monaco:h11,Courier\ New:h12
   endif
 endfunction
 
