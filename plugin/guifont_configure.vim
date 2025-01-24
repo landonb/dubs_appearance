@@ -60,20 +60,10 @@ function! s:SetFontHack_GTK()
 endfunction
 
 function! s:SetFontHack_macOS()
-  if len(glob($HOME . "/Library/Fonts/HackNerdFont-Regular.ttf")) > 0
-    " HSTRY/2024-04-14: ==> font-hack-nerd-font: 3.2.1
-    " - Via: `brew install --cask font-hack-nerd-font`
-    " REFER: See GVim font menu to see font name:
-    "   Edit > Font > Show Fonts
-    " - Then click different fonts and run `:echo &guifont`
-    set guifont=HackNF-Regular:h12
-  elseif len(glob($HOME . "/Library/Fonts/Hack Regular Nerd Font Complete.ttf")) > 0
-    set guifont=Hack\ Regular\ Nerd\ Font\ Complete:h12
-    " NOTE: I did not see a difference with the 'Mono' variety, e.g.:
-    "   if len(glob($HOME . "/Library/Fonts/Hack Regular Nerd Font Complete Mono.ttf")) > 0
-    "     set guifont=Hack\ Regular\ Nerd\ Font\ Complete\ Mono:h12
+  if has('nvim')
+    set guifont=Hack\ Nerd\ Font\ Mono,Monaco,Courier\ New:h12
   else
-    set guifont=Courier_New:h12
+    set guifont=Hack\ Nerd\ Font\ Mono:h12,Monaco:h11,Courier\ New:h12
   endif
 endfunction
 
