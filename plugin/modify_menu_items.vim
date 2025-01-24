@@ -57,7 +57,10 @@ let g:loaded_dubs_appearance_modify_menu_items = 1
 function! s:GuiReconfigureMenu()
   " The menu is created and populated
   "   $VIMRUNTIME/menu.vim
-  if !has("menu") || !has("gui_running") | return | endif
+  if !(has("gui_gtk2") || has("gui_gtk3")) || !has("gui_running") || !has("menu")
+
+    return
+  endif
 
   " --------------------------------
   " A Close is a close is a close
