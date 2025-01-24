@@ -21,21 +21,21 @@ let g:loaded_dubs_appearance_guifont_configure = 1
 
 " -------------------------------------------------------------------
 
-" SETUP/2022-09-21:
-" - Linux users:
-"   - The font paths below assume that you downloaded and unpacked Hack
-"     or Hack Nerd Font archives to ~/.fonts/ and did not otherwise change
-"     path names.
-"     - CXREF: The author uses an Ansible playbook to install said font:
-"       https://github.com/landonb/zoidy_apps_et_al/blob/release/tasks/font-hack-nerd-font.yml
-" - macOS users:
-"     brew install --cask homebrew/cask-fonts/font-hack-nerd-font
+" REFER: Rebuild Linux font cache after mucking around with ~/.fonts files:
+"
+"   $ sudo fc-cache -fv
 
-" -------
+" REFER: On macOS or Win32, open an OS GUI font picker:
+"
+"   :set guifont=*
+"
+" - Hint: Use font picker to set font, then `echo &guifont`
+"   (or `set guifont?`) and copy-paste the result below.
 
-" "Hack Regular 9": Proudly Hack'ing since Aug 17, 2015.
-" - 2022-09-21: On Linux, I've since changed from 'Hack Regular 9'
-"   to 'Hack Nerd Font Mono 9, which is the same beloved Hack, plus Extras.
+" -------------------------------------------------------------------
+
+" HSTRY: This plugin has been Proudly Hack'ing since Aug 17, 2015.
+" - 2022-09-21: Changed to Hack Nerd Font, for the extra glyths.
 "   - Though, TBH, I'm not sure the Extras matter. Hack covers all the
 "     regular text characters you'll see in Vim. (And if you want the
 "     latest emoji, install *Noto Emoji* (though you don't tell Vim about
@@ -46,8 +46,8 @@ let g:loaded_dubs_appearance_guifont_configure = 1
 "         `guifont=Hack\ Nerd\ Font\ Mono\ 9`.
 "     - So, basically, whether 'Hack Regular 9' or 'Hack Nerd Font Mono 9',
 "       you'll be happy!
-"   - SAVVY: Rebuild font cache after mucking around with ~/.fonts files:
-"       $ sudo fc-cache -fv
+
+" -------------------------------------------------------------------
 
 function! s:SetFontHack_GTK()
   if len(glob($HOME . "/.fonts/Hack/Hack Regular Nerd Font Complete Mono.ttf")) > 0
@@ -59,10 +59,6 @@ function! s:SetFontHack_GTK()
   endif
 endfunction
 
-" SAVVY: Raise a GUI font picker to immediately change font:
-"   :set guifont=*
-" - Set actual name of the picked font:
-"   :set guifont?
 function! s:SetFontHack_macOS()
   if len(glob($HOME . "/Library/Fonts/HackNerdFont-Regular.ttf")) > 0
     " HSTRY/2024-04-14: ==> font-hack-nerd-font: 3.2.1
