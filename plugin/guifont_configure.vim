@@ -106,7 +106,10 @@ endfunction
 "       my plugins that I call it, so it's kind of a novelty.
 
 function! s:GuiSetFont()
-  if ! has("gui_running") | return | endif
+  if ! has("gui_running")
+
+    return
+  endif
 
   if has("gui_gtk2") || has("gui_gtk3")
     call s:SetFontHack_GTK()
