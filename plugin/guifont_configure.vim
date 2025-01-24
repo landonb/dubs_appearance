@@ -77,24 +77,7 @@ function! s:SetFontHack_macOS()
   endif
 endfunction
 
-" 2022-09-21: Here's some Windows code, albeit most likely outdated.
-" - This plugin was developed first on Windows, using Cygwin (over a
-"   decade ago!), but the author has since (since 2014) migrated to
-"   Linux Mint (and never looked back; except I use macOS for work).
-" - So I've disabled my Windows-compatible code, but I haven't removed
-"   it yet. (Though in terms of technical debt, I should.)
-" - But for posterity, and in case anyone asks for Windows support,
-"   here's what it looked like, though I'm guessing that it would be
-"   different nowadays, considering the since-added
-"   *Windows Subsystem for Linux*:
-"
-"     let s:running_windows = has("win16") || has("win32") || has("win64")
-"     ...
-"     if s:running_windows
-"       set guifont=Courier_New:h9
-"     ...
-"
-"   and I'm guessing you'd want to install Hack for Windows. B/c Hack rules.
+" -------------------------------------------------------------------
 
 " BWARE/2022-09-21: The author runs GTK personally, and macOS professionally.
 " - I haven't tested any of the other paths, at least not in years.
@@ -115,19 +98,23 @@ function! s:GuiSetFont()
     call s:SetFontHack_GTK()
   elseif has("macunix")
     call s:SetFontHack_macOS()
-  elseif has("gui_photon")
-    " BWARE/2022-09-21: Untested path.
-    set guifont=Courier\ New:s9
-  elseif has("gui_kde")
-    " BWARE/2022-09-21: Untested path.
-    set guifont=Courier\ New/9/-1/5/50/0/0/0/1/0
-  elseif has("x11")
-    " BWARE/2022-09-21: Untested path.
-    set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
   else
-    " BWARE/2022-09-21: Untested path.
-    set guifont=Courier_New:h9:cDEFAULT
+    echom 'ALERT: Unrecognized Vim environment: Not setting guifont'
   endif
+
+  " ALTLY— Albeit untested paths:
+  "
+  "   elseif has("gui_photon")
+  "     set guifont=Courier\ New:s9
+  "   elseif has("gui_kde")
+  "     set guifont=Courier\ New/9/-1/5/50/0/0/0/1/0
+  "   elseif has("x11")
+  "     set guifont=-*-courier-medium-r-normal-*-*-180-*-*-m-*-*
+  "   elseif has("win16") || has("win32") || has("win64")
+  "     set guifont=Courier_New:h9
+  "   else
+  "     set guifont=Courier_New:h9:cDEFAULT
+  "   endif
 endfunction
 
 call s:GuiSetFont()
