@@ -51,8 +51,17 @@ let g:loaded_dubs_appearance_scroll_window_fix = 1
 
 function! s:FixupScrollWindowMappings()
   " Add scroll-up via Alt-e to complement Ctrl-e scroll-down.
-  noremap <M-e> <C-y>
-  inoremap <M-e> <C-o><C-y>
+  if has('macunix')
+    " Note that macOS pauses to see if you're going to enter a character
+    " to be accented, so this doesn't quite very elegantly (or well).
+    " - SAVVY: But <Shift-Alt-E> works immediately.
+    " - Same with <Alt-u> and <Alt-i> (and <Shift-Alt-u> and <Shift-Alt-i>).
+    noremap ´ <C-y>
+    inoremap ´ <C-o><C-y>
+  else
+    noremap <M-e> <C-y>
+    inoremap <M-e> <C-o><C-y>
+  endif
   " Add scroll-down to insert mode at Ctrl-e, to complement normal Ctrl-e,
   " and acknowledging this masks the second half of the mirror neighbor line
   " feature (that mswin.vim masked the other half of, C-y).
