@@ -32,6 +32,14 @@ let g:loaded_dubs_appearance_mimic_menu_keymap = 1
 
 " ------------------------------------------------------
 
+if has('macunix')
+  let s:alt_f = 'ƒ'
+  let s:alt_w = '∑'
+else
+  let s:alt_f = '<M-f>'
+  let s:alt_w = '<M-w>'
+endif
+
 " Recreate (especially for insert mode) useful key mappings inspired
 " by the menu bar (as configured first by Vim, in vim/runtime/menu.vim,
 " and then by Dubs, in modify_menu_items.vim, but also subsequently
@@ -52,16 +60,16 @@ function! s:RecreateDubsVimMappings()
   "     E516: No buffers were deleted: bdelete 30
   "   - So best to use bufhidden=wipe instead on
   "     those types of buffers.
-  nnoremap <M-f>c :Bdelete<CR>
-  inoremap <M-f>c <C-o>:Bdelete<CR>
+  exec 'nnoremap ' .. s:alt_f .. 'c :Bdelete<CR>'
+  exec 'inoremap ' .. s:alt_f .. 'c <C-o>:Bdelete<CR>'
 
   " --------------------------------
   " Clear the buffer list
   " --------------------------------
   " Mimics Dubs Vim menu shortcut: &File.Clos&e\ All.
   "
-  nnoremap <M-f>e :only<CR>:enew<CR>:BufOnly<CR>
-  inoremap <M-f>e <C-O>:only<CR><C-O>:enew<CR><C-O>:BufOnly<CR>
+  exec 'nnoremap ' .. s:alt_f .. 'e :only<CR>:enew<CR>:BufOnly<CR>'
+  exec 'inoremap ' .. s:alt_f .. 'e <C-O>:only<CR><C-O>:enew<CR><C-O>:BufOnly<CR>'
 
   " ------------------------------------------
   " Re-map Split Open, Before Mapping Save All
@@ -77,16 +85,16 @@ function! s:RecreateDubsVimMappings()
   " --------------------------------
   " Mimics Dubs Vim menu shortcut: &File.Save\ A&ll.
   "
-  nnoremap <M-f>l :wa<CR>
-  inoremap <M-f>l <C-o>:wa<CR>
+  exec 'nnoremap ' .. s:alt_f .. 'l :wa<CR>'
+  exec 'inoremap ' .. s:alt_f .. 'l <C-o>:wa<CR>'
 
   " --------------------------------
   " Make a Window.New that splits Vertically (and loads empty buffer).
   " --------------------------------
   " Mimics Dubs Vim menu shortcut: &Window.New\ V-&Split
   "
-  nnoremap <M-w>s <C-w>v<C-w>p:enew<CR>:setlocal bufhidden=wipe<CR><C-w>p
-  inoremap <M-w>s <C-O><C-w>v<C-O><C-w>p<C-O>:enew \| setlocal bufhidden=wipe<CR><C-O><C-w>p
+  exec 'nnoremap ' .. s:alt_w .. 's <C-w>v<C-w>p:enew<CR>:setlocal bufhidden=wipe<CR><C-w>p'
+  exec 'inoremap ' .. s:alt_w .. 's <C-O><C-w>v<C-O><C-w>p<C-O>:enew \| setlocal bufhidden=wipe<CR><C-O><C-w>p'
 endfunction
 
 " ------------------------------------------------------
@@ -117,8 +125,8 @@ function! s:RecreateBuiltinMenuMappings_File()
   " &File.E&xit → :qa
 
   " Replicate builtin <M-f>n <N>ew File.
-  nnoremap <M-f>n :enew<CR>
-  inoremap <M-f>n <C-O>:enew<CR>
+  exec 'nnoremap ' .. s:alt_f .. 'n :enew<CR>'
+  exec 'inoremap ' .. s:alt_f .. 'n <C-O>:enew<CR>'
   " SAVVY: Author almost never creates a new file that they later save.
   " - I generally use new files just to empty out the window.
   "   - So hide new buffers when they're unloaded from a window,
@@ -130,20 +138,20 @@ function! s:RecreateBuiltinMenuMappings_File()
   "   - But Bdelete causes an error if bufhidden=delete, e.g.:
   "       E516: No buffers were deleted: bdelete 30
   "     Fortunately it works find if we use bufhidde=wipe.
-  nnoremap <silent> <M-f>n :enew<CR>:setlocal bufhidden=wipe<CR>
-  inoremap <silent> <M-f>n <C-O>:enew \| setlocal bufhidden=wipe<CR>
+  exec 'nnoremap <silent> ' .. s:alt_f .. 'n :enew<CR>:setlocal bufhidden=wipe<CR>'
+  exec 'inoremap <silent> ' .. s:alt_f .. 'n <C-O>:enew \| setlocal bufhidden=wipe<CR>'
 
   " Replicate builtin <M-f>a Save <A>s....
-  nnoremap <M-f>a :bro sav<CR>
-  inoremap <M-f>a <C-O>:bro sav<CR>
+  exec 'nnoremap ' .. s:alt_f .. 'a :bro sav<CR>'
+  exec 'inoremap ' .. s:alt_f .. 'a <C-O>:bro sav<CR>'
 
   " Replicate builtin <M-f>x E<x>it.
-  nnoremap <M-f>x :qa<CR>
-  inoremap <M-f>x <C-O>:qa<CR>
+  exec 'nnoremap ' .. s:alt_f .. 'x :qa<CR>'
+  exec 'inoremap ' .. s:alt_f .. 'x <C-O>:qa<CR>'
 
   " Make up a combo-close-quite (so Session.vim obliterated).
-  nnoremap <M-f>q :only<CR>:enew<CR>:BufOnly<CR>:qa<CR>
-  inoremap <M-f>q <C-O>:only<CR><C-O>:enew<CR><C-O>:BufOnly<CR><C-O>:qa<CR>
+  exec 'nnoremap ' .. s:alt_f .. 'q :only<CR>:enew<CR>:BufOnly<CR>:qa<CR>'
+  exec 'inoremap ' .. s:alt_f .. 'q <C-O>:only<CR><C-O>:enew<CR><C-O>:BufOnly<CR><C-O>:qa<CR>'
 endfunction
 
 " SAVVY: Mimic some <C-w>{char} commands at <M-w>{char} in normal and insert modes.
@@ -178,21 +186,21 @@ function! s:RecreateBuiltinMenuMappings_Window()
   "   same as split-from window pane; so kinda like
   "   my <M-w>s map that opens a new buffer in a new
   "   window.
-  nnoremap <M-w>n <C-w>n
-  inoremap <M-w>n <C-O><C-w>n
+  exec 'nnoremap ' .. s:alt_w .. 'n <C-w>n'
+  exec 'inoremap ' .. s:alt_w .. 'n <C-O><C-w>n'
 
   " I remapped <M-w>s earlier, to open-new-buffer-in-new-vertical-split.
 
   " Replicate builtin <M-w>p S<p>lit [horizontally].
-  nnoremap <M-w>p <C-w>s
-  inoremap <M-w>p <C-O><C-w>s
+  exec 'nnoremap ' .. s:alt_w .. 'p <C-w>s'
+  exec 'inoremap ' .. s:alt_w .. 'p <C-O><C-w>s'
 
   " I've never used <M-w>l, don't care.
   " - DUNNO/2024-12-13: What's this? &Window.Sp&lit To
 
   " Replicate builtin <M-w>v Split <V>ertically.
-  nnoremap <M-w>v <C-w>v
-  inoremap <M-w>v <C-O><C-w>v
+  exec 'nnoremap ' .. s:alt_w .. 'v <C-w>v'
+  exec 'inoremap ' .. s:alt_w .. 'v <C-O><C-w>v'
 
   " I've never used <M-w>x, don't care.
   " - DUNNO/2024-12-13: What's this? &Window.Split File E&xplorer
@@ -202,12 +210,12 @@ function! s:RecreateBuiltinMenuMappings_Window()
   "   - Except that does nothing when author tries it
   "     (but the map exists).
   "   /Applications/MacVim.app/Contents/Resources/vim/runtime/mswin.vim
-  nnoremap <M-w>c <C-w>c
-  inoremap <M-w>c <C-O><C-w>c
+  exec 'nnoremap ' .. s:alt_w .. 'c <C-w>c'
+  exec 'inoremap ' .. s:alt_w .. 'c <C-O><C-w>c'
 
   " Replicate builtin <M-w>o Close <O>ther(s) (aka 'make <O>nly window')
-  nnoremap <M-w>o <C-w>o
-  inoremap <M-w>o <C-O><C-w>o
+  exec 'nnoremap ' .. s:alt_w .. 'o <C-w>o'
+  exec 'inoremap ' .. s:alt_w .. 'o <C-O><C-w>o'
 
   " The remaining Window menu commands (see list above) involve moving
   " windows and resizing windows, which you already know how to do using
