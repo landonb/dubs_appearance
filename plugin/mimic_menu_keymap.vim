@@ -125,9 +125,8 @@ function! s:RecreateBuiltinMenuMappings_File()
   " &File.E&xit → :qa
 
   " Replicate builtin <M-f>n <N>ew File.
-  exec 'nnoremap ' .. s:alt_f .. 'n :enew<CR>'
-  exec 'inoremap ' .. s:alt_f .. 'n <C-O>:enew<CR>'
-  " SAVVY: Author almost never creates a new file that they later save.
+  " USAGE: Use global to choose enew behavior.
+  " - Author almost never creates a new file that they later save.
   " - I generally use new files just to empty out the window.
   "   - So hide new buffers when they're unloaded from a window,
   "     so you don't end up with a bunch on [No Name] buffers.
@@ -138,8 +137,13 @@ function! s:RecreateBuiltinMenuMappings_File()
   "   - But Bdelete causes an error if bufhidden=delete, e.g.:
   "       E516: No buffers were deleted: bdelete 30
   "     Fortunately it works find if we use bufhidde=wipe.
-  exec 'nnoremap <silent> ' .. s:alt_f .. 'n :enew<CR>:setlocal bufhidden=wipe<CR>'
-  exec 'inoremap <silent> ' .. s:alt_f .. 'n <C-O>:enew \| setlocal bufhidden=wipe<CR>'
+  if get(g:, 'dubs_appearance_enew_no_wipe', 0)
+    exec 'nnoremap ' .. s:alt_f .. 'n :enew<CR>'
+    exec 'inoremap ' .. s:alt_f .. 'n <C-O>:enew<CR>'
+  else
+    exec 'nnoremap <silent> ' .. s:alt_f .. 'n :enew<CR>:setlocal bufhidden=wipe<CR>'
+    exec 'inoremap <silent> ' .. s:alt_f .. 'n <C-O>:enew \| setlocal bufhidden=wipe<CR>'
+  endif
 
   " Replicate builtin <M-f>a Save <A>s....
   exec 'nnoremap ' .. s:alt_f .. 'a :bro sav<CR>'
