@@ -1,6 +1,6 @@
 *dubs_appearance.txt*	For Vim version 7.4.	Last change: 2015 Jan 23
 
-Dubs Vim -- Appearance Plugin 💅~
+Dubs Vim -- Appearance Plugin 💅 ~
 
 MERELY APPEARANCES			*dubs-appearance*
 
@@ -11,7 +11,7 @@ MERELY APPEARANCES			*dubs-appearance*
 ==============================================================================
 1. About This Plugin			*dubs-appearance-about*
 
-About This Plugin~
+About This Plugin ~
 
 This plugin configures the appearance of Vim.
 
@@ -125,7 +125,7 @@ Project page: https://github.com/landonb/dubs_appearance
 ==============================================================================
 2. Dependencies				*dubs-appearance-dependencies*
 
-Plugin Dependencies~
+Plugin Dependencies ~
 
 This plugin uses commands from a few plugins that you'll want to
 install separately:
@@ -157,7 +157,7 @@ install separately:
 ==============================================================================
 3. Window-Related Commands		*dubs-appearance-window-commands*
 
-Window-Related Commands~
+Window-Related Commands ~
 
 				*<Alt-w>c* *<M-w>c*
 <Alt-w>c		Close Window. Closes the window that the cursor
