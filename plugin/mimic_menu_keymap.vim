@@ -233,6 +233,10 @@ function! s:RecreateBuiltinMenuMappings_Window()
   exec 'nnoremap ' .. s:alt_w .. 'o <C-w>o'
   exec 'inoremap ' .. s:alt_w .. 'o <C-O><C-w>o'
 
+  " Sorta like <C-w>o, <A-f>o opens buffer file in new tabpage.
+  exec 'nnoremap ' .. s:alt_f .. "o :exec 'tabedit ' .. expand('%')<CR>"
+  exec 'inoremap ' .. s:alt_f .. "o <C-o>:exec 'tabedit ' .. expand('%')<CR>"
+
   " The remaining Window menu commands (see list above) involve moving
   " windows and resizing windows, which you already know how to do using
   " the builtins. (And generally I use the project tray toggle trick to
