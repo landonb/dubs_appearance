@@ -32,13 +32,25 @@ let g:loaded_dubs_appearance_mimic_menu_keymap = 1
 
 " ------------------------------------------------------
 
-if has('macunix')
-  let s:alt_f = 'ƒ'
-  let s:alt_w = '∑'
-else
-  let s:alt_f = '<M-f>'
-  let s:alt_w = '<M-w>'
-endif
+" Generally when has('macunix') author uses literal <Alt> characters,
+" which is the default.
+" - But we'll check if user has enabled meta output instead, which is
+"   how <Alt> keypresses work on Linux (and prob. Windows  ¯\_(ツ)_/¯).
+function! s:PrepareAltKeySequences() abort
+  if (has('gui_macvim') && &macmeta)
+  \ || (get(g:, 'neovide', 0)
+  \   && (g:neovide_input_macos_option_key_is_meta == 'both'
+  \     || g:neovide_input_macos_option_key_is_meta == 'only_left')
+  \ )
+    let s:alt_f = '<M-f>'
+    let s:alt_w = '<M-w>'
+  else
+    let s:alt_f = 'ƒ'
+    let s:alt_w = '∑'
+  endif
+endfunction
+
+call s:PrepareAltKeySequences()
 
 " Recreate (especially for insert mode) useful key mappings inspired
 " by the menu bar (as configured first by Vim, in vim/runtime/menu.vim,
