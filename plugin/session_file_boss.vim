@@ -35,6 +35,21 @@ else
   let s:user_vim_dir = $HOME . "/vimfiles"
 endif
 
+" REFER/2025-02-14: Note that Neovim excludes 'options' by default,
+" which is what reloads "all options and mappings":
+"
+"   $ nvim --noplugin -es \
+"     -c "redir! > /dev/stderr | echo &sessionoptions | echo '' | redir END" \
+"     +q  # REFER: `-c "foo"` same as `+foo`
+"
+"   blank,buffers,curdir,folds,help,tabpages,winsize,terminal
+"
+"   $ nvim --noplugin -es \
+"     -c "redir! > /dev/stderr | echo &sessionoptions | echo '' | redir END" \
+"     +q  # REFER: `-c "foo"` same as `+foo`
+"     
+"   blank,buffers,curdir,folds,help,options,tabpages,winsize,terminal
+
 " Save current session on exit
 " ------------------------------------------------------
 "
