@@ -92,7 +92,7 @@ endif
 
 autocmd VimLeave * nested call <SID>ManageSessionFile()
 
-function! s:ManageSessionFile()
+function! s:ManageSessionFile() abort
   if (v:servername == '')
     return
   endif
@@ -153,7 +153,7 @@ endfunction
 
 autocmd VimEnter * nested call <SID>LoadSessionFile()
 
-function! s:LoadSessionFile()
+function! s:LoadSessionFile() abort
   if (v:servername == '') || (bufname(1) != "")
     return
   endif
