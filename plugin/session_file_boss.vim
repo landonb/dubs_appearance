@@ -30,9 +30,9 @@ let s:running_windows = has("win16") || has("win32") || has("win64")
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 if !s:running_windows
-  let s:user_vim_dir = $HOME . "/.vim"
+  let s:user_vim_dir = $HOME .. "/.vim"
 else
-  let s:user_vim_dir = $HOME . "/vimfiles"
+  let s:user_vim_dir = $HOME .. "/vimfiles"
 endif
 
 " REFER/2025-02-14: Note that Neovim excludes 'options' by default,
@@ -104,15 +104,17 @@ function! s:ManageSessionFile() abort
   while n <= last_buffer
     if (buflisted(n))
       let num_buffers = num_buffers + 1
-      if (bufname(n) == "")
+
+      if (bufname(n) == '')
         let empty_buffers = empty_buffers + 1
       endif
     endif
+
     let n = n + 1
   endwhile
 
-  let l:sessions_dir = s:user_vim_dir . "/sessions"
-  let l:session_file = l:sessions_dir . "/" . v:servername . ".vim"
+  let l:sessions_dir = s:user_vim_dir .. '/sessions'
+  let l:session_file = l:sessions_dir .. '/' .. v:servername .. '.vim'
 
   if (num_buffers == 1) && (empty_buffers == 1)
     call delete(l:session_file)
@@ -120,10 +122,12 @@ function! s:ManageSessionFile() abort
     if (!isdirectory(s:user_vim_dir))
       call mkdir(s:user_vim_dir)
     endif
+
     if (!isdirectory(l:sessions_dir))
       call mkdir(l:sessions_dir)
     endif
-    execute "mksession! " l:session_file
+
+    execute 'mksession! ' .. l:session_file
   endif
 endfunction
 
@@ -154,20 +158,22 @@ endfunction
 autocmd VimEnter * nested call <SID>LoadSessionFile()
 
 function! s:LoadSessionFile() abort
-  if (v:servername == '') || (bufname(1) != "")
+  if (v:servername == '') || (bufname(1) != '')
+
     return
   endif
 
   let greatest_buf_no = bufnr('$')
   if (greatest_buf_no > 1)
+
     return
   endif
 
-  let l:sessions_dir = s:user_vim_dir . "/sessions"
-  let l:session_file = l:sessions_dir . "/" . v:servername . ".vim"
+  let l:sessions_dir = s:user_vim_dir .. '/sessions'
+  let l:session_file = l:sessions_dir .. '/' .. v:servername .. '.vim'
 
   if filereadable(l:session_file)
-    execute "source " . l:session_file
+    execute 'source ' .. l:session_file
   endif
 endfunction
 
