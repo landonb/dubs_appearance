@@ -131,6 +131,16 @@ let g:loaded_dubs_appearance_guioptions_galore = 1
 "
 function! s:GuiSetGuioptions()
   if !has("gui_running") | return | endif
+
+  " REFER/2025-02-22: :h news (Neovim v0.11.0-dev-*):
+  "  • Setting |hidden-options| now gives an error. In particular, setting
+  "    'noshellslash' is now only allowed on Windows.
+  " - CALSO: :h guioptions
+  "   These legacy Vim features are not yet implemented:
+  "   ...
+  " - Note that `exists("+guioptions")` returns 1.
+  if exists("&guioptions") | return | endif
+
   " See long comments above.
   " - These options differ from the default/builtins by hiding
   "   these elements: menubar; toolbar; always right scrollbar;
