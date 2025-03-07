@@ -21,6 +21,10 @@ let g:loaded_dubs_appearance_unfold_new_buffer = 1
 
 " -------------------------------------------------------------------
 
+" SAVVY: Neovim defaults:
+"   &foldlevelstart = -1
+" - I haven't seen not setting this be an issue in nvim.
+
 " What Are You Hiding From Me?
 " ------------------------------------------------------
 " Show new buffers w/ all folds open

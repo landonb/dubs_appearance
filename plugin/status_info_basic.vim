@@ -28,6 +28,8 @@ let g:loaded_dubs_appearance_status_info_basic = 1
 "   vim.opt.laststatus = 3  -- single, global statusline
 "   vim.opt.ruler = false
 " - Note that &ruler does nothing if you use a custom &statusline.
+" - And if you set laststatus = 3, then a row of "─" highlighted by
+"   WinSeparator is used in place of the statusline.
 
 " Always show a status line (show line and column numbers; see also: ruler)
 " ------------------------------------------------------
