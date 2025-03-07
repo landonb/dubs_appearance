@@ -21,6 +21,13 @@ let g:loaded_dubs_appearance_line_numbers_show = 1
 
 " -------------------------------------------------------------------
 
+" SAVVY: Neovim defaults:
+"   &nuimber = 0
+"   &relativenumber = 0
+" - LazyVim: via lua/lazyvim/config/options.lua
+"   vim.opt.number = true
+"   vim.opt.relativenumber = true
+
 " Show line numbers
 " ------------------------------------------------------
 set nu!

@@ -21,14 +21,20 @@ let g:loaded_dubs_appearance_indent_keys_ncmds = 1
 
 " -------------------------------------------------------------------
 
-" Drop a Deuce on that Tab
+" Tab Style
 " ------------------------------------------------------
 " See CycleThruStyleGuides for intelligent tab settings,
 " or use a modeline. Or let Vim figure it out, i.e., do
 " not mess up style for :help docs. And no to elastic tabs.
-"set expandtab
-"set tabstop=2
-"set shiftwidth=2
+"   set expandtab
+"   set tabstop=2
+"   set shiftwidth=2
+"
+" SAVVY: Neovim defaults:
+"   &modeline = 1
+"   &autoindent = 1
+"   &smartindent = 0
+"   &smarttab = 1
 "
 " Honor file header and footer modelines, e.g.,
 "   vim:tw=78:ts=8:ft=help:norl:
@@ -55,7 +61,7 @@ set autoindent
 "  set smartindent
 set nosmartindent
 
-"set smarttab
+" set smarttab
 
 " ------------------------------------------------------
 " Auto-indent selected code
@@ -68,6 +74,9 @@ set nosmartindent
 " Auto-indent selected code
 " ------------------------------------------------------
 
+" SAVVY: Neovim defaults:
+"   filetype = detection:ON plugin:ON indent:ON
+
 " Switch on cindent automatically for all files.
 " 2017-06-27: See possibly comments in filetype.vim.
 " - :help filetype-indent-on
@@ -78,6 +87,10 @@ filetype indent on
 " ------------------------------------------------------
 " Fiddle with smart indent settings
 " ------------------------------------------------------
+
+" SAVVY: Neovim defaults:
+"   &cinkeys = 0{,0},0),0],:,0#,!^F,o,O,e
+"   &indentkeys = 0{,0},0),0],:,0#,!^F,o,O,e
 
 " FIXME/2017-12-10: This belongs in a filetype-specific indent/ file.
 " FIXME/2017-06-27: This is a very moldy comment. Meh:

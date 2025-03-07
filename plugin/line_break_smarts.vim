@@ -21,6 +21,11 @@ let g:loaded_dubs_appearance_line_break_smarts = 1
 
 " -------------------------------------------------------------------
 
+" SAVVY: Neovim defaults:
+"   &linebreak = 0
+" - LazyVim: via lua/lazyvim/config/options.lua
+"   vim.opt.linebreak = true
+
 " Break lines on word boundaries
 " ------------------------------------------------------
 " Set linebreak, which complements wrap by wrapping lines

@@ -21,6 +21,14 @@ let g:loaded_dubs_appearance_status_info_basic = 1
 
 " -------------------------------------------------------------------
 
+" SAVVY: Neovim defaults:
+"   &laststatus = 2  -- each window has its own statusline
+"   &ruler = 1
+" - LazyVim: via lua/lazyvim/config/options.lua
+"   vim.opt.laststatus = 3  -- single, global statusline
+"   vim.opt.ruler = false
+" - Note that &ruler does nothing if you use a custom &statusline.
+
 " Always show a status line (show line and column numbers; see also: ruler)
 " ------------------------------------------------------
 " 2017-12-09: See also dubs_mescaline

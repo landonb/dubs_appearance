@@ -25,6 +25,11 @@ let g:loaded_dubs_appearance_backupno_disabled = 1
 " Opening and Backing up Files
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+" SAVVY: Neovim defaults (note that &backupdir doesn't exist):
+"   &backupdir = .,/Users/user/.local/state/nvim_lazyb/backup//
+"   &directory = /Users/user/.local/state/nvim_lazyb/swap//
+"   &backup = 0
+
 " Common Backup file and Swap Directory
 " ------------------------------------------------------
 " Use a common directory for backups and

@@ -165,7 +165,9 @@ function! s:RecreateBuiltinMenuMappings_File()
   exec 'nnoremap ' .. s:alt_f .. 'x :qa<CR>'
   exec 'inoremap ' .. s:alt_f .. 'x <C-O>:qa<CR>'
 
-  " Make up a combo-close-quite (so Session.vim obliterated).
+  " Make up a combo close-quit (so Session.vim obliterated, per
+  "   s:ManageSessionFile()
+  " ~/.kit/nvim/landonb/dubs_appearance/plugin/session_file_boss.vim
   exec 'nnoremap ' .. s:alt_f .. 'q :only<CR>:enew<CR>:BufOnly<CR>:qa<CR>'
   exec 'inoremap ' .. s:alt_f .. 'q <C-O>:only<CR><C-O>:enew<CR><C-O>:BufOnly<CR><C-O>:qa<CR>'
 endfunction

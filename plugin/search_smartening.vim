@@ -21,6 +21,13 @@ let g:loaded_dubs_appearance_search_smartening = 1
 
 " -------------------------------------------------------------------
 
+" SAVVY: Neovim defaults:
+"   &ignorecase = 0
+"   &smartcase = 0
+"   &hlsearch = 1
+"   &incsearch = 1
+" - LazyVim enables &ignorecase and &smartcase.
+
 " Search Behavior
 " ------------------------------------------------------
 " Case-insensitive searches

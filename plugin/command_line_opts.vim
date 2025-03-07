@@ -25,10 +25,17 @@ let g:loaded_dubs_appearance_command_line_opts = 1
 " Command-line settings
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+" SAVVY: Neovim defaults:
+"   <C-C> works in |q:| command-line window (because mswin)
+"   - <C-C> in command line itself dismisses it
+"   &wildmenu = 1
+
 " Command-line Copy
 " --------------------------------
 " mswin.vim maps Ctrl-c to copy (yank) in visual and select modes.
 " Here we make it so Ctrl-C also works in the Command-line window.
+" - Note the c_CTRL-Y is copy-to-clipboard. (Seems weird that Vim has a
+"   copy-to-clipboard function, and it only works in the command window.)
 cmap <C-C> <C-Y>
 
 " Enable Vim Command-line Completion

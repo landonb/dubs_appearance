@@ -21,6 +21,14 @@ let g:loaded_dubs_appearance_no_beep_nor_flash = 1
 
 " -------------------------------------------------------------------
 
+" SAVVY: Neovim defaults:
+"   &errorbells = 0
+"   &visualbell = 0
+"   &t_vb = †
+" † "Nvim does not have special `t_XX` options nor <t_XX> keycodes to configure
+"    terminal capabilities. Instead Nvim treats the terminal as any other UI,
+"    e.g. 'guicursor' sets the terminal cursor style if possible."
+
 " All Quiet on the Vimmer Front
 " ------------------------------------------------------
 " Per :help visualbell, 'When no beep or flash is wanted, use: set vb t_vb='

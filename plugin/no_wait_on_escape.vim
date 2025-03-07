@@ -21,6 +21,12 @@ let g:loaded_dubs_appearance_no_wait_on_escape = 1
 
 " -------------------------------------------------------------------
 
+" SAVVY: Neovim defaults:
+"   &timeout = 1
+"   &timeoutlen = 1000
+"   &ttimeoutlen = 50
+" - Note there is no delay exiting Insert mode in Neovim...
+
 " No Wait on Escape (from Insert Mode to Normal Mode)
 " ---------------------------------------------------
 " When run in a terminal, you might notice a delay when
@@ -41,6 +47,8 @@ let g:loaded_dubs_appearance_no_wait_on_escape = 1
 " Note that you cannot just disable Escape key codes, e.g.:
 "
 "   set noesckeys
+"
+" - (SAVVY: Neovim omits esckeys (cannot find any mention in help, either).)
 "
 " because then arrow keys don't work -- e.g., pressing <Up> will
 " insert 'A' on a new line above the cursor.

@@ -32,6 +32,15 @@ let g:loaded_dubs_appearance_guifont_configure = 1
 " - Hint: Use font picker to set font, then `echo &guifont`
 "   (or `set guifont?`) and copy-paste the result below.
 
+" REFER: At least for Neovide, don't need this file. And also don't need
+" for terminal nvim, which uses terminal's font. So don't need this file.
+"
+" - CXREF:
+"   ~/.depoxy/ambers/home/.config/neovide/config.toml
+"
+" SAVVY: Neovim defaults:
+"   &guifont = ''
+
 " -------------------------------------------------------------------
 
 " HSTRY: This plugin has been Proudly Hack'ing since Aug 17, 2015.

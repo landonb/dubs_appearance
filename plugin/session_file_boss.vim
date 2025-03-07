@@ -29,6 +29,16 @@ let s:running_windows = has("win16") || has("win32") || has("win64")
 " Application Startup and Shutdown
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+" SAVVY/2025-03-07: I'm not going to adjust this for Neovim.
+" - It still works, though it uses ~/.vim/sesssions
+" - There are much better Session plugins! Go use one of those instead.
+"   - This was just a naïve approach because I often had issues reloading
+"     Session files, especially after tweaking Vim config.
+"   - So I'd generally restart Vim without reloading a Session file:
+"     - You'll see below that if you close all buffers before quiting
+"       Vim, it'll destroy the Session file. And that's usually what I'd
+"       do, close all buffers and start fresh on the next invocation.
+
 if !s:running_windows
   let s:user_vim_dir = $HOME .. "/.vim"
 else

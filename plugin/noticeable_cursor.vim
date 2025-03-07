@@ -21,6 +21,9 @@ let g:loaded_dubs_appearance_noticeable_cursor = 1
 
 " -------------------------------------------------------------------
 
+" SAVVY: Neovim defaults:
+"   &guicursor = n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,t:block-blinkon500-blinkoff500-TermCursor
+
 " REFER: :help guicursor
 "
 " - Disable blink.

@@ -25,8 +25,10 @@ let g:loaded_dubs_appearance_guioptions_galore = 1
 "
 " The default guioptions depend on the platform:
 "
-"   'aegimrLtT' (GTK)
-"   'egmrLtT'   (Windows)
+"   &guioptions = aegimrLtT (GTK)
+"   &guioptions = egmrLtT   (Windows)
+"
+" - Neovim does not "yet" support &guiopions, per |nvim-missing|.
 "
 " These are the default flag options (* indicates GTK-only):
 "
