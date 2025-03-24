@@ -45,39 +45,35 @@ else
   let s:user_vim_dir = $HOME .. "/vimfiles"
 endif
 
-" REFER/2025-02-14: Note that Neovim excludes 'options' by default,
-" which is what reloads "all options and mappings":
-"
-"   $ nvim --noplugin -es \
-"     -c "redir! > /dev/stderr | echo &sessionoptions | echo '' | redir END" \
-"     +q  # REFER: `-c "foo"` same as `+foo`
-"
-"   blank,buffers,curdir,folds,help,tabpages,winsize,terminal
-"
-"   $ nvim --noplugin -es \
-"     -c "redir! > /dev/stderr | echo &sessionoptions | echo '' | redir END" \
-"     +q  # REFER: `-c "foo"` same as `+foo`
-"     
-"   blank,buffers,curdir,folds,help,options,tabpages,winsize,terminal
-
 " Save current session on exit
 " ------------------------------------------------------
 "
-" NOTE Vim's default is to set
-"        sessionoptions=blank,buffers,curdir,
-"          \ folds,help,options,tabpages,winsize
-"      which means we can't update _this_ file
-"      without first deleting ~/.vim/Session.vim
-"      or ~/vimfiles/Session.vim -- otherwise,
-"      Session.vim overrides any changes we make
-"      here (because it stores mappings, etc.,
-"      and is loaded after this file).
-"      Alternatively, we could set
-"      sessionoptions to save only winsize,
-"      buffers, etc., but not options: though I
-"      haven't tested this, so for now: delete
-"      Session.vim if you m*ck w//touch this
-"      fi#e.
+" REFER:
+" - Vim's default |'sessionoptions'|
+"     sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize
+" - Neovim's default:
+"     sessionoptions=blank,buffers,curdir,folds,help,tabpages,winsize,terminal
+"   Note that Neovim's default remove 'options', and it adds 'terminal'.
+" - DUNNO: I recall in Vim having an issue with config changes not taking
+"   effect after loading a Session file. E.g., if I changed *this* file,
+"   restarted Vim, and reloaded the Session, Vim would use the version of
+"   this file from the old Session, because 'options' stores "all options
+"   and mappings".
+"   - To deal with this, I'd always delete a Session file after making config
+"     changes (e.g., close all windows and buffers and quit Vim to have this
+"     plugin delete the Session file).
+"   - REFER: Indeed, the Neovim docs indicate, *If you leave out "options"
+"     many things won't work well after restoring the session.*
+"     - Except Neovim excludes "options" by default!
+"   - Given that everything works fine in Neovim after loading a Session file,
+"     it doesn't seem like 'options' is necessary. (Which makes sense — if you
+"     start (Neo)vim like normal before loading a Session file, all your options
+"     and mappings should be configured like you except. So, if anything, it
+"     seems like you *shouldn't* ever want to reload 'options'!)
+"   - Given that, when running Vim: delete Session.vim if you edit this file,
+"     or any config. (Altly, we could remove 'options', but I've migrated to
+"     Neovim and don't run Vim anymore, and I don't use this plugin anymore
+"     (which begs the question, why did I bother to update this comment? =).)
 "
 " NOTE I still haven't figured out unloaded/
 "      hidden buffers, such that :Bdelete all and
@@ -96,7 +92,7 @@ endif
 " MAYBE/2018-06-11: (lb): Not sure we needed 'nested',
 "      but it's always forever been here, so leaving.
 "
-" ALTLY/2024-12-10: Of course there's a Tim Pope plugin for that!
+" CALSO/2024-12-10: Courtesy Tim Pope:
 " - *obsession.vim: continuously updated session files*
 "   https://github.com/tpope/vim-obsession
 
