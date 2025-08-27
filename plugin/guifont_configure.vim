@@ -128,7 +128,7 @@ function! s:GuiSetFont()
     return
   endif
 
-  if has("gui_gtk2") || has("gui_gtk3")
+  if $XDG_SESSION_TYPE == "wayland" || has("gui_gtk2") || has("gui_gtk3")
     call s:SetFontHack_GTK()
   elseif has("macunix")
     call s:SetFontHack_macOS()
