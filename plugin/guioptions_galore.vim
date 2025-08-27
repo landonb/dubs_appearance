@@ -140,8 +140,13 @@ function! s:GuiSetGuioptions()
   " - CALSO: :h guioptions
   "   These legacy Vim features are not yet implemented:
   "   ...
-  " - Note that `exists("+guioptions")` returns 1.
-  if exists("&guioptions") | return | endif
+  " - Note that `exists("&guioptions")` always returns 1:
+  "   - exists('&option-name') — only checks if exists, not if it works.
+  "   - exists('+option-name') — Vim option that works.
+  "   - Specifically, in MacVim, `exists("&guioptions")` and `exists("+guioptions")`
+  "     both return 1. But in Neovide, `exists("&guioptions")` returns 1 (because
+  "     it exists), but `exists("+guioptions")` returns 0 (because it doesn't work).
+  if !exists("+guioptions") | return | endif
 
   " See long comments above.
   " - These options differ from the default/builtins by hiding
