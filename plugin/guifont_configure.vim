@@ -21,7 +21,8 @@ let g:loaded_dubs_appearance_guifont_configure = 1
 
 " -------------------------------------------------------------------
 
-" REFER: Rebuild Linux font cache after mucking around with ~/.fonts files:
+" REFER: Rebuild Linux font cache after mucking around with
+" ~/.local/share/fonts or ~/.fonts files:
 "
 "   $ sudo fc-cache -fv
 
@@ -48,7 +49,8 @@ let g:loaded_dubs_appearance_guifont_configure = 1
 "   - Though, TBH, I'm not sure the Extras matter. Hack covers all the
 "     regular text characters you'll see in Vim. (And if you want the
 "     latest emoji, install *Noto Emoji* (though you don't tell Vim about
-"     Noto Emoji; you just install it to ~/.fonts, and Vim'll use it).)
+"     Noto Emoji; you just install it to ~/.local/share/fonts or ~/.fonts,
+"     and Vim'll use it).)
 "     - And while I'm not sure where the Powerline glyphs come from,
 "       they look the same for me, whether
 "         `guifont=Hack\ Regular\ 9`, or
@@ -59,7 +61,13 @@ let g:loaded_dubs_appearance_guifont_configure = 1
 " -------------------------------------------------------------------
 
 function! s:SetFontHack_GTK()
-  if len(glob($HOME . "/.fonts/Hack/Hack Regular Nerd Font Complete Mono.ttf")) > 0
+  " INERT/FTREQ/2026-08-17: Detect via `fc-list : family | grep -q '^...$'`
+  " because these paths contains non-standard (hardcoded) subdir. names.
+  if len(glob($HOME . "/.local/share/fonts/Hack/Hack Regular Nerd Font Complete Mono.ttf")) > 0
+    set guifont=Hack\ Nerd\ Font\ Mono\ 9
+  elseif len(glob($HOME . "/.local/share/fonts/Hack-v*-ttf/ttf/Hack-Regular.ttf")) > 0
+    set guifont=Hack\ Regular\ 9
+  elif len(glob($HOME . "/.fonts/Hack/Hack Regular Nerd Font Complete Mono.ttf")) > 0
     set guifont=Hack\ Nerd\ Font\ Mono\ 9
   elseif len(glob($HOME . "/.fonts/Hack-v*-ttf/ttf/Hack-Regular.ttf")) > 0
     set guifont=Hack\ Regular\ 9
